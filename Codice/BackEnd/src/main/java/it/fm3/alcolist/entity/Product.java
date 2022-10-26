@@ -25,6 +25,8 @@ public class Product {
 	private boolean isPresent;
 	@Column(name = "ML")
 	private Integer ml;
+	@Column(name = "PATHFILEIMG")
+	private String pathFileImg;
 	
 	
 	public long getId() {
