@@ -117,7 +117,7 @@
                   color: $white;
                 }
               }
-.btn-danger  { @include btn-styles($danger, $danger-states);
+.btn-danger  { @include btn-styles($default-states, $danger-states);
 
               }
 .btn-neutral { @include btn-styles($white, $white); }

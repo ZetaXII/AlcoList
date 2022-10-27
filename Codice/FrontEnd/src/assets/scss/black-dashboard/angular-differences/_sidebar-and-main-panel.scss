@@ -1,6 +1,6 @@
 .main-panel {
   &, &[data="red"]{
-    border-color: $danger;
+    border-color: $default-states;
   }
 
   .content {
@@ -27,10 +27,10 @@
 }
 .sidebar, .off-canvas-sidebar{
   &, &[data="red"]{
-    @include linear-gradient($danger-states, $danger);
+    @include linear-gradient($default-states, $secondary-states);
   }
   &[data="primary"]{
-    @include linear-gradient($primary-states, $primary);
+    @include linear-gradient($default-states, $secondary-states);
   }
 }
 @media screen and (max-width: 991px){
