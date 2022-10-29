@@ -5004,7 +5004,7 @@ input[type="button"].btn-block {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
-  background-color: #1d253b;
+  background-color: #27293C;
   border-radius: 0.25rem;
 }
 
@@ -11714,7 +11714,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .dropdown-menu.dropdown-black {
-  background: linear-gradient(to bottom, #222a42 0%, #1d253b 100%);
+  background: linear-gradient(to bottom, #222a42 0%, #27293C 100%);
   border: 1px solid #344675;
 }
 
@@ -11754,7 +11754,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .dropup .dropdown-menu.dropdown-black:after {
-  color: #1d253b;
+  color: #27293C;
   z-index: 2;
 }
 
@@ -13331,7 +13331,7 @@ img {
 }
 
 .modal.modal-black .modal-content {
-  background: linear-gradient(to bottom, #222a42 0%, #1d253b 100%);
+  background: linear-gradient(to bottom, #222a42 0%, #27293C 100%);
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -14557,7 +14557,7 @@ table.tablesorter thead tr .headerSortDown {
   width: 290px;
   border-radius: 0.1875rem;
   padding: 0 10px;
-  background: linear-gradient(#222a42, #1d253b);
+  background: linear-gradient(#222a42, #27293C);
 }
 
 .fixed-plugin .dropdown .dropdown-menu .tim-icons {
@@ -14611,7 +14611,7 @@ table.tablesorter thead tr .headerSortDown {
 
 .fixed-plugin .badge.active,
 .fixed-plugin .badge:hover {
-  border-color: #1d253b;
+  border-color: #27293C;
 }
 
 .fixed-plugin .light-badge,
@@ -14855,13 +14855,11 @@ table.tablesorter thead tr .headerSortDown {
 
 .sidebar,
 .off-canvas-sidebar {
-  background: #1B273BFF;
-  /*
+  background: #27293C;
   background: -webkit-linear-gradient(0deg, #ba54f5 0%, #e14eca 100%);
   background: -o-linear-gradient(0deg, #ba54f5 0%, #e14eca 100%);
   background: -moz-linear-gradient(0deg, #ba54f5 0%, #e14eca 100%);
   background: linear-gradient(0deg, #ba54f5 0%, #e14eca 100%);
-   */
   height: calc(100vh - 90px);
   width: 230px;
   position: fixed;
@@ -16389,7 +16387,7 @@ code {
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-  background-color: #1d253b;
+  background-color: #27293C;
   color: #344675;
   cursor: not-allowed;
 }
@@ -16526,6 +16524,7 @@ textarea.form-control:active {
   font-size: 20px;
   color: #ffffff;
   margin-top: 0 !important;
+  margin-right: 50px;
 }
 
 .search-bar.input-group input {
@@ -16895,27 +16894,27 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .white-content .navbar.navbar-transparent .navbar-brand {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .navbar.navbar-transparent .navbar-toggler-bar {
-  background: #1d253b;
+  background: #27293C;
 }
 
 .white-content .navbar.navbar-transparent .navbar-nav li a:not(.dropdown-item) {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .navbar.navbar-transparent .navbar-nav li a:not(.dropdown-item) i {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .navbar.navbar-transparent .navbar-minimize button i {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .navbar.navbar-transparent .search-bar.input-group i {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .navbar.navbar-transparent .search-bar.input-group .form-control {
@@ -16948,7 +16947,7 @@ Copyright (c) 2015 Daniel Eden
 .white-content ol li,
 .white-content ul li,
 .white-content pre {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .font-icon-detail i {
@@ -16994,7 +16993,7 @@ Copyright (c) 2015 Daniel Eden
 
 .white-content .input-group-prepend .input-group-text {
   border-color: rgba(29, 37, 59, 0.5);
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .form-control {
@@ -17127,12 +17126,12 @@ Copyright (c) 2015 Daniel Eden
 
 .white-content .card:not(.card-white) .card-header .card-title,
 .white-content .card:not(.card-white) .card-body .card-title {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .card:not(.card-white) .card-body .card-category,
 .white-content .card:not(.card-white) .card-body .card-description {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .card:not(.card-white) label:not(.btn) {
@@ -17194,11 +17193,11 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .white-content .footer ul li a {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .footer .copyright {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .progress-container .progress,
@@ -17214,7 +17213,7 @@ Copyright (c) 2015 Daniel Eden
 
 .white-content .progress-container .progress-badge,
 .white-content .progress-container.progress.sm .progress-badge {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .full-page {
@@ -17231,7 +17230,7 @@ Copyright (c) 2015 Daniel Eden
 .white-content .full-page ol li,
 .white-content .full-page ul li,
 .white-content .full-page pre {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .full-page .description {
@@ -17239,16 +17238,16 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .white-content .full-page .footer ul li a {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .full-page .footer .copyright {
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .nav-pills .nav-item .nav-link:not(.active) {
   background: #d3d7e9;
-  color: #1d253b;
+  color: #27293C;
 }
 
 .white-content .nav-pills .nav-item .nav-link:not(.active):hover {
@@ -17366,7 +17365,7 @@ Copyright (c) 2015 Daniel Eden
 
 .card.card-white .input-group-prepend .input-group-text {
   border-color: rgba(29, 37, 59, 0.2);
-  color: #1d253b;
+  color: #27293C;
 }
 
 .card.card-white .form-control {
