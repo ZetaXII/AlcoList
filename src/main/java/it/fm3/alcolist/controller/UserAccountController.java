@@ -57,5 +57,4 @@ public class UserAccountController {
 		return ResponseEntity.ok(userService.get(uuid));
 	}
 	
-
 }

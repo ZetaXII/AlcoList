@@ -4,15 +4,17 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
 
 import org.bouncycastle.util.encoders.Hex;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.fm3.alcolist.DTO.UserAccountDTO;
 import it.fm3.alcolist.entity.Role;
@@ -27,6 +29,8 @@ public class UserAccountService implements UserAccountServiceI{
 	UserAccountRepository userAccountRepository;
 	@Autowired
 	RoleRepository roleRepository;
+	
+	private ObjectMapper mapper = new ObjectMapper();
 	
 	private String encriptPassword(String originalPassword) throws Exception {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -65,14 +69,28 @@ public class UserAccountService implements UserAccountServiceI{
 		return usersToUpdate;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public UserAccount login(UserAccountDTO u) throws Exception {
+	public JSONObject login(UserAccountDTO u) throws Exception {
 		//QQQ Integrare gestione token???
 		//come verrà gestito il login? 
 		//il frontend controlla che un utente sia loggato?
 		//come definisco un utente loggato?
+		JSONObject response = new JSONObject();
+		ArrayList<UserAccount> users = (ArrayList<UserAccount>) userAccountRepository.findByEmailAndDateDelete(u.email, null);
+		if(users.size() == 1) { //check user email
+			if(users.get(0).getPassword().equals(encriptPassword(u.password))) { 	//check password
+				String jsonString = mapper.writeValueAsString(users.get(0));
+				response = mapper.readValue(jsonString, JSONObject.class); 
+			}
+			else {
+				response.put("error", "wrong pwd, try again");
+			}
+		}else { //user not found
+			response.put("error", "User not found");
+		}
 		
-		return null;
+		return response;
 	}
 	
 	private void buildUserAccountByUserAccountDTO(UserAccount user,UserAccountDTO userDTO) throws Exception {
