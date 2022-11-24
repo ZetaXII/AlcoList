@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import it.fm3.alcolist.DTO.UserAccountDTO;
 import it.fm3.alcolist.entity.UserAccount;
 
-public interface UserAccountServiceI {
+public interface UserAccountServiceI{
 	
 	UserAccount add(UserAccountDTO u) throws Exception;
 	UserAccount delete(String uuid) throws Exception;

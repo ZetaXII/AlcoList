@@ -27,6 +27,8 @@ public class Product {
 	private Integer ml;
 	@Column(name = "PATHFILEIMG")
 	private String pathFileImg;
+	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	private String uuid;
 	
 	
 	public long getId() {
@@ -64,6 +66,18 @@ public class Product {
 	}
 	public void setMl(Integer ml) {
 		this.ml = ml;
+	}
+	public String getPathFileImg() {
+		return pathFileImg;
+	}
+	public void setPathFileImg(String pathFileImg) {
+		this.pathFileImg = pathFileImg;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 	

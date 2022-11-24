@@ -19,6 +19,8 @@ public class Tables {
 	private Integer number;
 	@Column(name = "SEATS", length = 50)
 	private Integer seats;
+	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	private String uuid;
 	
 	public long getId() {
 		return id;
@@ -37,6 +39,12 @@ public class Tables {
 	}
 	public void setSeats(Integer seats) {
 		this.seats = seats;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 }
