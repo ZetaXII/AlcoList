@@ -44,6 +44,8 @@ public class Cocktail {
 	private boolean isAlcoholic;
 	@Column(name = "PATHFILEIMG")
 	private String pathFileImg;
+	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	private String uuid;
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	private List<Ordination> ordinations;
 	public long getId() {
@@ -100,12 +102,23 @@ public class Cocktail {
 	public void setPathFileImg(String pathFileImg) {
 		this.pathFileImg = pathFileImg;
 	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	public List<Ordination> getOrdinations() {
 		return ordinations;
 	}
 	public void setOrdinations(List<Ordination> ordinations) {
 		this.ordinations = ordinations;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "Cocktail [id=" + id + ", ingredients=" + ingredients + ", name=" + name + ", price=" + price
+				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
+				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", ordinations=" + ordinations
+				+ "]";
+	}	
 }
