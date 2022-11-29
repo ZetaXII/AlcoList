@@ -1,0 +1,54 @@
+html, body, .container, .row, .col-sm
+{
+    background-color: var(--darkBlue);
+}
+
+.navbar
+{
+    background-color: var(--primaryBlue);
+}
+
+.titolo
+{
+    color: var(--white);
+    font-family: Harlekin;
+}
+
+.form-login
+{
+    background-color: var(--primaryBlue);
+    color: var(--white);
+    font-family: monospace;
+}
+
+.btn-login
+{
+    background-color: var(--lightBlue);
+    color: var(--darkBlue);
+    border-radius: 2000px;
+}
+
+.btn-login:hover
+{
+    border-color: var(--white);
+}
+
+.form-login
+{
+    border-radius: 20px;
+}
+
+.form-control
+{
+    background-color: var(--secondaryBlue);
+    border: none;
+    color: var(--white);
+    border-radius: 8px;
+}
+
+.form-control:focus
+{
+    background-color: var(--lightBlue);
+}
+
+

@@ -1,0 +1,19 @@
+:root
+{
+    --darkBlue: #101823;
+    --primaryBlue: #162030;
+    --secondaryBlue: #1b283b;
+    --lightBlue: #4b6da5;
+    --white: #eaeaea;
+    --black: #101823;
+}
+
+html, body, .container, .row, .col-sm
+{
+    background-color: var(--darkBlue);
+}
+
+a
+{
+    text-decoration: none;
+}
