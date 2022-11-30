@@ -31,8 +31,17 @@ public class IngredientService implements IngredientServiceI{
 		Ingredient newIngredient= new Ingredient();
 		this.buildIngredientByIngredientDTO(newIngredient, ingredientDto);
 		System.out.println("\n\n@@NUOVO INGREDIENTE: "+newIngredient);
-		System.out.println("ID COCKTAIL: " + newIngredient.getCocktail().getId());
 		ingredientRepository.save(newIngredient);
+//		CocktailDTO c = new CocktailDTO();
+//		c.name = newIngredient.getCocktail().getName();
+//		c.price = newIngredient.getCocktail().getPrice();
+//		c.description = newIngredient.getCocktail().getDescription();
+//		c.flavour = newIngredient.getCocktail().getFlavour();
+//		c.isIBA = newIngredient.getCocktail().isIBA();
+//		c.isAlcoholic = newIngredient.getCocktail().isAlcoholic();
+//		c.pathFileImg = newIngredient.getCocktail().getPathFileImg();
+//		c.uuid = newIngredient.getCocktail().getUuid();
+//		cocktailServiceI.update(c);
 		 System.out.println("\n\n@@@@@@ NUOVO INGREDIENTE: "+newIngredient);
 		 return newIngredient;
 	}
@@ -65,25 +74,30 @@ public class IngredientService implements IngredientServiceI{
 	public Ingredient get(String uuid) {
 		return ingredientRepository.findByUuid(uuid);
 	}
-	
+
 	private void buildIngredientByIngredientDTO(Ingredient ingredient, IngredientDTO ingredientDTO) throws Exception {
 		Product productToSet = null;
 		productToSet = productServiceI.get(ingredientDTO.productUuid);
 			if (productToSet==null)
 				throw new Exception("product: "+productToSet+" not found");
 		ingredient.setProduct(productToSet);
-		System.out.println("setto: "+ingredient.getProduct());
+		//System.out.println("setto: "+ingredient.getProduct());
 		ingredient.setQuantity(ingredientDTO.quantity);
-		ingredient.setOptional(ingredientDTO.isOptional);
+		ingredient.setOptional(ingredientDTO.isOptional);	
 		if(!StringUtils.hasText(ingredientDTO.uuid))
 			ingredient.setUuid(UUID.randomUUID().toString());
 		else
 			ingredient.setUuid(ingredientDTO.uuid);
+		
 		Cocktail getC = cocktailServiceI.get(ingredientDTO.cocktailUuid); 
+//		Set<Ingredient> ingredientsOfCocktail  = new HashSet<Ingredient>();
+//		ingredientsOfCocktail = (Set<Ingredient>) getC.getIngredients();
+//		ingredientsOfCocktail.add(ingredient);
+//		getC.setIngredients(ingredientsOfCocktail);
+		
 		if(getC == null)
 			throw new Exception("Cokctail not found");
 		else
-			ingredient.setCocktail(getC);		
+			ingredient.setCocktail(getC);	
 	}
-	
 }

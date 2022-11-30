@@ -27,8 +27,8 @@ public class Ingredient {
 	private boolean isOptional;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
-	@OneToOne
-	@JoinColumn(name="COCKTAIL")
+	@OneToOne(optional = true)
+	@JoinColumn(name="COCKTAIL", nullable = true)
 	private Cocktail cocktail;
 	
 	public boolean isOptional() {

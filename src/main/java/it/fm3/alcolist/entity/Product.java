@@ -79,6 +79,11 @@ public class Product {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", alcoholicPercentage="
+				+ alcoholicPercentage + ", isPresent=" + isPresent + ", ml=" + ml + ", pathFileImg=" + pathFileImg
+				+ ", uuid=" + uuid + "]";
+	}
 	
 }
