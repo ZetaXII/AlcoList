@@ -74,7 +74,7 @@
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
                     <div class="name_job">
-                        <div class="name">Federico Di Zenzo</div>
+                        <div class="name"></div>
                         <div class="job">Finge di amministrare</div>
                     </div>
                 </div>
@@ -105,6 +105,23 @@
                 closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
             }
         }
+    </script>
+    <script>
+        $(document).ready(function()
+        {
+            let password= sessionStorage.getItem("password");
+            let surname= sessionStorage.getItem("surname");
+            let r= sessionStorage.getItem("roles");
+            let name= sessionStorage.getItem("name");
+            let uuid= sessionStorage.getItem("uuid");
+            let email= sessionStorage.getItem("email");
+
+            $(".name").text(surname+" "+name);
+
+            let roles= jQuery.parseJSON(r);
+            alert(roles.name==="WAITER");
+            $(".job").text(roles);
+        });
     </script>
 </body>
 </html>

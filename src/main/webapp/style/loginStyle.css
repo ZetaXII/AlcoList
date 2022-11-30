@@ -38,12 +38,21 @@ html, body, .container, .row, .col-sm
     border-radius: 20px;
 }
 
-.form-control
+.form-field
 {
     background-color: var(--secondaryBlue);
     border: none;
     color: var(--white);
     border-radius: 8px;
+}
+
+.form-field-error
+{
+    background-color: pink;
+    border: 2px solid red;
+    color: black;
+    border-radius: 8px;
+    !important;
 }
 
 .form-control:focus
