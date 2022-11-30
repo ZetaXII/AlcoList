@@ -110,7 +110,7 @@ public class UserAccountService implements UserAccountServiceI{
 			user.setRoles(newRoleList);
 			System.out.println("setto: "+user.getRoles());
 		}
-		
+		user.setMainRole(userDTO.mainRole);		
 		if(StringUtils.hasText(userDTO.password))
 			user.setPassword(this.encriptPassword(userDTO.password));
 		user.setEmail(userDTO.email);

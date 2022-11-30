@@ -32,6 +32,8 @@ public class UserAccount {
 	private String surname;
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	private List<Role> roles;//TODO DARE DEI NOMI CORRETTI IL CAMPO SUL DB NON E' CHIAMATO CORRETTAMENTE
+	@Column(name = "MAIN_ROLE", length = 64, nullable = false)
+	private String mainRole;
 	@Column(name = "PASSWORD", length = 64, nullable = false)
 	private String password;
 	@Column(name = "EMAIL", length = 50, nullable = false)
@@ -92,16 +94,17 @@ public class UserAccount {
 		this.roles = roles;
 	}
 	
+	public String getMainRole() {
+		return mainRole;
+	}
+	public void setMainRole(String mainRole) {
+		this.mainRole = mainRole;
+	}
 	@Override
 	public String toString() {
-		return "UserAccount [id=" + id + ", name=" + name + ", surname=" + surname + ", roles=" + roles + ", password="
-				+ password + ", email=" + email + ", dateDelete=" + dateDelete + ", uuid=" + uuid + "]";
+		return "UserAccount [id=" + id + ", name=" + name + ", surname=" + surname + ", roles=" + roles + ", mainRole="
+				+ mainRole + ", password=" + password + ", email=" + email + ", dateDelete=" + dateDelete + ", uuid="
+				+ uuid + "]";
 	}
-
-	
-	
-	
-
-	
 	
 }
