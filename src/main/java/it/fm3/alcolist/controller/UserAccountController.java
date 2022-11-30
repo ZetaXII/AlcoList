@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import it.fm3.alcolist.DTO.UserAccountDTO;
 import it.fm3.alcolist.service.UserAccountServiceI;
 
 @RestController
+@CrossOrigin
 @RequestMapping("manage-users")
 public class UserAccountController {
 	
