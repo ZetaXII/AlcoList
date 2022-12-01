@@ -6,23 +6,54 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
+    <!-- CSS -->
+    <link href="style/provaStyle.css" rel="stylesheet">
 </head>
 <body>
-    <%@include file="navBar.jsp"%>
-    <div class="container home-section">
-        <h1 class="h1 text-light hello">Benvenuto </h1>
+    <%@include file="NB.jsp"%>
+    <div class="container main-section mt-4">
+        <h1 class="h1 text-light hello text-center">Benvenuto </h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4 m-2 p-1">
+            <div class="col">
+                <div class="card text-white">
+                    <img src="https://media.istockphoto.com/id/1288629668/it/vettoriale/sviluppo-di-applicazioni-mobili.jpg?s=612x612&w=is&k=20&c=DlyYmzNPOnaYqfwn8t3KJPEF7JuSljsHN7DUSdTqKaw=" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">Gestisci utenti</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-white">
+                    <img src="https://media.istockphoto.com/id/1288629668/it/vettoriale/sviluppo-di-applicazioni-mobili.jpg?s=612x612&w=is&k=20&c=DlyYmzNPOnaYqfwn8t3KJPEF7JuSljsHN7DUSdTqKaw=" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">Gestisci utenti</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-white">
+                    <img src="https://media.istockphoto.com/id/1288629668/it/vettoriale/sviluppo-di-applicazioni-mobili.jpg?s=612x612&w=is&k=20&c=DlyYmzNPOnaYqfwn8t3KJPEF7JuSljsHN7DUSdTqKaw=" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">Gestisci utenti</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-white">
+                    <img src="https://media.istockphoto.com/id/1288629668/it/vettoriale/sviluppo-di-applicazioni-mobili.jpg?s=612x612&w=is&k=20&c=DlyYmzNPOnaYqfwn8t3KJPEF7JuSljsHN7DUSdTqKaw=" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">Gestisci utenti</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script>
     $(document).ready(function()
     {
-        let password= sessionStorage.getItem("password");
-        let surname= sessionStorage.getItem("surname");
-        let roles= sessionStorage.getItem("roles");
-        let name= sessionStorage.getItem("name");
-        let uuid= sessionStorage.getItem("uuid");
-        let email= sessionStorage.getItem("email");
-        $(".hello").append(surname+" "+name);
+        $(".hello").append(surname.toUpperCase()+" "+name.toUpperCase());
+        //console.log(roles);
     });
 </script>
 </html>
