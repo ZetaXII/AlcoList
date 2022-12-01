@@ -12,7 +12,7 @@
 <body>
     <%@include file="NB.jsp"%>
     <div class="container main-section mt-4">
-        <h1 class="h1 text-light hello text-center">Benvenuto </h1>
+        <h1 class="h1 text-light hello text-center">AO </h1>
         <div class="row row-cols-1 row-cols-md-3 g-4 m-2 p-1">
             <div class="col">
                 <div class="card text-white">
