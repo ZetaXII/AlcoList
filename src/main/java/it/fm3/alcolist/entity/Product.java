@@ -86,4 +86,5 @@ public class Product {
 				+ ", uuid=" + uuid + "]";
 	}
 	
+	
 }

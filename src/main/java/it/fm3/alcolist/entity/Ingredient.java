@@ -17,12 +17,14 @@ public class Ingredient {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@JsonIgnore
 	@Column(name = "ID", length = 50, unique = true)
+	@JsonIgnore
 	private long id;
+	
 	@OneToOne
 	@JoinColumn(name="PRODUCT")
 	private Product product;
+	
 	private Integer quantity;//ml
 	private boolean isOptional;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
@@ -30,6 +32,8 @@ public class Ingredient {
 	@OneToOne(optional = true)
 	@JoinColumn(name="COCKTAIL", nullable = true)
 	private Cocktail cocktail;
+	
+	
 	
 	public boolean isOptional() {
 		return isOptional;
@@ -68,10 +72,5 @@ public class Ingredient {
 		this.cocktail = c;
 	}
 	
-	@Override
-	public String toString() {
-		return "Ingredient [id=" + id + ", product=" + product + ", quantity=" + quantity + ", isOptional=" + isOptional
-				+ ", uuid=" + uuid + ", cocktail=" + cocktail + "]";
-	}
 	
 }

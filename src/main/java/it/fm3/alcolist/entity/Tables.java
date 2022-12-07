@@ -17,8 +17,9 @@ public class Tables {
 	private long id;
 	@Column(name = "NUMBER", length = 50)
 	private Integer number;
+	/*
 	@Column(name = "SEATS", length = 50)
-	private Integer seats;
+	private Integer seats;*/
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
 	
@@ -34,12 +35,13 @@ public class Tables {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
+	/*
 	public Integer getSeats() {
 		return seats;
 	}
 	public void setSeats(Integer seats) {
 		this.seats = seats;
-	}
+	}*/
 	public String getUuid() {
 		return uuid;
 	}

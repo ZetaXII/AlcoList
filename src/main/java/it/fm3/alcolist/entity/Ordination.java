@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,8 +28,10 @@ public class Ordination {
 	@Column(name = "ID", length = 50, unique = true)
 	@JsonIgnore
 	private long id;
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	private List<Cocktail> cocktails;
+	
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordinations")
+	private List<Cocktail> orderedCocktails;
+	
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinColumn(name="ID_TABLES", nullable=false)
 	private Tables table;
@@ -51,12 +54,6 @@ public class Ordination {
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public List<Cocktail> getCocktails() {
-		return cocktails;
-	}
-	public void setCocktails(List<Cocktail> cocktails) {
-		this.cocktails = cocktails;
 	}
 	public UserAccount getExecuted_by() {
 		return executed_by;
@@ -94,5 +91,12 @@ public class Ordination {
 	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
+	public List<Cocktail> getOrderedCocktails() {
+		return orderedCocktails;
+	}
+	public void setOrderedCocktails(List<Cocktail> orderedCocktails) {
+		this.orderedCocktails = orderedCocktails;
+	}
+	
 	
 }

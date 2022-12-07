@@ -1,6 +1,7 @@
 package it.fm3.alcolist.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,7 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,12 +27,10 @@ public class Cocktail {
 	@JsonIgnore
 	@Column(name = "ID", length = 50, unique = true)
 	private long id;
-	//QQQ sistemare questione id cocktail per recuperare il SET
-	//non deve essere fatto lato db ma backend
-	//tips: common object to common object linked to me
-//	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-//	@JoinColumn(name="ID_COCKTAIL", nullable=false)
-//	private Set<Ingredient>ingredients;
+	
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JoinColumn(name="ID_COCKTAIL", nullable=false)
+	private Set<Ingredient>ingredients;
 	@Column(name = "NAME", length = 50)
 	private String name;
 	@Column(name = "PRICE")
@@ -45,20 +47,24 @@ public class Cocktail {
 	private String pathFileImg;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
+	
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JoinTable(name="ordered_cocktails",joinColumns=@JoinColumn(name="ordination_id"),
+    inverseJoinColumns=@JoinColumn(name="cocktail_id"))
 	private List<Ordination> ordinations;
+	
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-//	public Set<Ingredient> getIngredients() {
-//		return ingredients;
-//	}
-//	public void setIngredients(Set<Ingredient> ingredients) {
-//		this.ingredients = ingredients;
-//	}
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
 	public String getName() {
 		return name;
 	}
@@ -113,18 +119,6 @@ public class Cocktail {
 	public void setOrdinations(List<Ordination> ordinations) {
 		this.ordinations = ordinations;
 	}
-//	@Override
-//	public String toString() {
-//		return "Cocktail [id=" + id + ", ingredients=" + ingredients + ", name=" + name + ", price=" + price
-//				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
-//				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", ordinations=" + ordinations
-//				+ "]";
-//	}	
-	@Override
-	public String toString() {
-		return "Cocktail [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description
-				+ ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic=" + isAlcoholic + ", pathFileImg="
-				+ pathFileImg + ", uuid=" + uuid + ", ordinations=" + ordinations + "]";
-	}
+	
 	
 }
