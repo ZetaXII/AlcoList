@@ -16,44 +16,28 @@ $(document).ready(function()
             /*headers: {'Access-Control-Allow-Origin' : "*"},*/
             data:JSON.stringify(userModel),
 
-            success:function(result)
+            success:function(user)
             {
-                let user=[];
-                $.each(result, function (k, v)
-                {
-                    user.push(v);
-                });
-
-                if(password=="" || email=="" || user=="wrong pwd, try again" || user=="User not found")
+                if(password.length<=0 || email.length<=0 || user.error=="wrong pwd, try again" || user.error=="User not found")
                 {
                     $(".alert-error").addClass("show");
-                    if(user=="wrong pwd, try again" || user=="User not found")
+                    if(user.error!=null && user.error!="")
                     {
-                        $("#message-error").text(" "+user);
+                        $("#message-error").text(" "+user.error);
                     }
+                    $(".form-control").removeClass("form-field");
+                    $(".form-control").addClass("form-field-error");
                 }
                 else
                 {
-                    let roles=[];
-                    $.each(user[2], function (k, v)
-                    {
-                        roles.push(v);
-                    });
-
-                    //$("#label").append("<b>"+user[0]+"</b><br>");
-
-                    /*for(let i in roles)
-                    {
-                        $("#label").append("<b>"+JSON.stringify(roles[i])+"</b>");
-                    }*/
-                    //$.session.set("user", user);
-                    //sessionStorage.setItem("user", user);
-                    sessionStorage.setItem("password", user[0]);
-                    sessionStorage.setItem("surname", user[1]);
-                    sessionStorage.setItem("roles", JSON.stringify(roles));
-                    sessionStorage.setItem("name", user[3]);
-                    sessionStorage.setItem("uuid", user[4]);
-                    sessionStorage.setItem("email", user[5]);
+                    $(".form-control").removeClass("form-field-error");
+                    $(".form-control").addClass("form-field");
+                    sessionStorage.setItem("surname", user.surname);
+                    sessionStorage.setItem("roleList", JSON.stringify(user.roles));
+                    sessionStorage.setItem("mainRole", user.mainRole)
+                    sessionStorage.setItem("name", user.name);
+                    sessionStorage.setItem("uuid", user.uuid);
+                    sessionStorage.setItem("email", user.email);
                     window.location.href = 'prova.jsp';
                 }
             },
@@ -76,21 +60,6 @@ $(document).ready(function()
         {
             $("#email").removeClass("form-field-error");
             $("#email").addClass("form-field");
-        }
-    });
-
-    $("#password").focusout(function(e)
-    {
-        e.preventDefault();
-        if($("#password").val().length<=0)
-        {
-            $("#password").removeClass("form-field");
-            $("#password").addClass("form-field-error");
-        }
-        else
-        {
-            $("#password").removeClass("form-field-error");
-            $("#password").addClass("form-field");
         }
     });
 

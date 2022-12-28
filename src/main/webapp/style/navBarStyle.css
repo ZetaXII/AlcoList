@@ -6,6 +6,11 @@
     box-sizing: border-box;
     font-family: "Poppins" , sans-serif;
 }
+.bottombar
+{
+    display: none;
+}
+
 .sidebar{
     position: fixed;
     left: 0;
@@ -207,7 +212,7 @@
 .sidebar li.profile .job{
     font-size: 12px;
 }
-.sidebar .profile #log_out{
+.sidebar .profile .log_out{
     position: absolute;
     top: 50%;
     right: 0;
@@ -219,11 +224,11 @@
     border-radius: 0px;
     transition: all 0.5s ease;
 }
-.sidebar.open .profile #log_out{
+.sidebar.open .profile .log_out{
     width: 50px;
     background: none;
 }
-.home-section{
+.main-section{
     position: relative;
     background: #E4E9F7;
     min-height: 100vh;
@@ -233,19 +238,34 @@
     transition: all 0.5s ease;
     z-index: 2;
 }
-.sidebar.open ~ .home-section{
+.sidebar.open ~ .main-section{
     left: 250px;
     width: calc(100% - 250px);
 }
-.home-section .text{
+.main-section .text{
     display: inline-block;
     color: var(--primaryBlue);
     font-size: 25px;
     font-weight: 500;
     margin: 18px
 }
-@media (max-width: 420px) {
-    .sidebar li .tooltip{
+
+.log_out
+{
+    border:none;
+}
+
+@media (max-width: 520px)
+{
+    /*.sidebar li .tooltip{
+        display: none;
+    }*/
+    .sidebar
+    {
         display: none;
     }
 }
+
+
+
+
