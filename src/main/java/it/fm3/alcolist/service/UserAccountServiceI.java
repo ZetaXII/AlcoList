@@ -3,6 +3,7 @@ package it.fm3.alcolist.service;
 import org.json.simple.JSONObject;
 
 import it.fm3.alcolist.DTO.UserAccountDTO;
+import it.fm3.alcolist.DTO.UserAccountResultDTO;
 import it.fm3.alcolist.entity.UserAccount;
 
 public interface UserAccountServiceI{
@@ -12,4 +13,5 @@ public interface UserAccountServiceI{
 	UserAccount update(UserAccountDTO u) throws Exception;
 	JSONObject login(UserAccountDTO u) throws Exception;
 	UserAccount get(String uuid);
+	UserAccountResultDTO searchByFields(UserAccountDTO userDTO) throws Exception;
 }

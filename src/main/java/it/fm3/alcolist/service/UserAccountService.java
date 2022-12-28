@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -11,12 +12,15 @@ import javax.transaction.Transactional;
 import org.bouncycastle.util.encoders.Hex;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.fm3.alcolist.DTO.UserAccountDTO;
+import it.fm3.alcolist.DTO.UserAccountResultDTO;
 import it.fm3.alcolist.entity.Role;
 import it.fm3.alcolist.entity.UserAccount;
 import it.fm3.alcolist.repository.RoleRepository;
@@ -126,84 +130,49 @@ public class UserAccountService implements UserAccountServiceI{
 	public UserAccount get(String uuid) {
 		return userAccountRepository.findByUuid(uuid);
 	}
-	/*
-	public UserAccountResultDTO searchByFieldsPageable(UserAccountDTO userDTO,UserAccountResultDTO userResultDTO) {
+	
+	@Override
+	public UserAccountResultDTO searchByFields(UserAccountDTO userDTO) throws Exception {
+		UserAccountResultDTO userResult = new UserAccountResultDTO();
+		
+		userResult.userAccounts = searchByFieldsRes(userDTO , userResult);
+		
+		if(userResult.userAccounts.size() == 0 ) {
+			userResult.totalResult=0;
+			userResult.itemsPerPage =0;
+			userResult.startIndex=0;
+		}else {
+			userResult.itemsPerPage = userResult.userAccounts.size();
+		}
+		return userResult ;
+	}
+	
+	private List<UserAccount>  searchByFieldsRes(UserAccountDTO userDTO,UserAccountResultDTO userResultDTO) throws Exception  {
 		Pageable pageable = null;
 		if(userDTO.page != null && userDTO.size != null) {
 			pageable = PageRequest.of(userDTO.page.intValue(), userDTO.size.intValue());
-			
 			if(userDTO.page.intValue() > 0)
 				userResultDTO.startIndex = userDTO.page.intValue() * userDTO.size.intValue() + 1;
 			else
 				userResultDTO.startIndex = userDTO.page.intValue() + 1;
 		}
+		return searchByFieldsSimple(userDTO, pageable,userResultDTO);
 	}
-	*/
-	//private List<UserAccount> searchByFields()
 	
-	//---------------------------
-	/*
-	private List<CommonObject> searchByFieldsSimple(CommonObjectDTO commonObjectDTO, Pageable pageable,CommonObjectResultDTO cord) throws Exception {
-		if(StringUtils.hasText(commonObjectDTO.name) && !StringUtils.hasText(commonObjectDTO.description)) {
-			cord.totalResult = cor.countByNameContainingIgnoreCase(commonObjectDTO.name);
-			return cor.findByNameContainingIgnoreCase(commonObjectDTO.name, pageable);
+	private List<UserAccount> searchByFieldsSimple(UserAccountDTO userDTO, Pageable pageable,UserAccountResultDTO userResultDTO) throws Exception {
+		/*
+		if(StringUtils.hasText(userDTO.name) && !StringUtils.hasText(userDTO.description)) {
+			userResultDTO.totalResult = cor.countByNameContainingIgnoreCase(userDTO.name);
+			return .findByNameContainingIgnoreCase(userDTO.name, pageable);
 		}	
-		else if(!StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description)) {
-			cord.totalResult = cor.countByDescriptionContainingIgnoreCase(commonObjectDTO.description);
-			return cor.findByDescriptionContainingIgnoreCase(commonObjectDTO.description, pageable);
-		}
-		else if(StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description)) {
-			cord.totalResult = cor.countByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCase(commonObjectDTO.name, commonObjectDTO.description);
-			return cor.findByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCase(commonObjectDTO.name, commonObjectDTO.description, pageable);
-		}else {
-			if(pageable != null) {
-				cord.totalResult = countByFieldsSimple(commonObjectDTO);
-				return cor.findAll(pageable).getContent();
-			}else {
-				cord.totalResult = countByFieldsSimple(commonObjectDTO);
-				return cor.findAll();
-			}
-		}
+		else {
+			userResultDTO.totalResult = countByFieldsSimple(commonObjectDTO);
+			return cor.findAll();
+		}*/
+		userResultDTO.totalResult= userAccountRepository.count();
+		if(pageable!=null)
+			return userAccountRepository.findAll(pageable).getContent();
+		else return userAccountRepository.findAll();
+		
 	}
-	
-	@Override
-	public long count() {
-		return cor.count();
-	}
-	
-	@Override
-	public long countByObjectType(CommonObjectDTO commonObjectDTO) throws Exception {
-		return cor.countByObjectType(otr.findByName(commonObjectDTO.objectTypeName));
-	}
-	
-	@Override
-	public long countByFields(CommonObjectDTO commonObjectDTO) throws Exception {
-		if(StringUtils.hasText(commonObjectDTO.objectTypeName)) {
-			CommonObjectType objectType = otr.findByName(commonObjectDTO.objectTypeName);
-			if(objectType != null && objectType.getId() > 0) {
-				if(StringUtils.hasText(commonObjectDTO.name) && !StringUtils.hasText(commonObjectDTO.description))
-					return cor.countByNameContainingIgnoreCaseAndObjectType(commonObjectDTO.name, objectType);
-				else if(!StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-					return cor.countByDescriptionContainingIgnoreCaseAndObjectType(commonObjectDTO.description, objectType);
-				else if(StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-					return cor.countByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCaseAndObjectType(commonObjectDTO.name, commonObjectDTO.description, objectType);
-				else 
-					return cor.countByObjectType(objectType);
-			} else
-				return 0;
-		}
-		return countByFieldsSimple(commonObjectDTO);
-	}
-
-	private long countByFieldsSimple(CommonObjectDTO commonObjectDTO) throws Exception {
-		if(StringUtils.hasText(commonObjectDTO.name) && !StringUtils.hasText(commonObjectDTO.description))
-			return cor.countByNameContainingIgnoreCase(commonObjectDTO.name);
-		else if(!StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-			return cor.countByDescriptionContainingIgnoreCase(commonObjectDTO.description);
-		else if(StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-			return cor.countByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCase(commonObjectDTO.name, commonObjectDTO.description);
-		else 
-			return cor.count();
-	}
-*/
 }

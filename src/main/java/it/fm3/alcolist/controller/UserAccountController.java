@@ -59,4 +59,9 @@ public class UserAccountController {
 		return ResponseEntity.ok(userService.get(uuid));
 	}
 	
+	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
+	public ResponseEntity<?> searchByFields(@RequestBody UserAccountDTO user) throws Exception {
+		return ResponseEntity.ok(userService.searchByFields(user));
+	}
+	
 }
