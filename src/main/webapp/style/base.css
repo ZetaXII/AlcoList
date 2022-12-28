@@ -6,6 +6,7 @@
     --lightBlue: #4b6da5;
     --white: #eaeaea;
     --black: #101823;
+    --yellow: #ebc23b;
 }
 
 html, body, .container, .row, .col-sm
@@ -16,4 +17,38 @@ html, body, .container, .row, .col-sm
 a
 {
     text-decoration: none;
+}
+
+::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: var(--darkBlue);
+}
+
+::-webkit-scrollbar-track
+{
+    background: var(--primaryBlue);
+    width: 5px;
+    border-radius: 100px;
+    z-index: -1;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: var(--lightBlue);
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    border-color: var(--white);
+}
+
+root, html, body, .container-fluid, .container, .row, .container .row, .col, .col-sm
+{
+    background-image: url('../img/pattern-drink-wallpaper.png');
+}
+
+a:hover
+{
+    color: var(--yellow);
 }

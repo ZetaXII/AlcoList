@@ -1,0 +1,28 @@
+.card
+{
+    background-color: var(--secondaryBlue);
+    color: var(--black);
+}
+
+.card .card-img-top
+{
+    background-color: rgba(224, 224, 224, 0.3);
+}
+
+.card .btn-primary
+{
+    background-color: var(--lightBlue);
+    border-color: var(--lightBlue);
+}
+
+.card .btn-primary:hover
+{
+    background-color: var(--secondaryBlue);
+    border-color: var(--primaryBlue);
+    color: var(--white);
+}
+
+.card .btn-primary:focus
+{
+    background-color: var(--darkBlue);
+}

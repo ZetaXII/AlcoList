@@ -13,24 +13,26 @@
 <body>
     <%@include file="navBar.jsp"%>
     <div class="title">
-        <h1 class="h1">Prova</h1>
+        <h1 class="h1">Dashboard</h1>
     </div>
     <div class="container-fluid p-4">
         <div class="content">
-            <div class="row gx-3 gy-0 m-1">
+            <div class="row gx-3 gy-3">
                 <div class="col-lg-4">
-                    <div class="card mb-3">
-                        <canvas id="bar-chart" width="800" height="450"></canvas>
-                    </div>
-                    <div class="card mb-3">
-                        <canvas id="pie-chart" width="800" height="450"></canvas>
+                    <div class="card h-auto">
+                        <div class="card-header">
+                            <h5>Utenti online</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item mt-2"><p class="fs-4"><img src="img/waiter.svg" class="img-fluid" height="52px" width="52px" > <b>5</b> Camerieri</p></li>
+                            <li class="list-group-item mt-2"><p class="fs-4"><img src="img/waiter.svg" class="img-fluid" height="52px" width="52px" > <b>3</b> Bartender</p></li>
+                            <li class="list-group-item mt-2"><p class="fs-4"><img src="img/waiter.svg" class="img-fluid" height="52px" width="52px" > <b>1</b> Manager</p></li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 h-100">
+                <div class="col-lg-8">
                     <div class="card mb-3">
-                        <!-- CHART CONTAINER
-                        <canvas id="pie-chart" width="800" height="450"></canvas>-->
-                        <img src="img/manage-users.svg" class="card-img-top p-3" width="300px" height="320px" alt="...">
+                        <img src="img/manage-users.svg" class="card-img-top p-3" width="300px" height="255px" alt="...">
                         <div class="card-body gap-2">
                             <div class="d-grid gap-2">
                                 <button class="btn btn-primary" type="button">Gestisci utenti</button>
@@ -38,66 +40,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-xl-6 ">
+                    <div class="card">
+                        <canvas id="pie-chart" height="300px"></canvas>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <canvas id="bar-chart" height="300px"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
                     <div class="card mb-3">
-                        <img src="img/manage-users.svg" class="card-img-top p-3" width="300px" height="320px" alt="...">
-                        <div class="card-body gap-2">
+                        <img src="img/manage-menu.svg" class="card-img-top p-5" width="300px" height="320px" alt="...">
+                        <div class="card-body">
                             <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Gestisci utenti</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row gx-3 gy-0 m-1">
-                        <div class="col-12">
-                            <div class="card mb-3">
-                                <img src="img/manage-users.svg" class="card-img-top p-3" width="300px" height="320px" alt="...">
-                                <div class="card-body gap-2">
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="button">Gestisci utenti</button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-primary" type="button">Gestisci men&ugrave;</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-md-6 col-lg-4">
                     <div class="card mb-3">
-                        <img src="img/manage-users.svg" class="card-img-top p-3" width="300px" height="320px" alt="...">
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card mb-3">
-                        <img src="img/manage-users.svg" class="card-img-top p-3" width="300px" height="320px" alt="...">
-                        <div class="card-body gap-2">
+                        <img src="img/manage-market.svg" class="card-img-top p-5" width="300px" height="320px" alt="...">
+                        <div class="card-body">
                             <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Gestisci utenti</button>
+                                <button class="btn btn-primary" type="button">Gestisci magazzino</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-                <div class="col-xl-3 col-lg-6 p-3 mb-3" style="border-radius: 8px; background-color: var(--white);">
-                    <div class="row m-3 text-center" style="border-radius: 10px; background-color: var(--white);">
-                        <div class="col-6">
-                            <img src="img/waiter.svg" width="100" class="img-fluid"><p class="p-0 fs-6 mb-0">Camerieri attivi:</p><h4>5</h4>
-                        </div>
-                        <div class="col-6">
-                            <img src="img/waiter.svg" width="100" class="img-fluid"><p class="p-0 fs-6 mb-0">Bartender attivi:</p><h4>3</h4>
-                        </div>
-                    </div>
-                    <div class="row gy-0 m-1 text-center" style="border-radius: 10px; background-color: var(--white);">
-                        <div class="col-6">
-                            <img src="img/waiter.svg" width="100" class="img-fluid"><p class="p-0 fs-6 mb-0">Manager attivi:</p><h4>2</h4>
-                        </div>
-                        <div class="col-6">
-                            <img src="img/waiter.svg" width="100" class="img-fluid"><p class="p-0 fs-6 mb-0">Totale attivi:</p><h4>10</h4>
+                <div class="col-md-12 col-lg-4">
+                    <div class="card mb-3">
+                        <img src="img/manage-cocktails.svg" class="card-img-top p-3" width="300px" height="260px" alt="...">
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="button">Gestisci cocktails</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -127,7 +106,7 @@
                 legend: { display: false },
                 title: {
                     display: true,
-                    text: 'Predicted world population (millions) in 2050'
+                    text: 'Cocktails pi\u016B venduti'
                 },
                 scales: {
                     xAxes: [{

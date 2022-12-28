@@ -15,74 +15,72 @@
     <link href="style/base.css" rel="stylesheet">
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <!--<i class='bx bxl-c-plus-plus icon'></i>-->
-            <img src="img/logo-white.png" width="42" height="42" class="icon">
-            <div class="logo_name fs-1">AlcoList</div>
-            <i class='bx bx-menu' id="btn" ></i>
-        </div>
-        <ul class="nav-list p-0">
-            <li>
-                <i class='bx bx-search' ></i>
-                <input type="text" placeholder="Search...">
-                <span class="tooltip">Search</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-grid-alt'></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-user' ></i>
-                    <span class="links_name">Dipendenti</span>
-                </a>
-                <span class="tooltip">Dipendenti</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-food-menu' ></i>
-                    <span class="links_name">Men&ugrave;</span>
-                </a>
-                <span class="tooltip">Men&ugrave;</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-cart-alt' ></i>
-                    <span class="links_name">Ordini</span>
-                </a>
-                <span class="tooltip">Ordini</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-pie-chart-alt-2' ></i>
-                    <span class="links_name">Statistiche</span>
-                </a>
-                <span class="tooltip">Statistiche</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-cog' ></i>
-                    <span class="links_name">Impostazioni</span>
-                </a>
-                <span class="tooltip">Impostazioni</span>
-            </li>
-            <li class="profile">
-                <div class="profile-details">
-                    <!--<img src="profile.jpg" alt="profileImg">-->
-                    <div class="name_job">
-                        <div class="name"></div>
-                        <div class="job"><h6><span class="badge bg-danger mb-2" id="job-tag"></span></h6></div>
-                    </div>
-                </div>
-                <button class="log_out"><i class='bx bx-log-out' ></i></button>
-            </li>
-        </ul>
+<nav>
+    <div class="logo">
+        <i class='bx bx-menu menu-icon'></i>
+        <span class="logo-name">AlcoList</span>
+        <a href="#" class="user-info p-0 mt-1 text-center mx-3" style="right:20px; position: fixed; transition: 0.2s;">
+            <span class="user-name"></span> <span class="badge bg-danger"></span><i class='bx bx-user-circle icon' style="font-size: 30px"></i>
+        </a>
     </div>
+    <div class="sidebar">
+        <div class="sidebar-content mt-0 overflow-auto">
+            <ul class="lists">
+                <li class="list">
+                    <a href="#" class="nav-link">
+                        <i class="bx bx-home-alt icon"></i>
+                        <span class="link">Dashboard</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#" class="nav-link">
+                        <i class="bx bx-bar-chart-alt-2 icon"></i>
+                        <span class="link">Revenue</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#" class="nav-link">
+                        <i class="bx bx-bell icon"></i>
+                        <span class="link">Notifications</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#" class="nav-link">
+                        <i class="bx bx-message-rounded icon"></i>
+                        <span class="link">Messages</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#" class="nav-link">
+                        <i class="bx bx-pie-chart-alt-2 icon"></i>
+                        <span class="link">Analytics</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#" class="nav-link">
+                        <i class="bx bx-heart icon"></i>
+                        <span class="link">Likes</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#" class="nav-link">
+                        <i class="bx bx-folder-open icon"></i>
+                        <span class="link">Files</span>
+                    </a>
+                </li>
+            </ul>
 
+            <div class="bottom-content text-center">
+                <li class="list">
+                    <a href="#" class="nav-link log_out">
+                        <i class="bx bx-log-out icon"></i>
+                        <span class="link">Logout</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+</nav>
     <!-- CUSTOM JS SCRIPTS -->
     <script src="script/loadUserSessionCredentialsJS.js"></script>
     <script src="script/navBarJs.js"></script>

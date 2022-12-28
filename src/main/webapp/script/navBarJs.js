@@ -1,36 +1,15 @@
-let sidebar = document.querySelector(".sidebar");
-let closeBtn = document.querySelector("#btn");
-let searchBtn = document.querySelector(".bx-search");
+const navBar = document.querySelector("nav"),
+    menuBtns = document.querySelectorAll(".menu-icon");
 
-closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();//calling the function(optional)
+menuBtns.forEach((menuBtn) => {
+    menuBtn.addEventListener("click", () => {
+        navBar.classList.toggle("open");
+    });
 });
-
-searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
-    sidebar.classList.toggle("open");
-    menuBtnChange(); //calling the function(optional)
-});
-
-// following are the code to change sidebar button(optional)
-function menuBtnChange()
-{
-    if(sidebar.classList.contains("open"))
-    {
-        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-    }else {
-        closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
-    }
-}
 
 $(document).ready(function()
 {
-    $(".name").text(surname.toUpperCase()+" "+name.toUpperCase());
-
-    $("#job-tag").text(mainRole);
-
-    /*for(let i=0; i<2; i++)
-    {
-        alert(roleList[i].name);
-    }*/
+    let user=surname+" "+name;
+    $(".user-name").text(user.toUpperCase());
+    $(".user-role").text(mainRole);
 });
