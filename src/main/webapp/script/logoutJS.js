@@ -1,5 +1,10 @@
-$(".log_out").click(function()
+function logout()
 {
     sessionStorage.clear();
-    window.location.href = 'index.jsp';
+    window.location.href = '../index.jsp';
+}
+
+$(".log_out").click(function()
+{
+    logout();
 });

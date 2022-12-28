@@ -7,8 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
     <!-- CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="style/loginStyle.css" rel="stylesheet">
-    <link href="style/base.css" rel="stylesheet">
+    <link href="../style/loginStyle.css" rel="stylesheet">
+    <link href="../style/base.css" rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
     </nav>
     <div class="container">
         <div class="row">
- 			<%@include file="navBar.jsp"%>
+ 			<%@include file="../navBar.jsp"%>
  			    <div class="container-fluid" style="padding-left:250px">
 		            <div class="col-sm"></div>
 		            <div class="col-sm-12 form-login mt-5 p-4">
@@ -32,6 +32,6 @@
         </div>
     </div>
 </body>
-<script src="script/userList.js"></script>
+<script src="../script/userList.js"></script>
 </html>
 

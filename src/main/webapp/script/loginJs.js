@@ -36,6 +36,7 @@ $("#login").click(function(e)
                 sessionStorage.setItem("name", user.name);
                 sessionStorage.setItem("uuid", user.uuid);
                 sessionStorage.setItem("email", user.email);
+
                 window.location.href = 'dashboard.jsp';
             }
         },
