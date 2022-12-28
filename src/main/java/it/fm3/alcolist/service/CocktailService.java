@@ -67,6 +67,7 @@ public class CocktailService implements CocktailServiceI{
 		cocktail.setDescription(cocktailDTO.description);
 		cocktail.setFlavour(cocktailDTO.flavour);
 		cocktail.setIBA(cocktailDTO.isIBA);
+		cocktail.setInMenu(cocktailDTO.inMenu);
 		cocktail.setAlcoholic(cocktailDTO.isAlcoholic);
 		cocktail.setPathFileImg(cocktailDTO.pathFileImg);	
 		if(!StringUtils.hasText(cocktailDTO.uuid))

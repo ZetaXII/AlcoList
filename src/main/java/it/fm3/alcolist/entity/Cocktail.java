@@ -47,6 +47,8 @@ public class Cocktail {
 	private String pathFileImg;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
+	@Column(name = "INMENU")
+	private boolean inMenu;
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinTable(name="ordered_cocktails",joinColumns=@JoinColumn(name="ordination_id"),
@@ -119,6 +121,13 @@ public class Cocktail {
 	public void setOrdinations(List<Ordination> ordinations) {
 		this.ordinations = ordinations;
 	}
+	public boolean isInMenu() {
+		return inMenu;
+	}
+	public void setInMenu(boolean inMenu) {
+		this.inMenu = inMenu;
+	}
+	
 	
 	
 }
