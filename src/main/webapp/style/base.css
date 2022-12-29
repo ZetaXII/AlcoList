@@ -52,3 +52,13 @@ a:hover
 {
     color: var(--yellow);
 }
+
+.hidden
+{
+    display: none;
+}
+
+.show
+{
+    display: block;
+}

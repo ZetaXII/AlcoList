@@ -11,79 +11,109 @@
     <!-- CSS & Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link href="../style/navBarStyle.css" rel="stylesheet">
-    <link href="../style/base.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/style/navBarStyle.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <div class="logo">
-        <i class='bx bx-menu menu-icon'></i>
-        <span class="logo-name">AlcoList</span>
-        <a href="#" class="user-info p-0 mt-1 text-center mx-3" style="right:20px; position: fixed; transition: 0.2s;">
-            <span class="user-name"></span> <span class="badge bg-danger"></span><i class='bx bx-user-circle icon' style="font-size: 30px"></i>
-        </a>
-    </div>
-    <div class="sidebar">
-        <div class="sidebar-content mt-0 overflow-auto">
-            <ul class="lists">
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-home-alt icon"></i>
-                        <span class="link">Dashboard</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-bar-chart-alt-2 icon"></i>
-                        <span class="link">Revenue</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-bell icon"></i>
-                        <span class="link">Notifications</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-message-rounded icon"></i>
-                        <span class="link">Messages</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-pie-chart-alt-2 icon"></i>
-                        <span class="link">Analytics</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-heart icon"></i>
-                        <span class="link">Likes</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-folder-open icon"></i>
-                        <span class="link">Files</span>
-                    </a>
-                </li>
-            </ul>
+    <nav>
+        <div class="logo">
+            <i class='bx bx-menu menu-icon'></i>
+            <span class="logo-name">AlcoList</span>
+            <a href="#" class="user-info p-0 mt-1 text-center mx-3" style="right:20px; position: fixed; transition: 0.2s;">
+                <span class="user-name"></span> <span class="badge bg-danger"></span><i class='bx bx-user-circle icon' style="font-size: 30px"></i>
+            </a>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-content mt-0 overflow-auto">
+                <ul class="lists">
+                    <!-- NAVBAR PER MANAGER -->
+                    <div class="manager hidden">
+                        <li class="list">
+                            <a href="${pageContext.request.contextPath}/users/manager/dashboard.jsp" class="nav-link">
+                                <i class='bx bxs-dashboard icon'></i>
+                                <span class="link">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="list">
+                            <a href="${pageContext.request.contextPath}/users/manager/listaUser.jsp" class="nav-link">
+                                <i class='bx bxs-user-detail icon' ></i>
+                                <span class="link">Personale</span>
+                            </a>
+                        </li>
+                        <li class="list">
+                            <a href="#" class="nav-link">
+                                <i class='bx bx-stats icon'></i>
+                                <span class="link">Statistiche</span>
+                            </a>
+                        </li>
+                    </div>
+                    <!-- -------------------------------- -->
 
-            <div class="bottom-content text-center">
-                <li class="list">
-                    <a href="#" class="nav-link log_out">
-                        <i class="bx bx-log-out icon"></i>
-                        <span class="link">Logout</span>
-                    </a>
-                </li>
+                    <!-- NAVBAR PER BARTENDER -->
+                    <div class="bartender hidden">
+                        <li class="list">
+                            <a href="#" class="nav-link">
+                                <i class='bx bxs-store-alt icon'></i>
+                                <span class="link">Magazzino</span>
+                            </a>
+                        </li>
+                    </div>
+                    <!-- -------------------------------- -->
+
+                    <!-- NAVBAR PER WAITER -->
+                    <div class="waiter hidden">
+                        <li class="list">
+                            <a href="#" class="nav-link">
+                                <i class='bx bxs-dish icon'></i>
+                                <span class="link">Comande</span>
+                            </a>
+                        </li>
+                    </div>
+                    <!-- -------------------------------- -->
+
+                    <li class="list">
+                        <a href="#" class="nav-link">
+                            <i class='bx bxs-food-menu icon'></i>
+                            <span class="link">Men&ugrave;</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="${pageContext.request.contextPath}/users/listaCocktail.jsp" class="nav-link">
+                            <i class='bx bxs-drink icon' ></i>
+                            <span class="link">Cocktails</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="bottom-content text-center">
+                    <li class="list">
+                        <a href="#" class="nav-link log_out">
+                            <i class="bx bx-log-out icon"></i>
+                            <span class="link">Logout</span>
+                        </a>
+                    </li>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
     <!-- CUSTOM JS SCRIPTS -->
-    <script src="../script/loadUserSessionCredentialsJS.js"></script>
-    <script src="../script/navBarJs.js"></script>
-    <script src="../script/logoutJS.js"></script>
+    <script src="${pageContext.request.contextPath}/script/navBarJs.js"></script>
+    <script src="${pageContext.request.contextPath}/script/logoutJS.js"></script>
+    <script src="${pageContext.request.contextPath}/script/loadUserSessionCredentialsJS.js"></script>
+    <!-- MOSTRA LE OPZIONI IN BASE AI RUOLI DELL'UTENTE -->
+    <script>
+        if(roleList.includes("MANAGER"))
+        {
+            $(".manager").toggle("show");
+        }
+        if(roleList.includes("BARTENDER"))
+        {
+            $(".bartender").toggle("show");
+        }
+        if(roleList.includes("WAITER"))
+        {
+            $(".waiter").toggle("show");
+        }
+    </script>
 </body>
 </html>

@@ -8,7 +8,7 @@ nav {
     align-items: center;
     background: var(--primaryBlue);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-    z-index: 99999999999999999999999999999999999999999999999999;
+    z-index: 999;
 }
 
 .menu-icon
@@ -79,5 +79,6 @@ nav .logo {
 {
     background-color: var(--lightBlue);
 }
+
 
 

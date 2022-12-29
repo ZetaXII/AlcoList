@@ -19,32 +19,33 @@
             <span class="logo-name">AlcoList</span>
         </div>
     </nav>
-    <div class="container">
-        <div class="row">
+    <div class="alert alert-danger alert-dismissible error-message alert-error fade" role="alert" style="position:fixed; z-index: 9999; width: 50%; left:25%;">
+        <strong id="title-error">ERRORE!</strong><label id="message-error"> Controlla nuovamente i campi e riprova ad accedere.</label>
+        <button type="button" class="btn-close"  aria-label="Close"></button>
+    </div>
 
-            <div class="alert alert-danger alert-dismissible error-message alert-error fade" role="alert">
-                <strong id="title-error">ERRORE!</strong><label id="message-error"> Controlla nuovamente i campi e riprova ad accedere.</label>
-                <button type="button" class="btn-close"  aria-label="Close"></button>
+    <div class="container mt-5 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-5 col-md-8">
+                <div class="card b-2 form-login">
+                     <div class="card-body">
+                         <h1 class="h1 text-center card-title mb-4">Login</h1>
+                         <form class="form-group" method="post">
+                             <label for="email" class="form-label fs-5">Email</label>
+                             <br/>
+                             <input type="text" id="email" name="email" class="form-control form-field fs-5">
+                             <br/>
+                             <label for="password" class="form-label fs-5">Password</label>
+                             <br/>
+                             <input type="password" id="password" name="password" class="form-control form-field fs-5">
+                             <br/>
+                             <div class="text-center">
+                                 <input type="submit" id="login" name="login" value="ACCEDI" class="fs-3 px-4 py-1 btn btn-login mt-4 mb-4 text-center fs-4">
+                             </div>
+                         </form>
+                     </div>
+                </div>
             </div>
-
-            <div class="col-sm"></div>
-            <div class="col-sm-6 form-login mt-5 p-4">
-                <h1 class="h1 text-center mb-4">Login</h1>
-                <form class="form-group" method="post">
-                    <label for="email" class="form-label fs-5">Email</label>
-                    <br/>
-                    <input type="text" id="email" name="email" class="form-control form-field fs-5">
-                    <br/>
-                    <label for="password" class="form-label fs-5">Password</label>
-                    <br/>
-                    <input type="password" id="password" name="password" class="form-control form-field fs-5">
-                    <br/>
-                    <div class="text-center">
-                        <input type="submit" id="login" name="login" value="ACCEDI" class="fs-3 px-4 py-1 btn btn-login mt-4 mb-4 text-center fs-4">
-                    </div>
-                </form>
-            </div>
-            <div class="col-sm text-light" id="label"></div>
         </div>
     </div>
     <!-- CUSTOM JS SCRIPTS -->

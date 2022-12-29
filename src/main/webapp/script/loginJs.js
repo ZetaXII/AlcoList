@@ -22,6 +22,7 @@ $("#login").click(function(e)
                 if(user.error!=null && user.error!="")
                 {
                     $("#message-error").text(" "+user.error);
+                    $("#message-error").toggle("show");
                 }
                 $(".form-control").removeClass("form-field");
                 $(".form-control").addClass("form-field-error");
@@ -37,7 +38,18 @@ $("#login").click(function(e)
                 sessionStorage.setItem("uuid", user.uuid);
                 sessionStorage.setItem("email", user.email);
 
-                window.location.href = 'dashboard.jsp';
+                if(JSON.stringify(user.roles).includes("MANAGER"))
+                {
+                    window.location.href = 'users/manager/dashboard.jsp';
+                }
+                else if(JSON.stringify(user.roles).includes("BARTENDER"))
+                {
+                    window.location.href = 'users/bartender/dashboard.jsp';
+                }
+                else if(JSON.stringify(user.roles).includes("WAITER"))
+                {
+                    window.location.href = 'users/waiter/dashboard.jsp';
+                }
             }
         },
         error: function(error)
