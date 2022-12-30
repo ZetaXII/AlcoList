@@ -29,7 +29,7 @@ public class Ingredient {
 	private boolean isOptional;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
-	@OneToOne(optional = true)
+	@OneToOne
 	@JoinColumn(name="COCKTAIL", nullable = true)
 	private Cocktail cocktail;
 	
@@ -71,6 +71,13 @@ public class Ingredient {
 	public void setCocktail(Cocktail c) {
 		this.cocktail = c;
 	}
+	@Override
+	public String toString() {
+		return "Ingredient [id=" + id + ", product=" + product + ", quantity=" + quantity + ", isOptional=" + isOptional
+				+ ", uuid=" + uuid + ", cocktail=" + cocktail + "]";
+	}
+	
+	
 	
 	
 }

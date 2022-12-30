@@ -28,8 +28,8 @@ public class Cocktail {
 	@Column(name = "ID", length = 50, unique = true)
 	private long id;
 	
-	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="ID_COCKTAIL", nullable=false)
+	@OneToMany(mappedBy="cocktail")
+	//@JoinColumn(name="ID_COCKTAIL", nullable=false)
 	private Set<Ingredient>ingredients;
 	@Column(name = "NAME", length = 50)
 	private String name;
@@ -61,12 +61,13 @@ public class Cocktail {
 	public void setId(long id) {
 		this.id = id;
 	}
+	/*
 	public Set<Ingredient> getIngredients() {
 		return ingredients;
 	}
 	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
-	}
+	}*/
 	public String getName() {
 		return name;
 	}
@@ -127,7 +128,23 @@ public class Cocktail {
 	public void setInMenu(boolean inMenu) {
 		this.inMenu = inMenu;
 	}
-	
+	/*
+	@Override
+	public String toString() {
+		return "Cocktail [id=" + id + ", ingredients=" + ingredients + ", name=" + name + ", price=" + price
+				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
+				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu
+				+ ", ordinations=" + ordinations + "]";
+	}
+	*/
+
+	@Override
+	public String toString() {
+		return "Cocktail [id=" + id + ", name=" + name + ", price=" + price
+				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
+				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu
+				+ ", ordinations=" + ordinations + "]";
+	}
 	
 	
 }
