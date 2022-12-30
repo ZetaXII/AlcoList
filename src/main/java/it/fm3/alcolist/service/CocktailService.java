@@ -28,6 +28,7 @@ public class CocktailService implements CocktailServiceI{
 	public Cocktail add(CocktailDTO cocktailDto) throws Exception {
 		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db? (Vale anche per il prodotto)
 		Cocktail newCocktail= new Cocktail();
+		cocktailDto.isAlcoholic = false;
 		this.buildCocktailByCocktailDTO(newCocktail, cocktailDto);
 		if(cocktailRepository.findByUuid(cocktailDto.uuid) != null)
 			throw new Exception("Cocktail already exists");
