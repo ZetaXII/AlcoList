@@ -28,6 +28,7 @@ public class CocktailService implements CocktailServiceI{
 	public Cocktail add(CocktailDTO cocktailDto) throws Exception {
 		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db? (Vale anche per il prodotto)
 		Cocktail newCocktail= new Cocktail();
+		cocktailDto.isAlcoholic = false;
 		this.buildCocktailByCocktailDTO(newCocktail, cocktailDto);
 		if(cocktailRepository.findByUuid(cocktailDto.uuid) != null)
 			throw new Exception("Cocktail already exists");
@@ -120,15 +121,15 @@ public class CocktailService implements CocktailServiceI{
 			//SOLO NOME
 			cocktailResultDTO.totalResult = cocktailRepository.countByNameContainingIgnoreCase(cocktailDTO.name);
 			if(pageable!=null)
-				return cocktailRepository.findByName(pageable, cocktailDTO.name);
-			else return cocktailRepository.findByName(cocktailDTO.name);
+				return cocktailRepository.findByNameContainsIgnoreCase(pageable, cocktailDTO.name);
+			else return cocktailRepository.findByNameContainsIgnoreCase(cocktailDTO.name);
 		}	
 		else if(!StringUtils.hasText(cocktailDTO.name) && StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)==null) {
 			//SOLO GUSTO
 			cocktailResultDTO.totalResult = cocktailRepository.countByFlavourContainingIgnoreCase(cocktailDTO.flavour);
 			if(pageable!=null)
-				return cocktailRepository.findByFlavour(pageable, cocktailDTO.flavour);
-			else return cocktailRepository.findByFlavour(cocktailDTO.flavour);
+				return cocktailRepository.findByFlavourContainsIgnoreCase(pageable, cocktailDTO.flavour);
+			else return cocktailRepository.findByFlavourContainsIgnoreCase(cocktailDTO.flavour);
 		}
 		else if(!StringUtils.hasText(cocktailDTO.name) && !StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)!=null) {
 			//SOLO ALCOLICO
@@ -139,17 +140,17 @@ public class CocktailService implements CocktailServiceI{
 		}
 		else if(StringUtils.hasText(cocktailDTO.name) && StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)==null) {
 			// NOME-GUSTO
-			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndFlavourContainingIgnoreCase(cocktailDTO.name, cocktailDTO.flavour);
+			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndFlavourContainingIgnoreCase(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour);
 			if(pageable!=null)
-				return cocktailRepository.findByNameAndFlavour(pageable, cocktailDTO.name, cocktailDTO.flavour);
-			else return cocktailRepository.findByNameAndFlavour(cocktailDTO.name, cocktailDTO.flavour);
+				return cocktailRepository.findByNameAndFlavourContainsIgnoreCase(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.flavour);
+			else return cocktailRepository.findByNameAndFlavourContainsIgnoreCase(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour);
 		}
 		else if(StringUtils.hasText(cocktailDTO.name) && !StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)!=null) {
 			// NOME-ALCOLICO
-			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndIsAlcoholic(cocktailDTO.name, cocktailDTO.isAlcoholic);
+			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.isAlcoholic);
 			if(pageable!=null)
-				return cocktailRepository.findByNameAndIsAlcoholic(pageable, cocktailDTO.name, cocktailDTO.isAlcoholic);
-			else return cocktailRepository.findByNameAndIsAlcoholic(cocktailDTO.name, cocktailDTO.isAlcoholic);
+				return cocktailRepository.findByNameAndIsAlcoholic(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.isAlcoholic);
+			else return cocktailRepository.findByNameAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.isAlcoholic);
 		}
 		else if(!StringUtils.hasText(cocktailDTO.name) && StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)!=null) {
 			// GUSTO-ALCOLICO
@@ -160,10 +161,10 @@ public class CocktailService implements CocktailServiceI{
 		}
 		else {
 			//COMPLETA
-			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndFlavourAndIsAlcoholic(cocktailDTO.name, cocktailDTO.flavour, cocktailDTO.isAlcoholic);
+			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndFlavourAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
 			if(pageable!=null)
-				return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(pageable, cocktailDTO.name, cocktailDTO.flavour, cocktailDTO.isAlcoholic);
-			else return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(cocktailDTO.name, cocktailDTO.flavour, cocktailDTO.isAlcoholic);
+				return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
+			else return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
 		}
 	
 		//cocktailResultDTO.totalResult= cocktailRepository.count();

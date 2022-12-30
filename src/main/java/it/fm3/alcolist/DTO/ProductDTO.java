@@ -8,4 +8,6 @@ public class ProductDTO {
 	public Integer ml;
 	public String pathFileImg;
 	public String uuid;
+	public Integer page;
+	public Integer size;
 }

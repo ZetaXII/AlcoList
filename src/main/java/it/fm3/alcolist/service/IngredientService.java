@@ -31,17 +31,10 @@ public class IngredientService implements IngredientServiceI{
 		Ingredient newIngredient= new Ingredient();
 		this.buildIngredientByIngredientDTO(newIngredient, ingredientDto);
 		System.out.println("\n\n@@NUOVO INGREDIENTE: "+newIngredient);
+		if(newIngredient.getProduct().getAlcoholicPercentage()>0) {
+			newIngredient.getCocktail().setAlcoholic(true);
+		}
 		ingredientRepository.save(newIngredient);
-//		CocktailDTO c = new CocktailDTO();
-//		c.name = newIngredient.getCocktail().getName();
-//		c.price = newIngredient.getCocktail().getPrice();
-//		c.description = newIngredient.getCocktail().getDescription();
-//		c.flavour = newIngredient.getCocktail().getFlavour();
-//		c.isIBA = newIngredient.getCocktail().isIBA();
-//		c.isAlcoholic = newIngredient.getCocktail().isAlcoholic();
-//		c.pathFileImg = newIngredient.getCocktail().getPathFileImg();
-//		c.uuid = newIngredient.getCocktail().getUuid();
-//		cocktailServiceI.update(c);
 		 System.out.println("\n\n@@@@@@ NUOVO INGREDIENTE: "+newIngredient);
 		 return newIngredient;
 	}
@@ -63,10 +56,17 @@ public class IngredientService implements IngredientServiceI{
 
 	@Override
 	public Ingredient update(IngredientDTO i) throws Exception {
+		//TODO testare la funzionalità di modifica quantità e isoptional
 		Ingredient ingredientToUpdate = ingredientRepository.findByUuid(i.uuid);
 		if(ingredientToUpdate==null)
 			throw new Exception("ingredient not found");
-		this.buildIngredientByIngredientDTO(ingredientToUpdate, i);
+		if(i.quantity != null) {
+			ingredientToUpdate.setQuantity(i.quantity);
+		}
+		if(i.isOptional != null) {
+			ingredientToUpdate.setOptional(i.isOptional);
+		}
+//		this.buildIngredientByIngredientDTO(ingredientToUpdate, i);
 		return ingredientToUpdate;
 	}
 
