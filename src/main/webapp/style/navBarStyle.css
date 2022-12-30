@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-
 nav {
     position: fixed;
     top: 0;
@@ -9,7 +7,7 @@ nav {
     display: flex;
     align-items: center;
     background: var(--primaryBlue);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.19);
     z-index: 99999999999999999999999999999999999999999999999999;
 }
 
@@ -67,6 +65,7 @@ nav .sidebar
     top:25px;
     position: fixed;
     right:45px;
+    font-weight: lighter;
 }
 
 .logo, .sidebar

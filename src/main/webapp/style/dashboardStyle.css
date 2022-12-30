@@ -1,7 +1,8 @@
 .card
 {
     background-color: var(--secondaryBlue);
-    color: var(--black);
+    color: var(--white);
+    z-index: 999;
 }
 
 .card .card-img-top

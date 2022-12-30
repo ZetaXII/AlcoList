@@ -11,16 +11,15 @@
     <link href="${pageContext.request.contextPath}/style/dashboardStyle.css" rel="stylesheet">
 </head>
 <body>
-<%@include file="../../navBar.jsp"%>
+    <%@include file="../../navBar.jsp"%>
 
-<!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
-<script>
-    if(!roleList.includes("MANAGER"))
-    {
-        logout();
-    }
-</script>
-
+    <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
+    <script>
+        if(!roleList.includes("MANAGER"))
+        {
+            logout();
+        }
+    </script>
     <div class="title">
         <h1 class="h1" id="title"></h1>
     </div>
@@ -92,7 +91,7 @@
             </div>
         </div>
     </div>
-<script src="${pageContext.request.contextPath}/script/setPageTitle.js"></script>
+<script src="${pageContext.request.contextPath}/script/utils.js"></script>
 <script src="${pageContext.request.contextPath}/script/dashboardCharts.js"></script>
 </body>
 </html>

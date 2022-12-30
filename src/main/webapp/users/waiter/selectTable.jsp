@@ -15,16 +15,16 @@
         logout();
     }
 </script>
-<div class="title">
-    <h1 class="h1">Dashboard</h1>
-</div>
-<div class="container-fluid">
-    <div class="content">
-        <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
+    <div class="title">
+        <h1 class="h1">Dashboard</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="content">
+            <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
 
+            </div>
         </div>
     </div>
-</div>
     <script>
         $(document).ready(function()
         {

@@ -9,7 +9,8 @@ menuBtns.forEach((menuBtn) => {
 
 $(document).ready(function()
 {
-    let user=surname+" "+name;
-    $(".user-name").text(user.toUpperCase());
-    $(".user-role").text(mainRole);
+
+    let user=name.charAt(0).toUpperCase() + name.slice(1);
+    $(".user-name").text(user);
+    //$(".user-role").text(mainRole);
 });
