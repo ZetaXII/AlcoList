@@ -1,4 +1,4 @@
-package it.fm3.alcolist.entity;
+package it.fm3.alcolist.DTO;
 
 public enum OrdinationStatusEnum {
 	PENDING,

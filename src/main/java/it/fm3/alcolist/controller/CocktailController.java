@@ -49,4 +49,9 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailService.get(uuid));
 	}
 	
+	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
+	public ResponseEntity<?> searchByFields(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
+		return ResponseEntity.ok(cocktailService.searchByFields(cocktail));
+	}
+	
 }

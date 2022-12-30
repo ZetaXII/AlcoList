@@ -1,5 +1,6 @@
 package it.fm3.alcolist.entity;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class Cocktail {
 	
 	@OneToMany(mappedBy="cocktail")
 	//@JoinColumn(name="ID_COCKTAIL", nullable=false)
-	private Set<Ingredient>ingredients;
+	private Set<Ingredient>ingredients = new HashSet<Ingredient>();
 	@Column(name = "NAME", length = 50)
 	private String name;
 	@Column(name = "PRICE")

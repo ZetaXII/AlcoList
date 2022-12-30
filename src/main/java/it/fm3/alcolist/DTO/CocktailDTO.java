@@ -10,4 +10,6 @@ public class CocktailDTO {
 	public Boolean isAlcoholic;
 	public String pathFileImg;
 	public String uuid;
+	public Integer page;
+	public Integer size;
 }

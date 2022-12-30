@@ -33,8 +33,6 @@ public class Ingredient {
 	@JoinColumn(name="COCKTAIL", nullable = true)
 	private Cocktail cocktail;
 	
-	
-	
 	public boolean isOptional() {
 		return isOptional;
 	}
