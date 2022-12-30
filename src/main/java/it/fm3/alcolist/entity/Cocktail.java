@@ -62,13 +62,12 @@ public class Cocktail {
 	public void setId(long id) {
 		this.id = id;
 	}
-	/*
 	public Set<Ingredient> getIngredients() {
 		return ingredients;
 	}
 	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
-	}*/
+	}
 	public String getName() {
 		return name;
 	}
@@ -129,7 +128,7 @@ public class Cocktail {
 	public void setInMenu(boolean inMenu) {
 		this.inMenu = inMenu;
 	}
-	/*
+	
 	@Override
 	public String toString() {
 		return "Cocktail [id=" + id + ", ingredients=" + ingredients + ", name=" + name + ", price=" + price
@@ -137,15 +136,4 @@ public class Cocktail {
 				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu
 				+ ", ordinations=" + ordinations + "]";
 	}
-	*/
-
-	@Override
-	public String toString() {
-		return "Cocktail [id=" + id + ", name=" + name + ", price=" + price
-				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
-				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu
-				+ ", ordinations=" + ordinations + "]";
-	}
-	
-	
 }
