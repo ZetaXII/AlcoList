@@ -13,7 +13,9 @@ import it.fm3.alcolist.DTO.IngredientDTO;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
 import it.fm3.alcolist.entity.Product;
+import it.fm3.alcolist.repository.CocktailRepository;
 import it.fm3.alcolist.repository.IngredientRepository;
+import it.fm3.alcolist.repository.ProductRepository;
 
 @Service
 @Transactional
@@ -26,16 +28,24 @@ public class IngredientService implements IngredientServiceI{
 	CocktailServiceI cocktailServiceI;
 	
 	@Override
+	//FIXME controlare che non si stia inserendo lo stesso prodotto altrimenti si duplica la linea
 	public Ingredient add(IngredientDTO ingredientDto) throws Exception {
-		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db? (Vale anche per il prodotto)
+	
 		Ingredient newIngredient= new Ingredient();
 		this.buildIngredientByIngredientDTO(newIngredient, ingredientDto);
-		System.out.println("\n\n@@NUOVO INGREDIENTE: "+newIngredient);
-		if(newIngredient.getProduct().getAlcoholicPercentage()>0) {
-			newIngredient.getCocktail().setAlcoholic(true);
-		}
+		//System.out.println("\n\n@@@@@@NUOVO INGREDIENTE: "+newIngredient);
 		ingredientRepository.save(newIngredient);
-		 System.out.println("\n\n@@@@@@ NUOVO INGREDIENTE: "+newIngredient);
+//		CocktailDTO c = new CocktailDTO();
+//		c.name = newIngredient.getCocktail().getName();
+//		c.price = newIngredient.getCocktail().getPrice();
+//		c.description = newIngredient.getCocktail().getDescription();
+//		c.flavour = newIngredient.getCocktail().getFlavour();
+//		c.isIBA = newIngredient.getCocktail().isIBA();
+//		c.isAlcoholic = newIngredient.getCocktail().isAlcoholic();
+//		c.pathFileImg = newIngredient.getCocktail().getPathFileImg();
+//		c.uuid = newIngredient.getCocktail().getUuid();
+//		cocktailServiceI.update(c);
+		 //System.out.println("\n\n@@@@@@ NUOVO INGREDIENTE: "+newIngredient.toString());
 		 return newIngredient;
 	}
 

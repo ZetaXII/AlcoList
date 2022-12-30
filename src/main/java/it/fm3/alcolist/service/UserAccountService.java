@@ -45,7 +45,6 @@ public class UserAccountService implements UserAccountServiceI{
 		return sha256hex;
 	}
 	public UserAccount add(UserAccountDTO userDto) throws Exception{
-		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db?
 		UserAccount newUser= new UserAccount();
 		this.buildUserAccountByUserAccountDTO(newUser,userDto);
 		if(userAccountRepository.findByEmailAndDateDelete(userDto.email, null).size()>0)

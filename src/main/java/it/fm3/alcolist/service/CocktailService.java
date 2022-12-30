@@ -2,6 +2,7 @@ package it.fm3.alcolist.service;
 
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 import it.fm3.alcolist.DTO.CocktailDTO;
 import it.fm3.alcolist.DTO.CocktailResultDTO;
 import it.fm3.alcolist.entity.Cocktail;
+import it.fm3.alcolist.entity.Ingredient;
 import it.fm3.alcolist.repository.CocktailRepository;
 
 @Service
@@ -25,6 +27,11 @@ public class CocktailService implements CocktailServiceI{
 	
 	
 	@Override
+	//FIXME controllare gli ingredienti di un cocktail sia in fase di inserimento che modifica
+	// un cocktail di default deve essere isAlcoholic=false. 
+	//Quando aggiungo un ingrediente alcolico controllo se is alcolic è false
+	// se è false e sto aggiungendo un ingrediente alcolico devo modificare l'isalcoholic del ccktail e settarlo a false
+	//allo stesso modo bisgna gestire la modifica degli ingredienti quando viene cancellato/modificato un ingrediente
 	public Cocktail add(CocktailDTO cocktailDto) throws Exception {
 		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db? (Vale anche per il prodotto)
 		Cocktail newCocktail= new Cocktail();
@@ -39,7 +46,7 @@ public class CocktailService implements CocktailServiceI{
 
 	@Override
 	public Cocktail delete(String uuid) throws Exception {
-		//TODO completare delete ingredient
+		//TODO completare delete cocktail
 		return null;
 	}
 	
@@ -64,6 +71,11 @@ public class CocktailService implements CocktailServiceI{
 	@Override
 	public Cocktail get(String uuid) {
 		return cocktailRepository.findByUuid(uuid);
+	}
+	
+	@Override
+	public Set<Ingredient> getIngredients(String uuid) {
+		 return cocktailRepository.findByUuid(uuid).getIngredients();
 	}
 	
 	private void buildCocktailByCocktailDTO(Cocktail cocktail, CocktailDTO cocktailDTO) throws Exception {

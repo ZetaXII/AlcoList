@@ -29,7 +29,7 @@ public class CocktailController {
 		try {
 			return ResponseEntity.ok(cocktailService.add(cocktail));
 		} catch (Exception e) {
-			// TODO definire un json che permetta al frontend di gestire le eccezioni: non so per user è email già usata
+			// TODO definire un json che permetta al frontend di gestire le eccezioni
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -47,6 +47,11 @@ public class CocktailController {
 	@RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET)
 	public ResponseEntity<?> getByName(@PathVariable(name = "uuid") String uuid) throws Exception {
 		return ResponseEntity.ok(cocktailService.get(uuid));
+	}
+	
+	@RequestMapping(value = "/getIngredients/{uuid}", method = RequestMethod.GET)
+	public ResponseEntity<?> getIngredients(@PathVariable(name = "uuid") String uuid) throws Exception {
+		return ResponseEntity.ok(cocktailService.getIngredients(uuid));
 	}
 	
 	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)

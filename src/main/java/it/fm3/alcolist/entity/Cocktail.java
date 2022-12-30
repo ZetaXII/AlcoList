@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="COCKTAIL")
@@ -30,8 +29,9 @@ public class Cocktail {
 	@Column(name = "ID", length = 50, unique = true)
 	private long id;
 	
-	@JsonManagedReference
+	
 	@OneToMany(mappedBy="cocktail",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	 
 	private Set<Ingredient>ingredients = new HashSet<Ingredient>();
 	@Column(name = "NAME", length = 50)
 	private String name;
@@ -55,6 +55,7 @@ public class Cocktail {
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinTable(name="ordered_cocktails",joinColumns=@JoinColumn(name="ordination_id"),
     inverseJoinColumns=@JoinColumn(name="cocktail_id"))
+	@JsonIgnore
 	private List<Ordination> ordinations;
 	
 	public long getId() {

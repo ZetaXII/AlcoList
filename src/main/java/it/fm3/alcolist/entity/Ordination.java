@@ -1,5 +1,6 @@
 package it.fm3.alcolist.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -31,6 +32,9 @@ public class Ordination {
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordinations")
 	private List<Cocktail> orderedCocktails;
 	
+	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	private String uuid;
+	
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinColumn(name="ID_TABLES", nullable=false)
 	private Tables table;
@@ -39,38 +43,55 @@ public class Ordination {
 	@Column(name = "STATUS")
 	private StatusEnum status;
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="EXECUTED_BY", nullable=false)
-	private UserAccount executed_by;
+	@JoinColumn(name="executedBy")
+	private UserAccount executedBy;
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="CREATED_BY", nullable=false)	
-	private UserAccount created_by;
+	@JoinColumn(name="createdBy", nullable=false)	
+	private UserAccount createdBy;
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="DELIVERED_BY", nullable=false)
-	private UserAccount delivered_by;
+	@JoinColumn(name="deliveredBy")
+	private UserAccount deliveredBy;
+	@Column(name = "DATE_LAST_MODIFIED")
+	private Date dateLastModified;
+	@Column(name = "DATE_CREATION")
+	private Date dateCreation;
 	
+	
+	public Date getDateLastModified() {
+		return dateLastModified;
+	}
+	public void setDateLastModified(Date dateLastModified) {
+		this.dateLastModified = dateLastModified;
+	}
+	public Date getDateCreation() {
+		return dateCreation;
+	}
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
+	}
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public UserAccount getExecuted_by() {
-		return executed_by;
+	public UserAccount getExecutedBy() {
+		return executedBy;
 	}
-	public void setExecuted_by(UserAccount executed_by) {
-		this.executed_by = executed_by;
+	public void setExecutedBy(UserAccount executedBy) {
+		this.executedBy = executedBy;
 	}
-	public UserAccount getCreated_by() {
-		return created_by;
+	public UserAccount getCreatedBy() {
+		return createdBy;
 	}
-	public void setCreated_by(UserAccount created_by) {
-		this.created_by = created_by;
+	public void setCreatedBy(UserAccount createdBy) {
+		this.createdBy = createdBy;
 	}
-	public UserAccount getDelivered_by() {
-		return delivered_by;
+	public UserAccount getDeliveredBy() {
+		return deliveredBy;
 	}
-	public void setDelivered_by(UserAccount delivered_by) {
-		this.delivered_by = delivered_by;
+	public void setDeliveredBy(UserAccount deliveredBy) {
+		this.deliveredBy = deliveredBy;
 	}
 	public Tables getTable() {
 		return table;
@@ -95,6 +116,12 @@ public class Ordination {
 	}
 	public void setOrderedCocktails(List<Cocktail> orderedCocktails) {
 		this.orderedCocktails = orderedCocktails;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 	

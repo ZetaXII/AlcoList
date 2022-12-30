@@ -29,7 +29,7 @@ public class ProductController {
 		try {
 			return ResponseEntity.ok(productService.add(product));
 		} catch (Exception e) {
-			// TODO definire un json che permetta al frontend di gestire le eccezioni: non so per user è email già usata
+			// TODO definire un json che permetta al frontend di gestire le eccezioni
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}

@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,10 +21,10 @@ public class Ingredient {
 	@JsonIgnore
 	private long id;
 	
-	@JsonBackReference
+	
 	@OneToOne
 	@JoinColumn(name="PRODUCT")
-	@JsonIgnore
+	
 	private Product product;
 	
 	private Integer quantity;//ml
@@ -33,7 +32,7 @@ public class Ingredient {
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
 	
-	@JsonBackReference
+	
 	@OneToOne
 	@JoinColumn(name="COCKTAIL", nullable = true)
 	@JsonIgnore

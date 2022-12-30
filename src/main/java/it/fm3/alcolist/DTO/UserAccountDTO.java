@@ -7,7 +7,7 @@ public class UserAccountDTO {
 	
 	public String name;
 	public String surname;
-	public ArrayList<String> roleList;//TODO l'utente ha un solo ruolo
+	public ArrayList<String> roleList;
 	public String mainRole;
 	public String password;
 	public String email;

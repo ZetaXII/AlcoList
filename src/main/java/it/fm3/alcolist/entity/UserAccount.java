@@ -31,7 +31,7 @@ public class UserAccount {
 	@Column(name = "SURNAME", length = 50, nullable = false)
 	private String surname;
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	private List<Role> roles;//TODO DARE DEI NOMI CORRETTI IL CAMPO SUL DB NON E' CHIAMATO CORRETTAMENTE
+	private List<Role> roles;
 	@Column(name = "MAIN_ROLE", length = 64, nullable = false)
 	private String mainRole;
 	@Column(name = "PASSWORD", length = 64, nullable = false)

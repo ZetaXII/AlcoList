@@ -25,7 +25,6 @@ public class ProductService implements ProductServiceI{
 	
 	@Override
 	public Product add(ProductDTO productDto) throws Exception {
-		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db? (Vale anche per il prodotto)
 		Product newProduct= new Product();
 		this.buildProductByProductDTO(newProduct,productDto);
 		if(productRepository.findByUuid(productDto.uuid) != null)

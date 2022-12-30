@@ -1,6 +1,7 @@
 package it.fm3.alcolist.DTO;
 
 public enum OrdinationStatusEnum {
+	CREATED,
 	PENDING,
 	WORK_IN_PROGRESS,
 	COMPLETED,
