@@ -23,6 +23,7 @@ public class Ingredient {
 	
 	@OneToOne
 	@JoinColumn(name="PRODUCT")
+	@JsonIgnore
 	private Product product;
 	
 	private Integer quantity;//ml
@@ -31,6 +32,7 @@ public class Ingredient {
 	private String uuid;
 	@OneToOne
 	@JoinColumn(name="COCKTAIL", nullable = true)
+	@JsonIgnore
 	private Cocktail cocktail;
 	
 	public boolean isOptional() {
