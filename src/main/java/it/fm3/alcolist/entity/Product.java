@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="PRODUCT")
 public class Product {
@@ -14,6 +16,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ID", length = 50, unique = true)
+	@JsonIgnore
 	private long id;
 	@Column(name = "NAME", length = 50)
 	private String name;
@@ -85,6 +88,8 @@ public class Product {
 				+ alcoholicPercentage + ", isPresent=" + isPresent + ", ml=" + ml + ", pathFileImg=" + pathFileImg
 				+ ", uuid=" + uuid + "]";
 	}
+	
+	
 	
 	
 }

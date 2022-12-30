@@ -20,7 +20,7 @@ public class Tables {
 	/*
 	@Column(name = "SEATS", length = 50)
 	private Integer seats;*/
-	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	@Column(name = "UUID", length = 50, unique = true)
 	private String uuid;
 	
 	public long getId() {

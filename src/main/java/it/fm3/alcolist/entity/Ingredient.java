@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -21,6 +22,7 @@ public class Ingredient {
 	@JsonIgnore
 	private long id;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="PRODUCT")
 	@JsonIgnore
@@ -30,6 +32,8 @@ public class Ingredient {
 	private boolean isOptional;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
+	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="COCKTAIL", nullable = true)
 	@JsonIgnore
@@ -47,12 +51,14 @@ public class Ingredient {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 	public Product getProduct() {
 		return product;
 	}
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+	
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -65,6 +71,7 @@ public class Ingredient {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+	
 	public Cocktail getCocktail() {
 		return cocktail;
 	}
@@ -76,6 +83,10 @@ public class Ingredient {
 		return "Ingredient [id=" + id + ", product=" + product + ", quantity=" + quantity + ", isOptional=" + isOptional
 				+ ", uuid=" + uuid + ", cocktail=" + cocktail + "]";
 	}
+
+	
+	
+	
 	
 	
 	
