@@ -49,4 +49,9 @@ public class ProductController {
 		return ResponseEntity.ok(productService.get(uuid));
 	}
 	
+	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
+	public ResponseEntity<?> searchByFields(@RequestBody ProductDTO product, HttpServletRequest request) throws Exception {
+		return ResponseEntity.ok(productService.searchByFields(product));
+	}
+	
 }
