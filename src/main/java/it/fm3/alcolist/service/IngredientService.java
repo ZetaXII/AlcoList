@@ -44,15 +44,6 @@ public class IngredientService implements IngredientServiceI{
 		ingredientRepository.delete(ingredientToDelete);
 		return ingredientToDelete;
 	}
-	
-//	@Override
-//	public Product delete(String name) throws Exception {
-//		Product productToDelete = productServiceI.findByName(name);
-//		if(productToDelete==null)
-//			throw new Exception("product not found with name: "+name);
-//		productToDelte.setDateDelete(new Date());
-////		return userToDelete;
-//	}
 
 	@Override
 	public Ingredient update(IngredientDTO i) throws Exception {
@@ -75,7 +66,7 @@ public class IngredientService implements IngredientServiceI{
 		if(i != null)
 			return i;
 		else
-			throw new Exception("Ingredient not exists");
+			throw new Exception("Ingredient not exist");
 	}
 
 	private void buildIngredientByIngredientDTO(Ingredient ingredient, IngredientDTO ingredientDTO) throws Exception {

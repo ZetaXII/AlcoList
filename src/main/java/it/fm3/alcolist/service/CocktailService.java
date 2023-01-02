@@ -26,13 +26,7 @@ public class CocktailService implements CocktailServiceI{
 	private CocktailRepository cocktailRepository;
 	
 	@Override
-	//FIXME controllare gli ingredienti di un cocktail sia in fase di inserimento che modifica
-	// un cocktail di default deve essere isAlcoholic=false. 
-	//Quando aggiungo un ingrediente alcolico controllo se is alcolic è false
-	// se è false e sto aggiungendo un ingrediente alcolico devo modificare l'isalcoholic del ccktail e settarlo a false
-	//allo stesso modo bisgna gestire la modifica degli ingredienti quando viene cancellato/modificato un ingrediente
 	public Cocktail add(CocktailDTO cocktailDto) throws Exception {
-		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db? (Vale anche per il prodotto)
 		Cocktail newCocktail= new Cocktail();
 		cocktailDto.isAlcoholic = false;
 		this.buildCocktailByCocktailDTO(newCocktail, cocktailDto);
@@ -45,19 +39,11 @@ public class CocktailService implements CocktailServiceI{
 
 	@Override
 	public Cocktail delete(String uuid) throws Exception {
-		//TODO completare delete cocktail
-		return null;
+		Cocktail cocktailToDelete = get(uuid);
+		cocktailRepository.delete(cocktailToDelete);
+		return cocktailToDelete;
 	}
 	
-//	@Override
-//	public Product delete(String name) throws Exception {
-//		Product productToDelete = productRepository.findByName(name);
-//		if(productToDelete==null)
-//			throw new Exception("product not found with name: "+name);
-//		productToDelte.setDateDelete(new Date());
-////		return userToDelete;
-//	}
-
 	@Override
 	public Cocktail update(CocktailDTO c) throws Exception {
 		Cocktail cocktailToUpdate = cocktailRepository.findByUuid(c.uuid);
@@ -68,8 +54,12 @@ public class CocktailService implements CocktailServiceI{
 	}
 
 	@Override
-	public Cocktail get(String uuid) {
-		return cocktailRepository.findByUuid(uuid);
+	public Cocktail get(String uuid) throws Exception {
+		Cocktail c = cocktailRepository.findByUuid(uuid);
+		if(c != null)
+			return c;
+		else
+			throw new Exception("Cocktail not exist");	
 	}
 	
 	@Override
@@ -78,6 +68,8 @@ public class CocktailService implements CocktailServiceI{
 	}
 	
 	private void buildCocktailByCocktailDTO(Cocktail cocktail, CocktailDTO cocktailDTO) throws Exception {
+		if(!StringUtils.hasText(cocktailDTO.name) || cocktailDTO.price == null || !StringUtils.hasText(cocktailDTO.description) || cocktailDTO.flavour == null || cocktailDTO.isIBA == null || cocktailDTO.inMenu == null || cocktailDTO.isAlcoholic == null || !StringUtils.hasText(cocktailDTO.pathFileImg) || !StringUtils.hasText(cocktailDTO.uuid))
+			throw new Exception("Compile all fields");
 		cocktail.setName(cocktailDTO.name);
 		cocktail.setPrice(cocktailDTO.price);
 		cocktail.setDescription(cocktailDTO.description);
@@ -85,7 +77,7 @@ public class CocktailService implements CocktailServiceI{
 		cocktail.setIBA(cocktailDTO.isIBA);
 		cocktail.setInMenu(cocktailDTO.inMenu);
 		cocktail.setAlcoholic(cocktailDTO.isAlcoholic);
-		cocktail.setPathFileImg(cocktailDTO.pathFileImg);	
+		cocktail.setPathFileImg(cocktailDTO.pathFileImg);
 		if(!StringUtils.hasText(cocktailDTO.uuid))
 			cocktail.setUuid(UUID.randomUUID().toString());
 		else

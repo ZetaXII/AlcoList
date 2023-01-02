@@ -46,11 +46,5 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	List<Cocktail> findByNameAndFlavourAndIsAlcoholic(Pageable pageable, @Param("name") String name, @Param("flavour") String flavour, @Param("alcoholic") boolean alcoholic);
 	@Query("SELECT COUNT(c) FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour AND c.isAlcoholic = :alcoholic")
 	int countByNameAndFlavourAndIsAlcoholic(@Param("name") String name, @Param("flavour") String flavour, @Param("alcoholic") boolean alcoholic);
-	
-	
-	
-	
-	
-	
-	
+
 }
