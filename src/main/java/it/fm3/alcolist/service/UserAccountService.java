@@ -30,9 +30,9 @@ import it.fm3.alcolist.repository.UserAccountRepository;
 @Transactional
 public class UserAccountService implements UserAccountServiceI{
 	@Autowired
-	UserAccountRepository userAccountRepository;
+	private UserAccountRepository userAccountRepository;
 	@Autowired
-	RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	

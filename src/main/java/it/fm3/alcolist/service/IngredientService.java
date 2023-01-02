@@ -13,41 +13,31 @@ import it.fm3.alcolist.DTO.IngredientDTO;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
 import it.fm3.alcolist.entity.Product;
-import it.fm3.alcolist.repository.CocktailRepository;
 import it.fm3.alcolist.repository.IngredientRepository;
-import it.fm3.alcolist.repository.ProductRepository;
 
 @Service
 @Transactional
 public class IngredientService implements IngredientServiceI{
 	@Autowired
-	IngredientRepository ingredientRepository;
+	private IngredientRepository ingredientRepository;
 	@Autowired
-	ProductServiceI productServiceI;
+	private ProductServiceI productServiceI;
 	@Autowired
-	CocktailServiceI cocktailServiceI;
+	private CocktailServiceI cocktailServiceI;
 	
 	@Override
-	//FIXME controlare che non si stia inserendo lo stesso prodotto altrimenti si duplica la linea
+	//FIXME controllare che non si stia inserendo lo stesso prodotto altrimenti si duplica la linea
 	public Ingredient add(IngredientDTO ingredientDto) throws Exception {
-	
-		Ingredient newIngredient= new Ingredient();
-		this.buildIngredientByIngredientDTO(newIngredient, ingredientDto);
-		//System.out.println("\n\n@@@@@@NUOVO INGREDIENTE: "+newIngredient);
-		ingredientRepository.save(newIngredient);
-//		CocktailDTO c = new CocktailDTO();
-//		c.name = newIngredient.getCocktail().getName();
-//		c.price = newIngredient.getCocktail().getPrice();
-//		c.description = newIngredient.getCocktail().getDescription();
-//		c.flavour = newIngredient.getCocktail().getFlavour();
-//		c.isIBA = newIngredient.getCocktail().isIBA();
-//		c.isAlcoholic = newIngredient.getCocktail().isAlcoholic();
-//		c.pathFileImg = newIngredient.getCocktail().getPathFileImg();
-//		c.uuid = newIngredient.getCocktail().getUuid();
-//		cocktailServiceI.update(c);
-		 //System.out.println("\n\n@@@@@@ NUOVO INGREDIENTE: "+newIngredient.toString());
-		 return newIngredient;
-	}
+        Ingredient searchIngredient = ingredientRepository.findByCocktailUuidAndProductUuid(ingredientDto.cocktailUuid, ingredientDto.productUuid);
+        if(searchIngredient != null) 
+            throw new Exception("This Ingredient already exists for this cocktail");
+        Ingredient newIngredient= new Ingredient();
+        this.buildIngredientByIngredientDTO(newIngredient, ingredientDto);
+        //System.out.println("\n\n@@@@@@NUOVO INGREDIENTE: "+newIngredient);
+        ingredientRepository.save(newIngredient);
+        //System.out.println("\n\n@@@@@@ NUOVO INGREDIENTE: "+newIngredient.toString());
+        return newIngredient;
+    }
 
 	@Override
 	public Ingredient delete(String uuid) throws Exception {
@@ -98,13 +88,9 @@ public class IngredientService implements IngredientServiceI{
 			ingredient.setUuid(UUID.randomUUID().toString());
 		else
 			ingredient.setUuid(ingredientDTO.uuid);
-		
 		Cocktail getC = cocktailServiceI.get(ingredientDTO.cocktailUuid); 
-//		Set<Ingredient> ingredientsOfCocktail  = new HashSet<Ingredient>();
-//		ingredientsOfCocktail = (Set<Ingredient>) getC.getIngredients();
-//		ingredientsOfCocktail.add(ingredient);
-//		getC.setIngredients(ingredientsOfCocktail);
-		
+		if(productToSet.getAlcoholicPercentage()>0)
+			getC.setAlcoholic(true);
 		if(getC == null)
 			throw new Exception("Cokctail not found");
 		else

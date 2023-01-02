@@ -23,8 +23,7 @@ import it.fm3.alcolist.repository.CocktailRepository;
 @Transactional
 public class CocktailService implements CocktailServiceI{
 	@Autowired
-	CocktailRepository cocktailRepository;
-	
+	private CocktailRepository cocktailRepository;
 	
 	@Override
 	//FIXME controllare gli ingredienti di un cocktail sia in fase di inserimento che modifica
@@ -178,10 +177,5 @@ public class CocktailService implements CocktailServiceI{
 				return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
 			else return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
 		}
-	
-		//cocktailResultDTO.totalResult= cocktailRepository.count();
-		//if(pageable!=null)
-			//return cocktailRepository.findAll(pageable).getContent();
-		//else return cocktailRepository.findAll();
 	}
 }

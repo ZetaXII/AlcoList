@@ -21,7 +21,7 @@ import it.fm3.alcolist.repository.ProductRepository;
 @Transactional
 public class ProductService implements ProductServiceI{
 	@Autowired
-	ProductRepository productRepository;
+	private ProductRepository productRepository;
 	
 	@Override
 	public Product add(ProductDTO productDto) throws Exception {
@@ -133,7 +133,5 @@ public class ProductService implements ProductServiceI{
 				return productRepository.findByNameAndCategoryContainsIgnoreCase(pageable, productDTO.name.toUpperCase(), productDTO.category);
 			else return productRepository.findByNameAndCategoryContainsIgnoreCase(productDTO.name.toUpperCase(), productDTO.category);
 		}
-	
 	}
-	
 }
