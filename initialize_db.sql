@@ -93,7 +93,7 @@ INSERT INTO public.ingredient(is_optional, quantity, uuid, cocktail, product) va
 -- PROSECCO MOET
 ('false', '250', '8e67b1ed-c931-45eb-a3ee-2b45a1a38eb1', '', '20'),
 -- PROSECCO FERRARI
-('false', '250', '8af3b1ed-c931-45eb-a3ee-2b45a1a38eb1', '', '21');
+('false', '250', '8af3b1ed-c931-45eb-a3ee-2b45a1a38eb1', '', '21'),
 -- AMARO DEL CAPO
 ('false', '40', '1ertb1ed-c931-45eb-a3ee-2b45a1a38eb1', '', '4'),
 -- PETRUS
