@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "INGREDIENT")
 public class Ingredient {
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ID", length = 50, unique = true)
@@ -24,7 +23,6 @@ public class Ingredient {
 	
 	@OneToOne
 	@JoinColumn(name="PRODUCT")
-	
 	private Product product;
 	
 	private Integer quantity;//ml

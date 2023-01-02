@@ -47,7 +47,6 @@ public class IngredientService implements IngredientServiceI{
 
 	@Override
 	public Ingredient update(IngredientDTO i) throws Exception {
-		//TODO testare la funzionalità di modifica quantità e isoptional
 		Ingredient ingredientToUpdate = ingredientRepository.findByUuid(i.uuid);
 		if(ingredientToUpdate==null)
 			throw new Exception("ingredient not found");

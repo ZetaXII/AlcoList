@@ -36,19 +36,12 @@ public class ProductService implements ProductServiceI{
 
 	@Override
 	public Product delete(String uuid) throws Exception {
-		//TODO completare delete product
-		return null;
+		Product productToDelete = get(uuid);
+		//FIXME aggiungere controllo con link agli ingredienti
+		productRepository.delete(productToDelete);
+		return productToDelete;
 	}
 	
-//	@Override
-//	public Product delete(String name) throws Exception {
-//		Product productToDelete = productRepository.findByName(name);
-//		if(productToDelete==null)
-//			throw new Exception("product not found with name: "+name);
-//		productToDelte.setDateDelete(new Date());
-////		return userToDelete;
-//	}
-
 	@Override
 	public Product update(ProductDTO p) throws Exception {
 		Product productsToUpdate = productRepository.findByUuid(p.uuid);
@@ -59,8 +52,12 @@ public class ProductService implements ProductServiceI{
 	}
 
 	@Override
-	public Product get(String uuid) {
-		return productRepository.findByUuid(uuid);
+	public Product get(String uuid) throws Exception {
+		Product p = productRepository.findByUuid(uuid);
+		if(p != null)
+			return p;
+		else
+			throw new Exception("Product not exist");
 	}
 	
 	private void buildProductByProductDTO(Product product, ProductDTO productDTO) {

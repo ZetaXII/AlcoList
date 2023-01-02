@@ -7,6 +7,6 @@ public interface ProductServiceI {
 	Product add(ProductDTO p) throws Exception;
 	Product delete(String uuid) throws Exception;
 	Product update(ProductDTO p) throws Exception;
-	Product get(String uuid);
+	Product get(String uuid) throws Exception;
 	ProductResultDTO searchByFields(ProductDTO productDTO) throws Exception;
 }

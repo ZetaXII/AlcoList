@@ -68,7 +68,7 @@ public class CocktailService implements CocktailServiceI{
 	}
 	
 	private void buildCocktailByCocktailDTO(Cocktail cocktail, CocktailDTO cocktailDTO) throws Exception {
-		if(!StringUtils.hasText(cocktailDTO.name) || cocktailDTO.price == null || !StringUtils.hasText(cocktailDTO.description) || cocktailDTO.flavour == null || cocktailDTO.isIBA == null || cocktailDTO.inMenu == null || cocktailDTO.isAlcoholic == null || !StringUtils.hasText(cocktailDTO.pathFileImg) || !StringUtils.hasText(cocktailDTO.uuid))
+		if(!StringUtils.hasText(cocktailDTO.name) || cocktailDTO.price == null || !StringUtils.hasText(cocktailDTO.description) || cocktailDTO.flavour == null || cocktailDTO.isIBA == null || cocktailDTO.inMenu == null || cocktailDTO.isAlcoholic == null || !StringUtils.hasText(cocktailDTO.pathFileImg))
 			throw new Exception("Compile all fields");
 		cocktail.setName(cocktailDTO.name);
 		cocktail.setPrice(cocktailDTO.price);
@@ -129,7 +129,7 @@ public class CocktailService implements CocktailServiceI{
 		}	
 		else if(!StringUtils.hasText(cocktailDTO.name) && StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)==null) {
 			//SOLO GUSTO
-			cocktailResultDTO.totalResult = cocktailRepository.countByFlavourContainingIgnoreCase(cocktailDTO.flavour);
+			cocktailResultDTO.totalResult = cocktailRepository.countByFlavourContainsIgnoreCase(cocktailDTO.flavour);
 			if(pageable!=null)
 				return cocktailRepository.findByFlavourContainsIgnoreCase(pageable, cocktailDTO.flavour);
 			else return cocktailRepository.findByFlavourContainsIgnoreCase(cocktailDTO.flavour);

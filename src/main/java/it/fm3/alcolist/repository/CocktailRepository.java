@@ -2,10 +2,10 @@ package it.fm3.alcolist.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.domain.Pageable;
 
 import it.fm3.alcolist.entity.Cocktail;
 
@@ -18,7 +18,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	
 	List<Cocktail> findByFlavourContainsIgnoreCase(String flavour);
 	List<Cocktail> findByFlavourContainsIgnoreCase(Pageable pageable, String flavour);
-	int countByFlavourContainingIgnoreCase(String flavour);
+	int countByFlavourContainsIgnoreCase(String flavour);
 	
 	List<Cocktail> findByIsAlcoholic(boolean alcoholic);
 	List<Cocktail> findByIsAlcoholic(Pageable pageable, boolean alcoholic);

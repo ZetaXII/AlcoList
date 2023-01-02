@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="COCKTAIL")
 public class Cocktail {
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonIgnore
@@ -31,7 +30,6 @@ public class Cocktail {
 	
 	
 	@OneToMany(mappedBy="cocktail",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	 
 	private Set<Ingredient>ingredients = new HashSet<Ingredient>();
 	@Column(name = "NAME", length = 50)
 	private String name;
@@ -40,7 +38,7 @@ public class Cocktail {
 	@Column(name = "DESCRIPTION",length=50)
 	private String description;
 	@Column(name = "FLAVOUR",length=50)
-	private String flavour;//TODO da definire enumeration aspro secco dolce amaro
+	private String flavour;
 	@Column(name = "ISIBA")
 	private boolean isIBA;
 	@Column(name = "ISALCOHOLIC")
@@ -89,7 +87,7 @@ public class Cocktail {
 		this.description = description;
 	}
 	public String getFlavour() {
-		return flavour;
+		return this.flavour;
 	}
 	public void setFlavour(String flavour) {
 		this.flavour = flavour;

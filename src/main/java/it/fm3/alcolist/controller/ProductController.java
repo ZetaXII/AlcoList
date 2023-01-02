@@ -35,8 +35,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@RequestParam String name, HttpServletRequest request) throws Exception{
-		return new ResponseEntity<>(productService.delete(name),HttpStatus.OK);
+	public ResponseEntity<?> delete(@RequestParam String uuid, HttpServletRequest request) throws Exception{
+		return new ResponseEntity<>(productService.delete(uuid),HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
