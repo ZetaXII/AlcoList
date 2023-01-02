@@ -7,5 +7,5 @@ public interface IngredientServiceI {
 	Ingredient add(IngredientDTO i) throws Exception;
 	Ingredient delete(String uuid) throws Exception;
 	Ingredient update(IngredientDTO i) throws Exception;
-	Ingredient get(String uuid);
+	Ingredient get(String uuid) throws Exception;
 }

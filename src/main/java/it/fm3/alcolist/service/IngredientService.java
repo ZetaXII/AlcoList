@@ -26,7 +26,6 @@ public class IngredientService implements IngredientServiceI{
 	private CocktailServiceI cocktailServiceI;
 	
 	@Override
-	//FIXME controllare che non si stia inserendo lo stesso prodotto altrimenti si duplica la linea
 	public Ingredient add(IngredientDTO ingredientDto) throws Exception {
         Ingredient searchIngredient = ingredientRepository.findByCocktailUuidAndProductUuid(ingredientDto.cocktailUuid, ingredientDto.productUuid);
         if(searchIngredient != null) 
@@ -41,8 +40,9 @@ public class IngredientService implements IngredientServiceI{
 
 	@Override
 	public Ingredient delete(String uuid) throws Exception {
-		//TODO completare delete ingredient
-		return null;
+		Ingredient ingredientToDelete = get(uuid);
+		ingredientRepository.delete(ingredientToDelete);
+		return ingredientToDelete;
 	}
 	
 //	@Override
@@ -66,13 +66,16 @@ public class IngredientService implements IngredientServiceI{
 		if(i.isOptional != null) {
 			ingredientToUpdate.setOptional(i.isOptional);
 		}
-//		this.buildIngredientByIngredientDTO(ingredientToUpdate, i);
 		return ingredientToUpdate;
 	}
 
 	@Override
-	public Ingredient get(String uuid) {
-		return ingredientRepository.findByUuid(uuid);
+	public Ingredient get(String uuid) throws Exception {
+		Ingredient i = ingredientRepository.findByUuid(uuid);
+		if(i != null)
+			return i;
+		else
+			throw new Exception("Ingredient not exists");
 	}
 
 	private void buildIngredientByIngredientDTO(Ingredient ingredient, IngredientDTO ingredientDTO) throws Exception {
@@ -81,7 +84,6 @@ public class IngredientService implements IngredientServiceI{
 			if (productToSet==null)
 				throw new Exception("product: "+productToSet+" not found");
 		ingredient.setProduct(productToSet);
-		//System.out.println("setto: "+ingredient.getProduct());
 		ingredient.setQuantity(ingredientDTO.quantity);
 		ingredient.setOptional(ingredientDTO.isOptional);	
 		if(!StringUtils.hasText(ingredientDTO.uuid))

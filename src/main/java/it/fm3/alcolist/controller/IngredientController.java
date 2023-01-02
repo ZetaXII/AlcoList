@@ -35,8 +35,8 @@ public class IngredientController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@RequestParam String name, HttpServletRequest request) throws Exception{
-		return new ResponseEntity<>(ingredientService.delete(name),HttpStatus.OK);
+	public ResponseEntity<?> delete(@RequestParam String uuid, HttpServletRequest request) throws Exception{
+		return new ResponseEntity<>(ingredientService.delete(uuid),HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
