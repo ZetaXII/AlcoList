@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <!-- Coding by CodingLab | www.codinglabweb.com -->
+<input type="hidden" value="${pageContext.request.contextPath}" id="contextPath">
 <html lang="en">
 <head>
+    <title></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,7 +80,7 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href="${pageContext.request.contextPath}/users/listaCocktail.jsp" class="nav-link">
+                        <a href="${pageContext.request.contextPath}/users/listaCocktail.jsp?page=0" class="nav-link">
                             <i class='bx bxs-drink icon' ></i>
                             <span class="link">Cocktails</span>
                         </a>
@@ -98,6 +100,7 @@
     </nav>
     <!-- CUSTOM JS SCRIPTS -->
     <script src="${pageContext.request.contextPath}/script/navBarJs.js"></script>
+    <script src="${pageContext.request.contextPath}/script/utils.js"></script>
     <script src="${pageContext.request.contextPath}/script/logoutJS.js"></script>
     <script src="${pageContext.request.contextPath}/script/loadUserSessionCredentialsJS.js"></script>
     <!-- MOSTRA LE OPZIONI IN BASE AI RUOLI DELL'UTENTE -->

@@ -52,3 +52,60 @@
     left: 0.2%;
     position: absolute;
 }
+
+/*style per aggiungiCocktail*/
+
+.card-body .addCocktailFields, .card-body .modifyCocktailFields
+{
+    background-color: var(--primaryBlue);
+    color: var(--white);
+    border-radius: 12px;
+    border:none;
+}
+
+.card-body .addCocktailFields:focus, .card-body .modifyCocktailFields:focus
+{
+    background-color: var(--primaryBlue);
+    color: var(--white);
+    border-radius: 12px;
+    border:none;
+}
+
+.selectFlavours
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    border-radius: 12px;
+    border:none;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+
+.checkIBA
+{
+    accent-color: var(--cocktailTag);
+    color: var(--white);
+    border-radius: 12px;
+    border:none;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+
+.card-body .btn-addCocktail, .card-body .btn-modifyCocktail
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    border-radius: 12px;
+}
+
+.card-body .btn-addCocktail:hover, .card-body .btn-modifyCocktail:hover
+{
+    background-color: var(--yellow);
+    color: var(--secondaryBlue);
+    border: none;
+}
+
+#backToListCocktail:hover
+{
+    cursor: pointer;
+}
