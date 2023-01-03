@@ -15,8 +15,7 @@
 {
     font-size: 30px;
     text-align: right;
-    position: absolute;
-    right:3%;
+    color: var(--yellow);
 }
 
 .cocktail-tags .badge
@@ -46,7 +45,7 @@
     border:none;
 }
 
-.input-group .btn-search, .container-filter .btn-alcoholic, .container-filter .btn-flavour, .container-filter .btn-add
+.div-btn-actions .btn-search, .container-filter .btn-alcoholic, .container-filter .btn-flavour, .div-btn-actions .btn-add
 {
     background-color: var(--cocktailTag);
     color: var(--white);
@@ -55,7 +54,7 @@
     border:none;
 }
 
-.cocktail-options .btn-modify, .cocktail-options .btn-erase
+.cocktail-options .btn-modify, .cocktail-options .btn-erase, .cocktail-options .btn-view
 {
     background-color: var(--cocktailTag);
     color: var(--white);
@@ -63,7 +62,7 @@
     border-radius: 12px;
 }
 
-.input-group .btn-search:hover, .container-filter .btn-alcoholic:hover, .container-filter .btn-flavour:hover, .container-filter .btn-add:hover, .cocktail-options .btn-modify:hover, .cocktail-options .btn-erase:hover
+.div-btn-actions .btn-search:hover, .container-filter .btn-alcoholic:hover, .container-filter .btn-flavour:hover, .div-btn-actions .btn-add:hover, .cocktail-options .btn-modify:hover, .cocktail-options .btn-erase:hover, .cocktail-options .btn-view:hover
 {
     background-color: var(--yellow);
     color: var(--secondaryBlue);
@@ -74,4 +73,37 @@
 {
     font-family: "Rockwell Nova";
     font-size: 16px;
+}
+
+.pageSwitch
+{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.pageSwitch .pageNumber
+{
+    color: var(--yellow);
+    font-size: 20px;
+}
+
+.pageSwitch .prevPage, .pageSwitch .nextPage
+{
+    color: var(--yellow);
+    font-size: 80px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+#flavourField, #isAlcoholic
+{
+    background-color: var(--primaryBlue);
+    border:none;
+    border-radius: 12px;
+    color: var(--white);
+    text-transform: uppercase;
+    text-align: center;
 }

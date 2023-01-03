@@ -29,7 +29,7 @@
                 <div class="card info-cocktail-panel mb-3 p-1" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                     <div class="row g-0" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                         <div class="col-md-4 text-center">
-                            <a href="listaCocktail.jsp"><i class='bx bx-chevron-left back-button'></i></a>
+                            <a id="backToListCocktail" onclick="backToListCocktail()"><i class='bx bx-chevron-left back-button'></i></a>
                             <img src="" class="img-fluid rounded-start p-4" id="cocktail-img" width="300px">
                         </div>
                         <div class="col-md-7">
@@ -46,6 +46,7 @@
                                     <span class="badge cocktail-flavour"></span>
                                     <span class="badge cocktail-isIBA"></span>
                                     <span class="badge cocktail-isAlcoholic"></span>
+                                    <span class="badge cocktail-inMenu"></span>
                                 </div>
                                 <p class="card-text cocktail-description"></p>
                                 <p class="price"></p>
@@ -57,8 +58,21 @@
             </div>
         </div>
     </div>
-<script src="${pageContext.request.contextPath}/script/getCocktail.js"></script>
-<script src="${pageContext.request.contextPath}/script/infoCocktail.js"></script>
+<script src="${pageContext.request.contextPath}/script/cocktailJS.js"></script>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
+<script>
+    infoCocktail();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let page = parseInt(urlParams.get('page'));
+
+    function backToListCocktail()
+    {
+        window.location.href= $("#contextPath").val()+"/users/listaCocktail.jsp?page="+page;
+    }
+
+
+
+</script>
 </body>
 </html>

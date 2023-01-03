@@ -54,7 +54,7 @@ $("#login").click(function(e)
         },
         error: function(error)
         {
-            alert("generic error"+ error);
+            console.log("generic error"+ JSON.stringify(error));
         }
     });
 });
