@@ -10,10 +10,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "INGREDIENT")
-public class Ingredient {
+@Table(name = "ORDERED_COCKTAIL")
+public class OrderedCocktail {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,41 +22,25 @@ public class Ingredient {
 	@JsonIgnore
 	private long id;
 	
-	
-	@OneToOne
-	@JoinColumn(name="PRODUCT",nullable = false)
-	private Product product;
-	
+	@Column(name = "QUANTITY")
 	private Integer quantity;//ml
-	private boolean isOptional;
-	private boolean isPresent;
-	@Column(name = "UUID", length = 50, nullable = false, unique = true)
-	private String uuid;
-	
 	
 	@OneToOne
 	@JoinColumn(name="COCKTAIL", nullable = false)
 	@JsonIgnore
 	private Cocktail cocktail;
 	
-	public boolean isOptional() {
-		return isOptional;
-	}
-	public void setOptional(boolean isOptional) {
-		this.isOptional = isOptional;
-	}
+	@OneToOne
+	@JoinColumn(name="ORDINATION", nullable = false)
+	@JsonIgnore
+	private Ordination ordination;
+	
+	
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	
-	public Product getProduct() {
-		return product;
-	}
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 	
 	public Integer getQuantity() {
@@ -64,12 +49,6 @@ public class Ingredient {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	public String getUuid() {
-		return uuid;
-	}
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
 	
 	public Cocktail getCocktail() {
 		return cocktail;
@@ -77,17 +56,18 @@ public class Ingredient {
 	public void setCocktail(Cocktail c) {
 		this.cocktail = c;
 	}
-	
-	
-	public boolean isPresent() {
-		return isPresent;
+	public Ordination getOrdination() {
+		return ordination;
 	}
-	public void setPresent(boolean isPresent) {
-		this.isPresent = isPresent;
+	public void setOrdination(Ordination ordination) {
+		this.ordination = ordination;
 	}
 	@Override
 	public String toString() {
-		return "Ingredient [id=" + id + ", product=" + product + ", quantity=" + quantity + ", isOptional=" + isOptional
-				+ ", isPresent=" + isPresent + ", uuid=" + uuid + ", cocktail=" + cocktail + "]";
+		return "OrderedCocktail [id=" + id + ", quantity=" + quantity + "]";
 	}
+	
+	
+	
+		
 }

@@ -55,11 +55,9 @@ public class CocktailService implements CocktailServiceI{
 
 	@Override
 	public Cocktail get(String uuid) throws Exception {
-		Cocktail c = cocktailRepository.findByUuid(uuid);
-		if(c != null)
-			return c;
-		else
-			throw new Exception("Cocktail not exist");	
+		Cocktail c=cocktailRepository.findByUuid(uuid);
+		if(c==null) throw new Exception ("Cocktail with uuid "+uuid+" not exists");
+		return c;
 	}
 	
 	@Override

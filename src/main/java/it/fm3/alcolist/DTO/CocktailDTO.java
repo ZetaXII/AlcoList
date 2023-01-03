@@ -12,4 +12,13 @@ public class CocktailDTO {
 	public String uuid;
 	public Integer page;
 	public Integer size;
+	@Override
+	public String toString() {
+		return "CocktailDTO [name=" + name + ", price=" + price + ", description=" + description + ", flavour="
+				+ flavour + ", isIBA=" + isIBA + ", inMenu=" + inMenu + ", isAlcoholic=" + isAlcoholic
+				+ ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", page=" + page + ", size=" + size + "]";
+	}
+	
+	
+	
 }

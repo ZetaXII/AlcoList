@@ -32,9 +32,7 @@ public class IngredientService implements IngredientServiceI{
             throw new Exception("This Ingredient already exists for this cocktail");
         Ingredient newIngredient= new Ingredient();
         this.buildIngredientByIngredientDTO(newIngredient, ingredientDto);
-        //System.out.println("\n\n@@@@@@NUOVO INGREDIENTE: "+newIngredient);
         ingredientRepository.save(newIngredient);
-        //System.out.println("\n\n@@@@@@ NUOVO INGREDIENTE: "+newIngredient.toString());
         return newIngredient;
     }
 
@@ -65,17 +63,20 @@ public class IngredientService implements IngredientServiceI{
 		if(i != null)
 			return i;
 		else
-			throw new Exception("Ingredient not exist");
+			throw new Exception("Ingredient with uuid: "+uuid+" not exist");
 	}
 
 	private void buildIngredientByIngredientDTO(Ingredient ingredient, IngredientDTO ingredientDTO) throws Exception {
 		Product productToSet = null;
 		productToSet = productServiceI.get(ingredientDTO.productUuid);
-			if (productToSet==null)
-				throw new Exception("product: "+productToSet+" not found");
 		ingredient.setProduct(productToSet);
+		if(productToSet.isPresent() && (ingredientDTO.quantity==null || productToSet.getMl()>=ingredientDTO.quantity ))
+			ingredient.setPresent(true);
+		else
+			ingredient.setPresent(false);
 		ingredient.setQuantity(ingredientDTO.quantity);
-		ingredient.setOptional(ingredientDTO.isOptional);	
+		if(ingredientDTO.isOptional!=null)
+			ingredient.setOptional(ingredientDTO.isOptional);	
 		if(!StringUtils.hasText(ingredientDTO.uuid))
 			ingredient.setUuid(UUID.randomUUID().toString());
 		else

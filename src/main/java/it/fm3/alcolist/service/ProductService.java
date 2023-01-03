@@ -52,12 +52,11 @@ public class ProductService implements ProductServiceI{
 	}
 
 	@Override
-	public Product get(String uuid) throws Exception {
-		Product p = productRepository.findByUuid(uuid);
-		if(p != null)
-			return p;
-		else
-			throw new Exception("Product not exist");
+	public Product get(String uuid) throws Exception{
+		Product p=productRepository.findByUuid(uuid);
+		if (p==null)
+			throw new Exception("product: with uuid"+uuid+" not found");
+		return p;
 	}
 	
 	private void buildProductByProductDTO(Product product, ProductDTO productDTO) {

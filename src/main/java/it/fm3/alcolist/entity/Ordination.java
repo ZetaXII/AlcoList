@@ -2,6 +2,7 @@ package it.fm3.alcolist.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,16 +12,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import it.fm3.alcolist.DTO.OrdinationStatusEnum;
 import it.fm3.alcolist.utils.StatusEnum;
 
 @Entity
 @Table(name="ORDINATION")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ordination {
 	
 	@Id
@@ -29,8 +33,9 @@ public class Ordination {
 	@JsonIgnore
 	private long id;
 	
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordinations")
-	private List<Cocktail> orderedCocktails;
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordination")
+	@JsonIgnore
+	private Set<OrderedCocktail> orderedCocktails;
 	
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
@@ -41,18 +46,26 @@ public class Ordination {
 	@Column(name = "TOTAL")
 	private Double total;
 	@Column(name = "STATUS")
-	private StatusEnum status;
+	private OrdinationStatusEnum status;
+	
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinColumn(name="executedBy")
+	@JsonIgnore
 	private UserAccount executedBy;
+	
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="createdBy", nullable=false)	
+	@JoinColumn(name="createdBy", nullable=false)
+	@JsonIgnore
 	private UserAccount createdBy;
+	
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinColumn(name="deliveredBy")
+	@JsonIgnore
 	private UserAccount deliveredBy;
+	
 	@Column(name = "DATE_LAST_MODIFIED")
 	private Date dateLastModified;
+	
 	@Column(name = "DATE_CREATION")
 	private Date dateCreation;
 	
@@ -105,16 +118,16 @@ public class Ordination {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	public StatusEnum getStatus() {
+	public OrdinationStatusEnum getStatus() {
 		return status;
 	}
-	public void setStatus(StatusEnum status) {
+	public void setStatus(OrdinationStatusEnum status) {
 		this.status = status;
 	}
-	public List<Cocktail> getOrderedCocktails() {
+	public Set<OrderedCocktail> getOrderedCocktails() {
 		return orderedCocktails;
 	}
-	public void setOrderedCocktails(List<Cocktail> orderedCocktails) {
+	public void setOrderedCocktails(Set<OrderedCocktail> orderedCocktails) {
 		this.orderedCocktails = orderedCocktails;
 	}
 	public String getUuid() {
@@ -123,6 +136,14 @@ public class Ordination {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+	@Override
+	public String toString() {
+		return "Ordination [id=" + id + ", uuid=" + uuid + ", table=" + table
+				+ ", total=" + total + ", status=" + status + ", executedBy=" + executedBy + ", createdBy=" + createdBy
+				+ ", deliveredBy=" + deliveredBy + ", dateLastModified=" + dateLastModified + ", dateCreation="
+				+ dateCreation + "]";
+	}
+	
 	
 	
 }

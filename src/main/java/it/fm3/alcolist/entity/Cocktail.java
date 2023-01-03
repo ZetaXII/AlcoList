@@ -1,7 +1,6 @@
 package it.fm3.alcolist.entity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,17 +10,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="COCKTAIL")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cocktail {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonIgnore
@@ -30,15 +29,17 @@ public class Cocktail {
 	
 	
 	@OneToMany(mappedBy="cocktail",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JsonIgnore
 	private Set<Ingredient>ingredients = new HashSet<Ingredient>();
+	
 	@Column(name = "NAME", length = 50)
 	private String name;
 	@Column(name = "PRICE")
 	private Double price;
-	@Column(name = "DESCRIPTION",length=50)
+	@Column(name = "DESCRIPTION",length=500)
 	private String description;
 	@Column(name = "FLAVOUR",length=50)
-	private String flavour;
+	private String flavour;//TODO da definire enumeration aspro secco dolce amaro
 	@Column(name = "ISIBA")
 	private boolean isIBA;
 	@Column(name = "ISALCOHOLIC")
@@ -49,13 +50,11 @@ public class Cocktail {
 	private String uuid;
 	@Column(name = "INMENU")
 	private boolean inMenu;
-	
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinTable(name="ordered_cocktails",joinColumns=@JoinColumn(name="ordination_id"),
-    inverseJoinColumns=@JoinColumn(name="cocktail_id"))
+	/*
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JsonIgnore
 	private List<Ordination> ordinations;
-	
+	*/
 	public long getId() {
 		return id;
 	}
@@ -87,7 +86,7 @@ public class Cocktail {
 		this.description = description;
 	}
 	public String getFlavour() {
-		return this.flavour;
+		return flavour;
 	}
 	public void setFlavour(String flavour) {
 		this.flavour = flavour;
@@ -116,12 +115,13 @@ public class Cocktail {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+	/*
 	public List<Ordination> getOrdinations() {
 		return ordinations;
 	}
 	public void setOrdinations(List<Ordination> ordinations) {
 		this.ordinations = ordinations;
-	}
+	}*/
 	public boolean isInMenu() {
 		return inMenu;
 	}
@@ -131,9 +131,9 @@ public class Cocktail {
 	
 	@Override
 	public String toString() {
-		return "Cocktail [id=" + id + ", ingredients=" + ingredients + ", name=" + name + ", price=" + price
+		return "Cocktail [id=" + id + ", name=" + name + ", price=" + price
 				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
 				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu
-				+ ", ordinations=" + ordinations + "]";
+				+"]";
 	}
 }
