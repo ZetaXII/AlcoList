@@ -67,6 +67,22 @@ public class CocktailService implements CocktailServiceI{
 		 return cocktailRepository.findByUuid(uuid).getIngredients();
 	}
 	
+	@Override
+	public CocktailResultDTO getMenu() throws Exception {
+		CocktailDTO cocktailDTO = new CocktailDTO();
+		cocktailDTO.inMenu = true;
+		return searchByFields(cocktailDTO);
+		//cocktailRepository.findByInMenu(pageable);
+	}
+	
+	@Override
+	public CocktailResultDTO getMenuIba() throws Exception {
+		CocktailDTO cocktailDTO = new CocktailDTO();
+		cocktailDTO.isIBA = true;
+		return searchByFields(cocktailDTO);
+		//cocktailRepository.findByInMenu(pageable);
+	}
+	
 	private void buildCocktailByCocktailDTO(Cocktail cocktail, CocktailDTO cocktailDTO) throws Exception {
 		if(!StringUtils.hasText(cocktailDTO.name) || cocktailDTO.price == null || !StringUtils.hasText(cocktailDTO.description) || cocktailDTO.flavour == null || cocktailDTO.isIBA == null || cocktailDTO.inMenu == null || cocktailDTO.isAlcoholic == null || !StringUtils.hasText(cocktailDTO.pathFileImg))
 			throw new Exception("Compile all fields");
@@ -113,6 +129,18 @@ public class CocktailService implements CocktailServiceI{
 	}
 	
 	private List<Cocktail> searchByFieldsSimple(CocktailDTO cocktailDTO, Pageable pageable,CocktailResultDTO cocktailResultDTO) throws Exception {
+		if((cocktailDTO.inMenu)!=null) {
+			cocktailResultDTO.totalResult= cocktailRepository.countByInMenu(true);
+			//if(pageable!=null)
+				return cocktailRepository.findByInMenu(pageable, true);
+			//else return cocktailRepository.findByInMenu(true);
+		}
+		if((cocktailDTO.isIBA)!=null) {
+			cocktailResultDTO.totalResult= cocktailRepository.countByIsIBA(true);
+			//if(pageable!=null)
+				return cocktailRepository.findByIsIBA(pageable,true);
+			//else return cocktailRepository.findByInMenu(true);
+		}
 		if(!StringUtils.hasText(cocktailDTO.name) && !StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)==null) {
 			//SE TUTTI VUOTI RICERCA TUTTO
 			cocktailResultDTO.totalResult= cocktailRepository.count();

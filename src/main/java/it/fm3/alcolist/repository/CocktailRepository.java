@@ -47,4 +47,11 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	@Query("SELECT COUNT(c) FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour AND c.isAlcoholic = :alcoholic")
 	int countByNameAndFlavourAndIsAlcoholic(@Param("name") String name, @Param("flavour") String flavour, @Param("alcoholic") boolean alcoholic);
 
+	//@Query("SELECT c FROM Cocktail c WHERE c.inmenu=true");
+	//List<Cocktail> findByInMenu(Pageable pageable, boolean inMenu);
+	List<Cocktail> findByInMenu(Pageable pageable, boolean inMenu);
+	int countByInMenu(boolean inMenu);
+	
+	List<Cocktail> findByIsIBA(Pageable pageable, boolean isIba);
+	int countByIsIBA(boolean isIba);
 }
