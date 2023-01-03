@@ -58,15 +58,15 @@ public class CocktailController {
 	public ResponseEntity<?> searchByFields(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
 		return ResponseEntity.ok(cocktailService.searchByFields(cocktail));
 	}
-	
+
 	@RequestMapping(value = "/getMenu", method = RequestMethod.GET)
-	public ResponseEntity<?> getByMenu() throws Exception {
-		return ResponseEntity.ok(cocktailService.getMenu());
-	}
-	
-	@RequestMapping(value = "/getMenuIba", method = RequestMethod.GET)
-	public ResponseEntity<?> getByMenuIba() throws Exception {
-		return ResponseEntity.ok(cocktailService.getMenuIba());
-	}
+    public ResponseEntity<?> getByMenu(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
+        return ResponseEntity.ok(cocktailService.getMenu(cocktail));
+    }
+
+    @RequestMapping(value = "/getMenuIba", method = RequestMethod.GET)
+    public ResponseEntity<?> getByMenuIba(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
+        return ResponseEntity.ok(cocktailService.getMenuIba(cocktail));
+    }
 	
 }

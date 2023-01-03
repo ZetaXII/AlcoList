@@ -66,20 +66,18 @@ public class CocktailService implements CocktailServiceI{
 	}
 	
 	@Override
-	public CocktailResultDTO getMenu() throws Exception {
-		CocktailDTO cocktailDTO = new CocktailDTO();
-		cocktailDTO.inMenu = true;
-		return searchByFields(cocktailDTO);
-		//cocktailRepository.findByInMenu(pageable);
-	}
-	
-	@Override
-	public CocktailResultDTO getMenuIba() throws Exception {
-		CocktailDTO cocktailDTO = new CocktailDTO();
-		cocktailDTO.isIBA = true;
-		return searchByFields(cocktailDTO);
-		//cocktailRepository.findByInMenu(pageable);
-	}
+    public CocktailResultDTO getMenu(CocktailDTO cocktailDTO) throws Exception {
+        cocktailDTO.inMenu = true;
+        return searchByFields(cocktailDTO);
+        //cocktailRepository.findByInMenu(pageable);
+    }
+
+    @Override
+    public CocktailResultDTO getMenuIba(CocktailDTO cocktailDTO) throws Exception {
+        cocktailDTO.isIBA = true;
+        return searchByFields(cocktailDTO);
+        //cocktailRepository.findByInMenu(pageable);
+    }
 	
 	private void buildCocktailByCocktailDTO(Cocktail cocktail, CocktailDTO cocktailDTO) throws Exception {
 		if(!StringUtils.hasText(cocktailDTO.name) || cocktailDTO.price == null || !StringUtils.hasText(cocktailDTO.description) || cocktailDTO.flavour == null || cocktailDTO.isIBA == null || cocktailDTO.inMenu == null || cocktailDTO.isAlcoholic == null || !StringUtils.hasText(cocktailDTO.pathFileImg))
