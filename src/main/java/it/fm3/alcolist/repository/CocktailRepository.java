@@ -30,6 +30,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	//NOME GUSTO
 	@Query("SELECT c FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour")
 	List<Cocktail> findByNameAndFlavourContainsIgnoreCase(@Param("name") String name, @Param("flavour") String flavour);
+	@Query("SELECT c FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour")
 	List<Cocktail> findByNameAndFlavourContainsIgnoreCase(Pageable pageable, @Param("name") String name, @Param("flavour") String flavour);
 	@Query("SELECT COUNT(c) FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour")
 	int countByNameAndFlavourContainingIgnoreCase(@Param("name") String name, @Param("flavour") String flavour);
@@ -37,6 +38,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	//NOME ALCOLICO
 	@Query("SELECT c FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.isAlcoholic = :alcoholic")
 	List<Cocktail> findByNameAndIsAlcoholic(@Param("name") String name, @Param("alcoholic") boolean alcoholic);
+	@Query("SELECT c FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.isAlcoholic = :alcoholic")
 	List<Cocktail> findByNameAndIsAlcoholic(Pageable pageable, @Param("name") String name, @Param("alcoholic") boolean alcoholic);
 	@Query("SELECT COUNT(c) FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.isAlcoholic = :alcoholic")
 	int countByNameAndIsAlcoholic(@Param("name") String name, @Param("alcoholic") boolean alcoholic);
@@ -49,6 +51,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	//COMPLETA
 	@Query("SELECT c FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour AND c.isAlcoholic = :alcoholic")
 	List<Cocktail> findByNameAndFlavourAndIsAlcoholic(@Param("name") String name, @Param("flavour") String flavour, @Param("alcoholic") boolean alcoholic);
+	@Query("SELECT c FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour AND c.isAlcoholic = :alcoholic")
 	List<Cocktail> findByNameAndFlavourAndIsAlcoholic(Pageable pageable, @Param("name") String name, @Param("flavour") String flavour, @Param("alcoholic") boolean alcoholic);
 	@Query("SELECT COUNT(c) FROM Cocktail c WHERE UPPER(c.name) LIKE %:name% AND c.flavour = :flavour AND c.isAlcoholic = :alcoholic")
 	int countByNameAndFlavourAndIsAlcoholic(@Param("name") String name, @Param("flavour") String flavour, @Param("alcoholic") boolean alcoholic);
