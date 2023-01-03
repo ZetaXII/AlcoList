@@ -49,4 +49,13 @@ public class TablesController {
 		return ResponseEntity.ok(tablesService.get(uuid));
 	}
 	
+	@RequestMapping(value = "/getAll/", method = RequestMethod.GET)
+	public ResponseEntity<?> getAll() throws Exception {
+		return ResponseEntity.ok(tablesService.getAll());
+	}
+	
+//	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
+//	public ResponseEntity<?> searchByFields(@RequestBody TablesDTO t, HttpServletRequest request) throws Exception {
+//		return ResponseEntity.ok(tablesService.searchByFields(t));
+//	}
 }

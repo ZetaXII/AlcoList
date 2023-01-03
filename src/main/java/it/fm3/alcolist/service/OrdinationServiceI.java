@@ -3,7 +3,6 @@ package it.fm3.alcolist.service;
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
 import it.fm3.alcolist.DTO.OrdinationStatusEnum;
-import it.fm3.alcolist.entity.OrderedCocktail;
 import it.fm3.alcolist.entity.Ordination;
 
 public interface OrdinationServiceI {

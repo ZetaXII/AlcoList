@@ -17,9 +17,8 @@ public class Tables {
 	private long id;
 	@Column(name = "NUMBER", length = 50)
 	private Integer number;
-	/*
-	@Column(name = "SEATS", length = 50)
-	private Integer seats;*/
+	@Column(name = "ISFREE", length = 50)
+	private Boolean isFree;
 	@Column(name = "UUID", length = 50, unique = true)
 	private String uuid;
 	
@@ -35,13 +34,14 @@ public class Tables {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	/*
-	public Integer getSeats() {
-		return seats;
+	
+	public Boolean getIsFree() {
+		return isFree;
 	}
-	public void setSeats(Integer seats) {
-		this.seats = seats;
-	}*/
+	public void setIsFree(Boolean isFree) {
+		this.isFree = isFree;
+	}
+	
 	public String getUuid() {
 		return uuid;
 	}

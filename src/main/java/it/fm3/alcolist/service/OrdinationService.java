@@ -49,6 +49,8 @@ public class OrdinationService implements OrdinationServiceI{
 	public Ordination create(OrdinationDTO ordinationDto) throws Exception {
 		ordinationDto.status=OrdinationStatusEnum.CREATED;
 		Ordination newOrdination= new Ordination();
+		Tables t = tablesRepository.findByUuid(ordinationDto.tableUuid);
+		t.setIsFree(false);
 		this.buildOrdinationByDTO(newOrdination, ordinationDto);
 		System.out.println("vado a salvare\n\n "+newOrdination);
 		ordinationRepository.save(newOrdination);

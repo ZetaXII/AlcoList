@@ -1,5 +1,3 @@
-
-
 INSERT INTO public.cocktail(description, flavour, inmenu, isalcoholic, isiba, name, pathfileimg, price, uuid) values
 ('Descrizione americano', 'Amaro', 'true', 'true', 'true', 'Americano', null, '6', '02c6659a-8ae0-11ed-a1eb-0242ac120002'),
 ('Descrizione negroni', 'Amaro', 'true', 'true', 'true', 'Negroni', null, '5.5', '09a7ae50-8ae0-11ed-a1eb-0242ac120002'),
@@ -97,3 +95,17 @@ INSERT INTO public.ingredient(is_optional, is_present, quantity, uuid, cocktail,
 ('false', 'true', '40', '1ertb1ed-c931-45eb-a3ee-2b45a1a38eb1', '12', '4'),
 -- PETRUS
 ('false', 'true', '40', '7poib1ed-c931-45eb-a3ee-2b45a1a38eb1', '13', '5');
+
+INSERT INTO public.tables(number, uuid, isfree) values
+('1', '01c6659a-8ae0-11ed-a1eb-0242ac120001', 'true'),
+('2', '09a7ae50-8ae0-11ed-a1eb-0242ac620024', 'true'),
+('3', '14648296-8ae0-11ed-a1eb-0242ac320122', 'true'),
+('4', '964f25e1-f435-40f8-b999-8cb197eddqc3', 'true'),
+('5', '41d339c1-b5db-4286-bf50-195bd621239a', 'true'),
+('6', '4215ce82-bf79-4cbe-9084-fcd1e0a46e25', 'true'),
+('7', 'a1b7b172-a16c-4a2b-b213-62ff1324c848', 'true'),
+('8', '1358344c-68ac-4a69-8fb3-ed85cdf11a78', 'true'),
+('9', '2e871784-4a65-4676-a944-a7s911q491f8', 'true'),
+('10', '918bed1d-8915-4049-ab55-9c12d13621r4', 'true'),
+('11', '57ef8f40-d47e-43bf-aa36-c873055ae321', 'true'),
+('12', '12jh3h43-d47e-43bf-aa36-c873095ae309', 'true');
