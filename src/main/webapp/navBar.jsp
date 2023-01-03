@@ -19,7 +19,7 @@
         <div class="logo">
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">AlcoList</span>
-            <a href="#" class="user-info p-0 mt-1 text-center mx-3" style="right:20px; position: fixed; transition: 0.2s;">
+            <a href="${pageContext.request.contextPath}/users/profile.jsp" class="user-info p-0 mt-1 text-center mx-3" style="right:20px; position: fixed; transition: 0.2s;">
                 <span class="user-name"></span> <span class="badge bg-danger"></span><i class='bx bx-user-circle icon' style="font-size: 30px"></i>
             </a>
         </div>

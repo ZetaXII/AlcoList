@@ -1,0 +1,31 @@
+.profile-title {
+    font-size: 30px;
+    color: #eaeaea;
+}
+
+.user-profile{
+    color: #eaeaea;
+}
+
+ul {
+    margin-left: -15px;
+    list-style-type: none;
+}
+
+.card-text{
+    color: #eaeaea;
+}
+
+.user-tag
+{
+    background-color: var(--cocktailTag);
+    color: #eaeaea;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 5px 32px;
+    font-weight: lighter;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

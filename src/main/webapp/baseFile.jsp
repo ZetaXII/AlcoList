@@ -10,7 +10,7 @@
     <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
 </head>
 <body>
-    <%@include file="../../navBar.jsp"%>
+    <%@include file="navBar.jsp"%>
     <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
     <script>
         if(!roleList.includes("RUOLO"))
