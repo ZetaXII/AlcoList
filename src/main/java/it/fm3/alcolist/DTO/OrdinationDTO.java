@@ -15,9 +15,9 @@ public class OrdinationDTO {
 	public String deliveredBy;
 	public String executedBy;
 	
-	
 	public Integer page;
 	public Integer size;
+	
 	@Override
 	public String toString() {
 		return "OrdinationDTO [cocktailUuidList=" + cocktailUuidList + ", tableUuid=" + tableUuid + ", status=" + status
@@ -25,8 +25,4 @@ public class OrdinationDTO {
 				+ ", total=" + total + ", createdByUserUuid=" + createdByUserUuid + ", deliveredBy=" + deliveredBy
 				+ ", executedBy=" + executedBy + ", page=" + page + ", size=" + size + "]";
 	}
-	
-	
-	
-	
 }

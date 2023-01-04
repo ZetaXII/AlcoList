@@ -1,7 +1,6 @@
 package it.fm3.alcolist.entity;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import it.fm3.alcolist.DTO.OrdinationStatusEnum;
-import it.fm3.alcolist.utils.StatusEnum;
 
 @Entity
 @Table(name="ORDINATION")
@@ -42,6 +40,7 @@ public class Ordination {
 	
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinColumn(name="ID_TABLES", nullable=false)
+	@JsonIgnore
 	private Tables table;
 	@Column(name = "TOTAL")
 	private Double total;
@@ -143,7 +142,5 @@ public class Ordination {
 				+ ", deliveredBy=" + deliveredBy + ", dateLastModified=" + dateLastModified + ", dateCreation="
 				+ dateCreation + "]";
 	}
-	
-	
 	
 }

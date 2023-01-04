@@ -17,7 +17,7 @@ import it.fm3.alcolist.service.OrdinationServiceI;
 
 @RestController
 @CrossOrigin
-@RequestMapping("manage-ordination")
+@RequestMapping("manage-ordinations")
 public class OrdinationController {
 	
 	@Autowired
@@ -41,6 +41,11 @@ public class OrdinationController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
+	public ResponseEntity<?> searchByFields(@RequestBody OrdinationDTO ordination, HttpServletRequest request) throws Exception {
+		return ResponseEntity.ok(ordinationService.searchByFields(ordination));
 	}
 	
 }

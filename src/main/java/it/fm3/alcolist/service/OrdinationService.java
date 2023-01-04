@@ -1,19 +1,23 @@
 package it.fm3.alcolist.service;
 
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
+import it.fm3.alcolist.DTO.OrdinationResultDTO;
 import it.fm3.alcolist.DTO.OrdinationStatusEnum;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
@@ -160,4 +164,66 @@ public class OrdinationService implements OrdinationServiceI{
 	}
 
 	//FIXME DA DEFINIRE API PER PASSAGGIO STATO DA CREATED A SENT 
+	
+	@Override
+	public OrdinationResultDTO searchByFields(OrdinationDTO ordinationDTO) throws Exception {
+		OrdinationResultDTO ordinationResult = new OrdinationResultDTO();
+		
+		ordinationResult.ordinations = searchByFieldsRes(ordinationDTO , ordinationResult);
+		
+		if(ordinationResult.ordinations.size() == 0 ) {
+			ordinationResult.totalResult=0;
+			ordinationResult.itemsPerPage =0;
+			ordinationResult.startIndex=0;
+		}else {
+			ordinationResult.itemsPerPage = ordinationResult.ordinations.size();
+		}
+		return ordinationResult;
+	}
+	
+	private List<Ordination>  searchByFieldsRes(OrdinationDTO ordinationDTO, OrdinationResultDTO ordinationResultDTO) throws Exception  {
+		Pageable pageable = null;
+		if(ordinationDTO.page != null && ordinationDTO.size != null) {
+			pageable = PageRequest.of(ordinationDTO.page.intValue(), ordinationDTO.size.intValue());
+			if(ordinationDTO.page.intValue() > 0)
+				ordinationResultDTO.startIndex = ordinationDTO.page.intValue() * ordinationDTO.size.intValue() + 1;
+			else
+				ordinationResultDTO.startIndex = ordinationDTO.page.intValue() + 1;
+		}
+		return searchByFieldsSimple(ordinationDTO, pageable,ordinationResultDTO);
+	}
+	
+	private List<Ordination> searchByFieldsSimple(OrdinationDTO ordinationDTO, Pageable pageable, OrdinationResultDTO ordinationResultDTO) throws Exception {
+		if(StringUtils.hasText(ordinationDTO.createdByUserUuid) && !StringUtils.hasText(ordinationDTO.deliveredBy) && !StringUtils.hasText(ordinationDTO.executedBy) && (ordinationDTO.status)==null) {
+			//SOLO CREATED BY
+			ordinationResultDTO.totalResult= ordinationRepository.countByCreatedBy(ordinationDTO.createdByUserUuid);
+			if(pageable!=null)
+				return ordinationRepository.findByCreatedBy(pageable, ordinationDTO.createdByUserUuid);
+			else return ordinationRepository.findByCreatedBy(ordinationDTO.createdByUserUuid);
+		}
+		if(!StringUtils.hasText(ordinationDTO.createdByUserUuid) && StringUtils.hasText(ordinationDTO.deliveredBy) && !StringUtils.hasText(ordinationDTO.executedBy) && (ordinationDTO.status)==null) {
+			//SOLO DELIVERED BY
+			ordinationResultDTO.totalResult= ordinationRepository.countByDeliveredBy(ordinationDTO.deliveredBy);
+			if(pageable!=null)
+				return ordinationRepository.findByDeliveredBy(pageable, ordinationDTO.deliveredBy);
+			else return ordinationRepository.findByDeliveredBy(ordinationDTO.deliveredBy);
+		}
+		if(!StringUtils.hasText(ordinationDTO.createdByUserUuid) && !StringUtils.hasText(ordinationDTO.deliveredBy) && StringUtils.hasText(ordinationDTO.executedBy) && (ordinationDTO.status)==null) {
+			//SOLO EXECUTED BY
+			ordinationResultDTO.totalResult= ordinationRepository.countByExecutedBy(ordinationDTO.executedBy);
+			if(pageable!=null)
+				return ordinationRepository.findByExecutedBy(pageable, ordinationDTO.executedBy);
+			else return ordinationRepository.findByExecutedBy(ordinationDTO.executedBy);
+		}
+		if(!StringUtils.hasText(ordinationDTO.createdByUserUuid) && !StringUtils.hasText(ordinationDTO.deliveredBy) && !StringUtils.hasText(ordinationDTO.executedBy) && (ordinationDTO.status)!=null) {
+		//SOLO STATUS
+		ordinationResultDTO.totalResult= ordinationRepository.countByStatus(ordinationDTO.status);
+		if(pageable!=null)
+			return ordinationRepository.findByStatus(pageable, ordinationDTO.status);
+		else return ordinationRepository.findByStatus(ordinationDTO.status);
+		}
+
+		List<Ordination> voidList = new ArrayList<>();
+		return voidList;
+	}
 }
