@@ -85,9 +85,9 @@
 
                                     <input type="text" id="surnameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Cognome" maxlength="255" required>
                                     <div class="cocktail-tags py-2 mb-3">
-                                        <button type="button" class="badge badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
-                                        <button type="button" class="badge" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
-                                        <button type="button" class="badge" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
+                                        <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                        <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
+                                        <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
                                         <!--<input type="radio" class="radio" checked="true" id="MANAGER" value="MANAGER" onclick="selectedRole(this.id)"><span>MANAGER</span></input>
                                         <input type="radio" class="radio" id="BARTENDER" onclick="selectedRole(this.id)"><span>BARTENDER</span></input>
                                         <input type="radio" class="radio" id="WAITER" onclick="selectedRole(this.id)"><span>CAMERIERE</span></input>
