@@ -1,4 +1,4 @@
-.info-cocktail-panel
+.info-item-panel
 {
     color: var(--white);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.19);
@@ -6,7 +6,7 @@
     !important;
 }
 
-.cocktail-name
+.item-name
 {
     font-size: 30px;
 }
@@ -18,7 +18,7 @@
     color: var(--yellow);
 }
 
-.cocktail-tags .badge
+.item-tags .badge
 {
     background-color: var(--cocktailTag);
     text-transform: uppercase;
@@ -45,7 +45,7 @@
     border:none;
 }
 
-.div-btn-actions .btn-search, .container-filter .btn-alcoholic, .container-filter .btn-flavour, .div-btn-actions .btn-add
+.filters .btn-search, .filters .btn-alcoholic, .filters .btn-flavour, .d-flex .btn-add
 {
     background-color: var(--cocktailTag);
     color: var(--white);
@@ -54,7 +54,7 @@
     border:none;
 }
 
-.cocktail-options .btn-modify, .cocktail-options .btn-erase, .cocktail-options .btn-view
+.item-options .btn-modify, .item-options .btn-erase, .item-options .btn-view
 {
     background-color: var(--cocktailTag);
     color: var(--white);
@@ -62,7 +62,7 @@
     border-radius: 12px;
 }
 
-.div-btn-actions .btn-search:hover, .container-filter .btn-alcoholic:hover, .container-filter .btn-flavour:hover, .div-btn-actions .btn-add:hover, .cocktail-options .btn-modify:hover, .cocktail-options .btn-erase:hover, .cocktail-options .btn-view:hover
+.filters .btn-search:hover, .filters .btn-alcoholic:hover, .filters .btn-flavour:hover, .d-flex .btn-add:hover, .item-options .btn-modify:hover, .item-options .btn-erase:hover, .item-options .btn-view:hover
 {
     background-color: var(--yellow);
     color: var(--secondaryBlue);
@@ -98,7 +98,7 @@
     align-items: center;
 }
 
-#flavourField, #isAlcoholic
+#searchFlavourField, #searchIsAlcoholic
 {
     background-color: var(--primaryBlue);
     border:none;
@@ -106,4 +106,11 @@
     color: var(--white);
     text-transform: uppercase;
     text-align: center;
+    height: 40px;
+}
+
+.row .filters
+{
+    background-color: var(--secondaryBlue);
+    border-radius: 20px;
 }

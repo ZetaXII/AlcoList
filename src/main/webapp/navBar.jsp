@@ -54,7 +54,7 @@
                     <!-- NAVBAR PER BARTENDER -->
                     <div class="bartender hidden">
                         <li class="list">
-                            <a href="#" class="nav-link">
+                            <a href="${pageContext.request.contextPath}/users/bartender/magazzino.jsp?page=0&name=&category=" class="nav-link">
                                 <i class='bx bxs-store-alt icon'></i>
                                 <span class="link">Magazzino</span>
                             </a>
@@ -74,13 +74,13 @@
                     <!-- -------------------------------- -->
 
                     <li class="list">
-                        <a href="#" class="nav-link">
+                        <a href="${pageContext.request.contextPath}/users/menu.jsp?page=0" class="nav-link">
                             <i class='bx bxs-food-menu icon'></i>
                             <span class="link">Men&ugrave;</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="${pageContext.request.contextPath}/users/listaCocktail.jsp?page=0" class="nav-link">
+                        <a href="${pageContext.request.contextPath}/users/listaCocktail.jsp?page=0&searchName=&searchFlavour=&searchIsAlcoholic=" class="nav-link">
                             <i class='bx bxs-drink icon' ></i>
                             <span class="link">Cocktails</span>
                         </a>

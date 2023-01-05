@@ -1,4 +1,4 @@
-.info-cocktail-panel
+.info-item-panel
 {
     color: var(--white);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.19);
@@ -6,7 +6,7 @@
     !important;
 }
 
-.cocktail-name
+.item-name
 {
     font-size: 30px;
 }
@@ -18,7 +18,7 @@
     font-size: 20px;
 }
 
-.list-ingredients .ingredient-qt
+.list-ingredients .ingredient-list .ingredient-qt
 {
     color: var(--lightBlue);
 }
@@ -32,7 +32,7 @@
     color: var(--white);
 }
 
-.cocktail-tags .badge
+.item-tags .badge
 {
     background-color: var(--cocktailTag);
     text-transform: uppercase;
@@ -55,7 +55,7 @@
 
 /*style per aggiungiCocktail*/
 
-.card-body .addCocktailFields, .card-body .modifyCocktailFields
+.card-body .addCocktailFields, .card-body .modifyItemFields
 {
     background-color: var(--primaryBlue);
     color: var(--white);
@@ -63,7 +63,7 @@
     border:none;
 }
 
-.card-body .addCocktailFields:focus, .card-body .modifyCocktailFields:focus
+.card-body .addCocktailFields:focus, .card-body .modifyItemFields:focus
 {
     background-color: var(--primaryBlue);
     color: var(--white);
