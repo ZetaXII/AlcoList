@@ -26,23 +26,20 @@
             <div class="row-cols-12 gx-1 gy-4 containerTables p-3">
 
                 <!-- card che mostra le info del cocktail-->
-                <div class="card info-cocktail-panel mb-3 p-1" style="background-color: var(--secondaryBlue); border-radius: 30px;">
+                <div class="card info-item-panel mb-3 p-1" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                     <div class="row g-0" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                         <div class="col-md-4 text-center">
                             <a id="backToListCocktail" onclick="backToListCocktail()"><i class='bx bx-chevron-left back-button'></i></a>
-                            <img src="" class="img-fluid rounded-start p-4" id="cocktail-img" width="300px">
+                            <img src="" class="img-fluid rounded-start p-4" id="item-img" width="300px">
                         </div>
                         <div class="col-md-7">
                             <div class="card-body p-4 mt-4">
-                                <h5 class="card-title cocktail-name"></h5>
+                                <h5 class="card-title item-name"></h5>
                                 <div class="list-ingredients fs-6">
-                                    <ul class="pt-3 px-3">
-                                        <li><span class="ingredient-qt">10ml</span> limone</li>
-                                        <li><span class="ingredient-qt">200ml</span> negroni</li>
-                                        <li><span class="ingredient-qt">20g</span> zucchero</li>
+                                    <ul class="pt-3 px-3 ingredient-list">
                                     </ul>
                                 </div>
-                                <div class="cocktail-tags pt-2">
+                                <div class="item-tags pt-2">
                                     <span class="badge cocktail-flavour"></span>
                                     <span class="badge cocktail-isIBA"></span>
                                     <span class="badge cocktail-isAlcoholic"></span>
@@ -62,17 +59,6 @@
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
 <script>
     infoCocktail();
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    let page = parseInt(urlParams.get('page'));
-
-    function backToListCocktail()
-    {
-        window.location.href= $("#contextPath").val()+"/users/listaCocktail.jsp?page="+page;
-    }
-
-
-
 </script>
 </body>
 </html>

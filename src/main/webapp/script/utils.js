@@ -7,5 +7,5 @@ if(document.title)
 /*restituisce un array di flavours*/
 function getFlavours()
 {
-    return ["dolce", "aspro", "amaro", "secco"];
+    return ["Dolce", "Aspro", "Amaro", "Secco"];
 }
