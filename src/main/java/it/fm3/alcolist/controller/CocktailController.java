@@ -59,12 +59,12 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailService.searchByFields(cocktail));
 	}
 
-	@RequestMapping(value = "/getMenu", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMenu", method = RequestMethod.POST)
     public ResponseEntity<?> getByMenu(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
         return ResponseEntity.ok(cocktailService.getMenu(cocktail));
     }
 
-    @RequestMapping(value = "/getMenuIba", method = RequestMethod.GET)
+    @RequestMapping(value = "/getMenuIba", method = RequestMethod.POST)
     public ResponseEntity<?> getByMenuIba(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
         return ResponseEntity.ok(cocktailService.getMenuIba(cocktail));
     }
