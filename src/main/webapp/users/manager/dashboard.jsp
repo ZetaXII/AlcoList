@@ -29,7 +29,7 @@
                 <div class="col-lg-4">
                     <div class="card h-auto">
                         <div class="card-header">
-                            <h5>Utenti totali</h5>
+                            <h5 style="color: #1B273B">Utenti totali</h5>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item mt-2"><p class="fs-4"><img src="${pageContext.request.contextPath}/img/waiter.svg" class="img-fluid" height="52px" width="52px" > <b>5</b> Camerieri</p></li>

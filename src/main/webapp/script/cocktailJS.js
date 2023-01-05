@@ -174,7 +174,7 @@ function paginatedCocktailList(size, page)
     let cocktailsArray= getCocktailsPaginated(size, page);
     if(cocktailsArray.length<=0)
     {
-        window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page='+(page-1);
+        window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page=0';
     }
 
     if(page==0)
@@ -234,7 +234,7 @@ function paginatedCocktailListByFilter(size, page)
     let cocktailsArray= getCocktailsPaginatedByFilters(size, page);
     if(cocktailsArray.length<=0)
     {
-        window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page='+(page-1);
+        window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page=0';
     }
 
     if(page==0)
@@ -296,7 +296,7 @@ function nextPageCocktail()
     /*recupera il valore della variabile page se esiste*/
     let page = parseInt(urlParams.get('page'));
     page= page+1;
-    window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page='+page;
+    window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page=0';
 }
 
 function previousPageCocktail()
@@ -314,7 +314,7 @@ function previousPageCocktail()
     {
         page=0;
     }
-    window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page='+page;
+    window.location.href = $("#contextPath").val()+'/users/listaCocktail.jsp?page=0';
 }
 
 function addCocktail()
