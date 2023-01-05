@@ -123,15 +123,10 @@ public class OrdinationService implements OrdinationServiceI{
 	//FIXME CALCOLARE IL COSTO TOTALE DEL ORDINE
 	public Ordination addCocktail(OrderedCocktailDTO ord) throws Exception {
 		OrderedCocktail ocSearch = orderedCocktailRepository.findByOrderUuidAndCocktailUuid(ord.ordinationUuid, ord.cocktailUuid);
-		System.out.println("\n\n@@@@@@ ocSearch -> "+ocSearch);
 		OrderedCocktail ocRes;
 		if(ocSearch==null) {
 			Ordination o=this.get(ord.ordinationUuid);
-			System.out.println("\n\n@@@@@@ ocSearch -> getOrder-> "+o);
-
 			Cocktail c=cocktailService.get(ord.cocktailUuid);
-			System.out.println("\n\n@@@@@@ ocSearch -> Cocktail-> "+c);
-
 			OrderedCocktail oc= new OrderedCocktail();
 			oc.setCocktail(c);
 			oc.setOrdination(o);
@@ -142,8 +137,9 @@ public class OrdinationService implements OrdinationServiceI{
 			ocRes=ocSearch;
 			ocRes.setQuantity(ocRes.getQuantity()+1);
 		}
-		System.out.println("\n\n@@@@@@ Ordination -> "+ocRes.getOrdination());
 		this.useProductForCocktail(ord.cocktailUuid);
+		Integer actualNumber = ocRes.getOrdination().getNumbersOfCocktails();
+		ocRes.getOrdination().setNumbersOfCocktails(actualNumber + 1);
 		return ocRes.getOrdination();
 	}
 	

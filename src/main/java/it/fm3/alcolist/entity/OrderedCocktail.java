@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "ORDERED_COCKTAIL")
@@ -23,7 +22,7 @@ public class OrderedCocktail {
 	private long id;
 	
 	@Column(name = "QUANTITY")
-	private Integer quantity;//ml
+	private Integer quantity; //numbersOfCocktails
 	
 	@OneToOne
 	@JoinColumn(name="COCKTAIL", nullable = false)

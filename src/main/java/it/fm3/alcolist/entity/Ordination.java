@@ -68,6 +68,9 @@ public class Ordination {
 	@Column(name = "DATE_CREATION")
 	private Date dateCreation;
 	
+	@Column(name = "NUMBERS_OF_COCKTAILS")
+	private Integer numbersOfCocktails = 0;
+	
 	
 	public Date getDateLastModified() {
 		return dateLastModified;
@@ -135,12 +138,19 @@ public class Ordination {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	@Override
-	public String toString() {
-		return "Ordination [id=" + id + ", uuid=" + uuid + ", table=" + table
-				+ ", total=" + total + ", status=" + status + ", executedBy=" + executedBy + ", createdBy=" + createdBy
-				+ ", deliveredBy=" + deliveredBy + ", dateLastModified=" + dateLastModified + ", dateCreation="
-				+ dateCreation + "]";
+	
+	public Integer getNumbersOfCocktails() {
+		return numbersOfCocktails;
+	}
+	public void setNumbersOfCocktails(Integer numbersOfCocktails) {
+		this.numbersOfCocktails = numbersOfCocktails;
 	}
 	
+	@Override
+	public String toString() {
+		return "Ordination [id=" + id + ", orderedCocktails=" + orderedCocktails + ", uuid=" + uuid + ", table=" + table
+				+ ", total=" + total + ", status=" + status + ", executedBy=" + executedBy + ", createdBy=" + createdBy
+				+ ", deliveredBy=" + deliveredBy + ", dateLastModified=" + dateLastModified + ", dateCreation="
+				+ dateCreation + ", numbersOfCocktails=" + numbersOfCocktails + "]";
+	}
 }
