@@ -29,7 +29,6 @@ public class Cocktail {
 	
 	
 	@OneToMany(mappedBy="cocktail",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JsonIgnore
 	private Set<Ingredient>ingredients = new HashSet<Ingredient>();
 	
 	@Column(name = "NAME", length = 50)

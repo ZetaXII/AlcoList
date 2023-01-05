@@ -57,6 +57,9 @@ public class CocktailService implements CocktailServiceI{
 	public Cocktail get(String uuid) throws Exception {
 		Cocktail c=cocktailRepository.findByUuid(uuid);
 		if(c==null) throw new Exception ("Cocktail with uuid "+uuid+" not exists");
+		Set<Ingredient> ingredientsList = this.getIngredients(uuid);
+		System.out.println("####INGREDIENTS " + ingredientsList);
+		c.setIngredients(ingredientsList);
 		return c;
 	}
 	
