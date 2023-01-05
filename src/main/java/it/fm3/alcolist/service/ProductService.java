@@ -62,7 +62,7 @@ public class ProductService implements ProductServiceI{
 	private void buildProductByProductDTO(Product product, ProductDTO productDTO) {
 		product.setName(productDTO.name);
 		product.setCategory(productDTO.category);
-		product.setAlcoholicPercentage(productDTO.alcholicPercentage);
+		product.setAlcoholicPercentage(productDTO.alcoholicPercentage);
 		product.setPresent(productDTO.present);
 		product.setMl(productDTO.ml);
 		product.setPathFileImg(productDTO.pathFileImg);
