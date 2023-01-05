@@ -49,6 +49,8 @@ public class Cocktail {
 	private String uuid;
 	@Column(name = "INMENU")
 	private boolean inMenu;
+	@Column(name = "SOLD")
+	private Integer sold = 0;
 	/*
 	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JsonIgnore
@@ -128,11 +130,17 @@ public class Cocktail {
 		this.inMenu = inMenu;
 	}
 	
+	public Integer getSold() {
+		return sold;
+	}
+	public void setSold(Integer sold) {
+		this.sold = sold;
+	}
 	@Override
 	public String toString() {
-		return "Cocktail [id=" + id + ", name=" + name + ", price=" + price
+		return "Cocktail [id=" + id + ", ingredients=" + ingredients + ", name=" + name + ", price=" + price
 				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
-				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu
-				+"]";
+				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu + ", sold="
+				+ sold + "]";
 	}
 }

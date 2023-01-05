@@ -15,6 +15,7 @@ public interface OrderedCocktailRepository extends JpaRepository<OrderedCocktail
 	@Query("SELECT oc FROM OrderedCocktail oc WHERE oc.cocktail.uuid =:cocktailUuid AND oc.ordination.uuid = :ordinationUuid")
 	OrderedCocktail findByOrderUuidAndCocktailUuid(@Param("ordinationUuid")String ordinationUuid,@Param("cocktailUuid")String cocktailUuid);
 
+	//@Query("")
 	
 	
 }

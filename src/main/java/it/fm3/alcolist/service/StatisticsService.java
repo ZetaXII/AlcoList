@@ -7,10 +7,14 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Role;
 import it.fm3.alcolist.entity.UserAccount;
+import it.fm3.alcolist.repository.CocktailRepository;
 import it.fm3.alcolist.repository.OrdinationRepository;
 import it.fm3.alcolist.repository.UserAccountRepository;
 
@@ -19,8 +23,8 @@ import it.fm3.alcolist.repository.UserAccountRepository;
 public class StatisticsService implements StatisticsServiceI{
 	@Autowired
 	private UserAccountRepository userAccountRepository;
-	//@Autowired
-	//private CocktailRepository cocktailRepository;
+	@Autowired
+	private CocktailRepository cocktailRepository;
 	@Autowired
 	private OrdinationRepository ordinationRepository;
 	
@@ -78,6 +82,15 @@ public class StatisticsService implements StatisticsServiceI{
 	@Override
 	public Integer getNumbersOfExecutedByUser(String UserUuid) throws Exception {
 		return ordinationRepository.countByExecutedBy(UserUuid);
+	}
+
+	@Override
+	public List<Cocktail> getBestSellingCocktails(Integer limit) throws Exception {
+			if(limit == null) 
+				throw new Exception("Limit undefined");
+			Pageable p = null;
+			p = PageRequest.of(0, limit);
+			return cocktailRepository.findTopByOrderBySoldDesc(p);
 	}
 
 }

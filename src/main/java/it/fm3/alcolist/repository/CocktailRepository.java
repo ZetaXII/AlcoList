@@ -63,4 +63,10 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	
 	List<Cocktail> findByIsIBA(Pageable pageable, boolean isIba);
 	int countByIsIBA(boolean isIba);
+	
+	//@Query("SELECT c FROM Cocktail c ORDER BY c.sold DESC LIMIT 5")
+	//List<Cocktail> findBestSellingCocktails(@Param("limit") Integer limit);
+	//Passenger findFirstByOrderBySeatNumberAsc(Integer limit);
+	List<Cocktail> findTopByOrderBySoldDesc(Pageable pageable);
+	
 }
