@@ -15,6 +15,7 @@
     <!-- CSS -->
     <link href="${pageContext.request.contextPath}/style/infoCocktailStyle.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/style/profile.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../../navBar.jsp"%>

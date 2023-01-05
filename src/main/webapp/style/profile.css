@@ -29,3 +29,37 @@ ul {
     margin-right: 10px;
     margin-bottom: 10px;
 }
+
+.badge:hover{
+    background-color: #ebc23b !important;
+    color: #1B273B;
+    transition-duration: 0.3s;
+}
+
+.badgeChecked{
+    background-color: #ebc23b !important;
+    color: #1B273B;
+}
+
+.user-row:hover{
+    transform: scale(1.009);
+    border-width: 1px !important;
+    border-color: #ebc23b !important;
+    box-shadow: 1px 1px 10px 0 rgba(0,0,0,40%);
+    transition-duration: 0.3s;
+}
+
+.forward-button {
+    transform: scale(1.5);
+    color: var(--yellow);
+    inline-size: fit-content;
+    font-weight: lighter;
+    top:45%;
+    right: 2%;
+    position: absolute;
+}
+
+.user-row:hover .forward-button {
+    padding-right: 10px;
+    transition-duration: 0.2s;
+}
