@@ -21,9 +21,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByCategoryContainsIgnoreCase(Pageable pageable, String category);
 	int countByCategoryContainingIgnoreCase(String name);
 	
-	@Query("SELECT p FROM Product p WHERE UPPER(p.name) LIKE %:name% AND p.category = :category")
+	@Query("SELECT p FROM Product p WHERE UPPER(p.name) LIKE %:name% AND UPPER(p.category) LIKE %:category%")
 	List<Product> findByNameAndCategoryContainsIgnoreCase(@Param("name") String name, @Param("category") String category);
+	@Query("SELECT p FROM Product p WHERE UPPER(p.name) LIKE %:name% AND UPPER(p.category) LIKE %:category%")
 	List<Product> findByNameAndCategoryContainsIgnoreCase(Pageable pageable, @Param("name") String name, @Param("category") String category);
-	@Query("SELECT COUNT(p) FROM Product p WHERE UPPER(p.name) LIKE %:name% AND p.category = :category")
+	@Query("SELECT COUNT(p) FROM Product p WHERE UPPER(p.name) LIKE %:name% AND UPPER(p.category) LIKE %:category%")
 	int countByNameAndCategoryContainingIgnoreCase(@Param("name") String name, @Param("category") String category);
 }

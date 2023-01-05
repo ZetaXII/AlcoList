@@ -124,10 +124,10 @@ public class ProductService implements ProductServiceI{
 		}
 		else {
 			//COMPLETA
-			productResultDTO.totalResult = productRepository.countByNameAndCategoryContainingIgnoreCase(productDTO.name.toUpperCase(), productDTO.category);
+			productResultDTO.totalResult = productRepository.countByNameAndCategoryContainingIgnoreCase(productDTO.name.toUpperCase(), productDTO.category.toUpperCase());
 			if(pageable!=null)
-				return productRepository.findByNameAndCategoryContainsIgnoreCase(pageable, productDTO.name.toUpperCase(), productDTO.category);
-			else return productRepository.findByNameAndCategoryContainsIgnoreCase(productDTO.name.toUpperCase(), productDTO.category);
+				return productRepository.findByNameAndCategoryContainsIgnoreCase(pageable, productDTO.name.toUpperCase(), productDTO.category.toUpperCase());
+			else return productRepository.findByNameAndCategoryContainsIgnoreCase(productDTO.name.toUpperCase(), productDTO.category.toUpperCase());
 		}
 	}
 }
