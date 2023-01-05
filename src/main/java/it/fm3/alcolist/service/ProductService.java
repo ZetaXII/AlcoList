@@ -30,7 +30,6 @@ public class ProductService implements ProductServiceI{
 		if(productRepository.findByUuid(productDto.uuid) != null)
 			throw new Exception("product already exists");
 		productRepository.save(newProduct);
-		 System.out.println("\n\n@@@@@@ NUOVO PRODOTTO: "+newProduct);
 		 return newProduct;
 	}
 
@@ -64,6 +63,8 @@ public class ProductService implements ProductServiceI{
 		product.setCategory(productDTO.category);
 		product.setAlcoholicPercentage(productDTO.alcoholicPercentage);
 		product.setPresent(productDTO.present);
+		if(productDTO.ml==0)product.setPresent(false);
+		else product.setPresent(true);
 		product.setMl(productDTO.ml);
 		product.setPathFileImg(productDTO.pathFileImg);
 		if(!StringUtils.hasText(productDTO.uuid))

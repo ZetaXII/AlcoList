@@ -26,6 +26,7 @@ import it.fm3.alcolist.entity.Ordination;
 import it.fm3.alcolist.entity.Product;
 import it.fm3.alcolist.entity.Tables;
 import it.fm3.alcolist.entity.UserAccount;
+import it.fm3.alcolist.repository.IngredientRepository;
 import it.fm3.alcolist.repository.OrderedCocktailRepository;
 import it.fm3.alcolist.repository.OrdinationRepository;
 import it.fm3.alcolist.repository.TablesRepository;
@@ -47,7 +48,9 @@ public class OrdinationService implements OrdinationServiceI{
 	private CocktailServiceI cocktailService;
 	@Autowired
 	private OrderedCocktailRepository orderedCocktailRepository;
-	
+	@Autowired
+	private IngredientRepository ingredientRepository;
+
 
 	@Override
 	public Ordination create(OrdinationDTO ordinationDto) throws Exception {
@@ -56,7 +59,6 @@ public class OrdinationService implements OrdinationServiceI{
 		Tables t = tablesRepository.findByUuid(ordinationDto.tableUuid);
 		t.setIsFree(false);
 		this.buildOrdinationByDTO(newOrdination, ordinationDto);
-		System.out.println("vado a salvare\n\n "+newOrdination);
 		ordinationRepository.save(newOrdination);
 		return newOrdination;
 	}
@@ -153,6 +155,7 @@ public class OrdinationService implements OrdinationServiceI{
 			   Ingredient ingredient=i.next();
 			   if(ingredient.getQuantity()!=null) {
 				   this.reduceProductQuantity(ingredient.getProduct(), ingredient.getQuantity());
+				   ingredientRepository.deactivateFinischedIngredients(ingredient.getProduct().getUuid());
 			   }
 			}
 	}
@@ -160,6 +163,7 @@ public class OrdinationService implements OrdinationServiceI{
 	private void reduceProductQuantity(Product p,int quantity) throws Exception {
 		if(p.getMl()>=quantity) {
 			p.setMl(p.getMl()-quantity);
+			if(p.getMl()==0)p.setPresent(false);
 		}else throw new Exception("quantity not sufficient for product "+p.getCategory()+" "+p.getName());
 	}
 

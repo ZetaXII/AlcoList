@@ -32,7 +32,7 @@ public class Ordination {
 	private long id;
 	
 	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordination")
-	@JsonIgnore
+	
 	private Set<OrderedCocktail> orderedCocktails;
 	
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)

@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="TABLES")
 public class Tables {
@@ -14,6 +16,7 @@ public class Tables {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ID", length = 50, unique = true)
+	@JsonIgnore
 	private long id;
 	@Column(name = "NUMBER", length = 50)
 	private Integer number;

@@ -27,7 +27,6 @@ public class OrderedCocktail {
 	
 	@OneToOne
 	@JoinColumn(name="COCKTAIL", nullable = false)
-	@JsonIgnore
 	private Cocktail cocktail;
 	
 	@OneToOne
