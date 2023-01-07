@@ -34,6 +34,10 @@ public class OrderedCocktail {
 	private Ordination ordination;
 	
 	
+	
+	public OrderedCocktail() {
+
+	}
 	public long getId() {
 		return id;
 	}

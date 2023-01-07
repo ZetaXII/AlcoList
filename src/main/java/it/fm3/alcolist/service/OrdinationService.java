@@ -120,7 +120,6 @@ public class OrdinationService implements OrdinationServiceI{
 	}
 	
 	@Override
-	//FIXME CALCOLARE IL COSTO TOTALE DEL ORDINE
 	public Ordination addCocktail(OrderedCocktailDTO ord) throws Exception {
 		OrderedCocktail ocSearch = orderedCocktailRepository.findByOrderUuidAndCocktailUuid(ord.ordinationUuid, ord.cocktailUuid);
 		OrderedCocktail ocRes;
@@ -140,6 +139,9 @@ public class OrdinationService implements OrdinationServiceI{
 		this.useProductForCocktail(ord.cocktailUuid);
 		Integer actualNumber = ocRes.getOrdination().getNumbersOfCocktails();
 		ocRes.getOrdination().setNumbersOfCocktails(actualNumber + 1);
+		Double actualTotal = ocRes.getOrdination().getTotal();
+		ocRes.getOrdination().setTotal(actualTotal + ocRes.getCocktail().getPrice());
+		cocktailService.updateSold(ocRes.getCocktail().getUuid());
 		return ocRes.getOrdination();
 	}
 	

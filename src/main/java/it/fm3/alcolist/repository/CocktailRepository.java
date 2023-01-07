@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import it.fm3.alcolist.entity.Cocktail;
 
 public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
-	Cocktail findByUuid(String uuid);
+	Cocktail findByUuid (String uuid);
 	
 	//SOLO NOME
 	List<Cocktail> findByNameContainsIgnoreCase(String name);
@@ -67,6 +67,6 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	//@Query("SELECT c FROM Cocktail c ORDER BY c.sold DESC LIMIT 5")
 	//List<Cocktail> findBestSellingCocktails(@Param("limit") Integer limit);
 	//Passenger findFirstByOrderBySeatNumberAsc(Integer limit);
-	List<Cocktail> findTopByOrderBySoldDesc(Pageable pageable);
+	List<Cocktail> findTopByOrderBySoldAsc(Pageable pageable);
 	
 }
