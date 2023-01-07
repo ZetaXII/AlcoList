@@ -55,11 +55,13 @@ public class CocktailService implements CocktailServiceI{
 
 	@Override
 	public Cocktail get(String uuid) throws Exception {
+		//FIXME si bloccava sulla set ingredients poi cambiata con la repository diretta
 		Cocktail c=cocktailRepository.findByUuid(uuid);
 		if(c==null) throw new Exception ("Cocktail with uuid "+uuid+" not exists");
-		Set<Ingredient> ingredientsList = this.getIngredients(uuid);
-		System.out.println("####INGREDIENTS " + ingredientsList);
-		c.setIngredients(ingredientsList);
+//		Set<Ingredient> ingredientsList = this.getIngredients(uuid);
+//		System.out.println("###UEUEUEUEUEU SI BLOCCA QUA");
+//		System.out.println("####INGREDIENTS " + ingredientsList);
+		c.setIngredients(cocktailRepository.findByUuid(uuid).getIngredients());
 		return c;
 	}
 	
@@ -196,7 +198,14 @@ public class CocktailService implements CocktailServiceI{
 				return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
 			else return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
 		}
-		
-		
 	}
+
+	@Override
+	public void updateSold(String uuid) throws Exception {
+		Cocktail c = this.get(uuid);
+		Integer actualSold = c.getSold();
+		c.setSold(actualSold + 1); 
+	}
+	
+	
 }

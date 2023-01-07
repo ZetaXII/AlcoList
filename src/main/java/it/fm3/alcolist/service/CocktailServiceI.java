@@ -16,4 +16,5 @@ public interface CocktailServiceI {
 	Set<Ingredient> getIngredients(String uuid);
 	CocktailResultDTO getMenu(CocktailDTO c) throws Exception;
 	CocktailResultDTO getMenuIba(CocktailDTO c) throws Exception;
+	void updateSold(String uuid) throws Exception;
 }
