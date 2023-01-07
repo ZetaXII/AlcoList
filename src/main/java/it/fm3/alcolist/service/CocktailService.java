@@ -201,11 +201,15 @@ public class CocktailService implements CocktailServiceI{
 	}
 
 	@Override
-	public void updateSold(String uuid) throws Exception {
+	public void updateSold(String uuid, int operation) throws Exception {
 		Cocktail c = this.get(uuid);
 		Integer actualSold = c.getSold();
-		c.setSold(actualSold + 1); 
-	}
+		if(operation == 1) //INCREMENTO
+			c.setSold(actualSold + 1);
+		else //DECREMENTO
+			c.setSold(actualSold - 1);
+				
+	}	
 	
 	
 }

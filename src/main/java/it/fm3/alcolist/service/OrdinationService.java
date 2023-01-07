@@ -141,7 +141,7 @@ public class OrdinationService implements OrdinationServiceI{
 		ocRes.getOrdination().setNumbersOfCocktails(actualNumber + 1);
 		Double actualTotal = ocRes.getOrdination().getTotal();
 		ocRes.getOrdination().setTotal(actualTotal + ocRes.getCocktail().getPrice());
-		cocktailService.updateSold(ocRes.getCocktail().getUuid());
+		cocktailService.updateSold(ocRes.getCocktail().getUuid(), 1);
 		return ocRes.getOrdination();
 	}
 	

@@ -16,5 +16,5 @@ public interface CocktailServiceI {
 	Set<Ingredient> getIngredients(String uuid);
 	CocktailResultDTO getMenu(CocktailDTO c) throws Exception;
 	CocktailResultDTO getMenuIba(CocktailDTO c) throws Exception;
-	void updateSold(String uuid) throws Exception;
+	void updateSold(String uuid, int operation) throws Exception; //op. 0 = decremento - op.1 = incremento
 }
