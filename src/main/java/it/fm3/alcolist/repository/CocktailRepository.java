@@ -67,6 +67,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	//@Query("SELECT c FROM Cocktail c ORDER BY c.sold DESC LIMIT 5")
 	//List<Cocktail> findBestSellingCocktails(@Param("limit") Integer limit);
 	//Passenger findFirstByOrderBySeatNumberAsc(Integer limit);
-	List<Cocktail> findTopByOrderBySoldAsc(Pageable pageable);
+	//List<Cocktail> findTopByOrderBySoldDesc(Pageable pageable);
+	List<Cocktail> findTop10ByOrderBySoldDesc(Pageable pageable);
 	
 }

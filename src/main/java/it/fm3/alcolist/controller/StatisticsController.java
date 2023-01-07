@@ -27,6 +27,7 @@ public class StatisticsController {
 		return ResponseEntity.ok(statisticsService.getByNumbersOfUsers(role));
 	}
 	
+	//FIXME devono essere post o get le chiamate di seguito?
 	@RequestMapping(value = "/getNumbersOfCreatedByUserUuid/{uuid}", method = RequestMethod.GET)
 	public ResponseEntity<?> getByCreatedBy(@PathVariable(name = "uuid") String uuid) throws Exception {
 		return ResponseEntity.ok(statisticsService.getNumbersOfCreatedByUser(uuid));

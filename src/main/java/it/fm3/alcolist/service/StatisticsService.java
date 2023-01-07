@@ -90,7 +90,7 @@ public class StatisticsService implements StatisticsServiceI{
 				throw new Exception("Limit undefined");
 			Pageable p = null;
 			p = PageRequest.of(0, limit);
-			return cocktailRepository.findTopByOrderBySoldDesc(p);
+			return cocktailRepository.findTop10ByOrderBySoldDesc(p);
 	}
 
 }
