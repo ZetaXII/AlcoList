@@ -25,10 +25,6 @@ public class CocktailService implements CocktailServiceI{
 	@Autowired
 	private CocktailRepository cocktailRepository;
 	
-	public static Integer INCREMENT = 1;
-	public static Integer DECREMENT = 0;
-	
-	
 	@Override
 	public Cocktail add(CocktailDTO cocktailDto) throws Exception {
 		Cocktail newCocktail= new Cocktail();
@@ -208,7 +204,7 @@ public class CocktailService implements CocktailServiceI{
 	public void updateSold(String uuid, int operation) throws Exception {
 		Cocktail c = this.get(uuid);
 		Integer actualSold = c.getSold();
-		if(operation == 1) //INCREMENTO
+		if(operation == this.INCREMENT) //INCREMENTO
 			c.setSold(actualSold + 1);
 		else //DECREMENTO
 			c.setSold(actualSold - 1);

@@ -9,6 +9,8 @@ import it.fm3.alcolist.entity.Tables;
 
 public interface TablesRepository extends JpaRepository<Tables, Long> {
 		Tables findByUuid(String uuid);
+		Tables findBynumber(Integer number);
+
 		
 		//SOLO ISFREE
 		List<Tables> findByIsFree(Boolean isFree);

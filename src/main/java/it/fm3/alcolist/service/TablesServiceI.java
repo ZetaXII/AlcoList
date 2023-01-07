@@ -11,6 +11,7 @@ public interface TablesServiceI {
 	Tables delete(String uuid) throws Exception;
 	Tables update(TablesDTO t) throws Exception;
 	Tables get(String uuid) throws Exception;
+	Tables get(Integer number) throws Exception;
 	List<Tables> getAll() throws Exception;
 	TablesResultDTO searchByFields(TablesDTO t) throws Exception;
 }

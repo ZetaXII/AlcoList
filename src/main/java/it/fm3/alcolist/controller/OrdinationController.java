@@ -23,7 +23,7 @@ public class OrdinationController {
 	
 	@Autowired
 	OrdinationServiceI ordinationService;
-	// TODO definire un json che permetta al frontend di gestire le eccezioni
+	// TODO definire un json che permetta al frontend di gestire le eccezioni: status ordination
 	// in caso di errori per lo status 
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)

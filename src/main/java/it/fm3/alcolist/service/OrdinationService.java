@@ -41,7 +41,7 @@ public class OrdinationService implements OrdinationServiceI{
 	@Autowired
 	private OrdinationRepository ordinationRepository;
 	@Autowired
-	private TablesRepository tablesRepository;
+	private TablesServiceI tablesService;
 	@Autowired
 	private UserAccountServiceI userAccountService;
 	@Autowired
@@ -56,7 +56,7 @@ public class OrdinationService implements OrdinationServiceI{
 	public Ordination create(OrdinationDTO ordinationDto) throws Exception {
 		ordinationDto.status=OrdinationStatusEnum.CREATED;
 		Ordination newOrdination= new Ordination();
-		Tables t = tablesRepository.findByUuid(ordinationDto.tableUuid);
+		Tables t = tablesService.get(ordinationDto.tableUuid);
 		t.setIsFree(false);
 		this.buildOrdinationByDTO(newOrdination, ordinationDto);
 		ordinationRepository.save(newOrdination);
@@ -65,13 +65,13 @@ public class OrdinationService implements OrdinationServiceI{
 
 	@Override
 	public Ordination delete(String uuid) throws Exception {
-		// TODO Auto-generated method stub
+		// TODO implementare delete ordination
 		return null;
 	}
 
 	@Override
 	public Ordination updateStatus(String orderUuid,OrdinationStatusEnum status) throws Exception {
-		// TODO Auto-generated method stub
+		// TODO updateStatus ordination
 		return null;
 	}
 
@@ -90,7 +90,7 @@ public class OrdinationService implements OrdinationServiceI{
 		if(ordinationDTO.dateLastModified == null) 
 			ordination.setDateLastModified(new Date());
 		if(StringUtils.hasText(ordinationDTO.tableUuid)) {
-			Tables t=tablesRepository.findByUuid(ordinationDTO.tableUuid);
+			Tables t=tablesService.get(ordinationDTO.tableUuid);
 			if(t==null)throw new Exception("Table with uuid: "+ordinationDTO.tableUuid+" not found");
 			ordination.setTable(t);
 		}
@@ -136,7 +136,7 @@ public class OrdinationService implements OrdinationServiceI{
 			ocRes=ocSearch;
 			ocRes.setQuantity(ocRes.getQuantity()+1);
 		}
-		this.useProductForCocktail(ord.cocktailUuid);
+		this.useProductForCocktail(ord.cocktailUuid, CocktailServiceI.DECREMENT);
 		Integer actualNumber = ocRes.getOrdination().getNumbersOfCocktails();
 		ocRes.getOrdination().setNumbersOfCocktails(actualNumber + 1);
 		Double actualTotal = ocRes.getOrdination().getTotal();
@@ -145,20 +145,20 @@ public class OrdinationService implements OrdinationServiceI{
 		return ocRes.getOrdination();
 	}
 	
-	private void useProductForCocktail(String cocoktailUuid) throws Exception{
+	private void useProductForCocktail(String cocoktailUuid,int operation) throws Exception{
 		System.out.println("sono in useProductForCocktail");
 		Set<Ingredient> ingredients = cocktailService.getIngredients(cocoktailUuid);
 		Iterator<Ingredient> i = ingredients.iterator();	
 		while(i.hasNext()) {
 			   Ingredient ingredient=i.next();
-			   if(ingredient.getQuantity()!=null) {
-				   this.reduceProductQuantity(ingredient.getProduct(), ingredient.getQuantity());
+			   if(ingredient.getProduct().getMl()!=null) {
+				   this.updateProductQuantity(ingredient.getProduct(), ingredient.getQuantity()*operation);
 				   ingredientRepository.deactivateFinischedIngredients(ingredient.getProduct().getUuid());
 			   }
 			}
 	}
 	
-	private void reduceProductQuantity(Product p,int quantity) throws Exception {
+	private void updateProductQuantity(Product p,int quantity) throws Exception {
 		if(p.getMl()>=quantity) {
 			p.setMl(p.getMl()-quantity);
 			if(p.getMl()==0)p.setPresent(false);
@@ -237,13 +237,12 @@ public class OrdinationService implements OrdinationServiceI{
 			
 		Ordination ordination = ocSearch.getOrdination();
 		if(ordination.getStatus() == OrdinationStatusEnum.CREATED || ordination.getStatus() == OrdinationStatusEnum.PENDING){
-		//FIXME gestione prodotto da aggiungere quantità in ml
-		//this.useProductForCocktail(ord.cocktailUuid);
+		this.useProductForCocktail(ord.cocktailUuid,CocktailServiceI.INCREMENT);
 		Integer actualNumber = ocSearch.getOrdination().getNumbersOfCocktails();
 		ocSearch.getOrdination().setNumbersOfCocktails(actualNumber - 1);
 		Double actualTotal = ocSearch.getOrdination().getTotal();
 		ocSearch.getOrdination().setTotal(actualTotal - ocSearch.getCocktail().getPrice());
-		cocktailService.updateSold(ocSearch.getCocktail().getUuid(), CocktailService.DECREMENT); // 0 DECREMENTO
+		cocktailService.updateSold(ocSearch.getCocktail().getUuid(), CocktailService.DECREMENT);
 		if(ocSearch.getQuantity() != 1) 
 			ocSearch.setQuantity(ocSearch.getQuantity()-1);
 		else
@@ -255,17 +254,12 @@ public class OrdinationService implements OrdinationServiceI{
 	}
 	
 	@Override
-	public Ordination update(String uuid) throws Exception {
-		//TODO solo tavolo
-		Ordination o = this.get(uuid);
-//		if(o.getStatus().ordinal()==0 || o.getStatus().ordinal()==1){
-//			//this.removeCocktail()
-//			int res = 0;
-//		}
-//		else
-//			throw new Exception("non-changeable ordination ");
-		
-		return null;
+	public Ordination update(String uuidOrder,String uuidTable) throws Exception {
+		Ordination o = this.get(uuidOrder);
+		Tables t= tablesService.get(uuidTable);
+		o.setTable(t);
+		return o;
 	}
+
 
 }

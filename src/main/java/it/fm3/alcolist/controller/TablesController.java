@@ -29,7 +29,6 @@ public class TablesController {
 		try {
 			return ResponseEntity.ok(tablesService.add(tables));
 		} catch (Exception e) {
-			// TODO definire un json che permetta al frontend di gestire le eccezioni
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}

@@ -29,7 +29,6 @@ public class CocktailController {
 		try {
 			return ResponseEntity.ok(cocktailService.add(cocktail));
 		} catch (Exception e) {
-			// TODO definire un json che permetta al frontend di gestire le eccezioni
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}

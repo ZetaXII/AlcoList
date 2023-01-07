@@ -75,7 +75,7 @@ public class UserAccountService implements UserAccountServiceI{
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject login(UserAccountDTO u) throws Exception {
-		//QQQ Integrare gestione token???
+		//QQQ Integrare gestione token??? NO
 		//come verrà gestito il login? 
 		//il frontend controlla che un utente sia loggato?
 		//come definisco un utente loggato?

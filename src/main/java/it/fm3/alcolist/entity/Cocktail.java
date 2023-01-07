@@ -39,7 +39,7 @@ public class Cocktail {
 	private String description;
 	@Column(name = "FLAVOUR",length=50)
 	private String flavour;//TODO da definire enumeration aspro secco dolce amaro
-	@Column(name = "ISIBA")
+	@Column(name = "ISIBA")//C'è ma bisogna integrare le query
 	private boolean isIBA;
 	@Column(name = "ISALCOHOLIC")
 	private boolean isAlcoholic;

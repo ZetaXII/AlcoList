@@ -8,6 +8,8 @@ import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
 
 public interface CocktailServiceI {
+	public static final Integer INCREMENT = 1;
+	public static final Integer DECREMENT = -1;
 	Cocktail add(CocktailDTO c) throws Exception;
 	Cocktail delete(String uuid) throws Exception;
 	Cocktail update(CocktailDTO c) throws Exception;
@@ -16,6 +18,5 @@ public interface CocktailServiceI {
 	Set<Ingredient> getIngredients(String uuid);
 	CocktailResultDTO getMenu(CocktailDTO c) throws Exception;
 	CocktailResultDTO getMenuIba(CocktailDTO c) throws Exception;
-	//FIXME rimuovere sto schifo
 	void updateSold(String uuid, int operation) throws Exception; //op. 0 = decremento - op.1 = incremento
 }

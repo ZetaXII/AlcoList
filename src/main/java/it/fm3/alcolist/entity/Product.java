@@ -30,9 +30,9 @@ public class Product {
 	@Column(name = "ALCOHOLIC_PERCENTAGE")
 	private Double alcoholicPercentage;
 	@Column(name = "IS_PRESENT")
-	private boolean isPresent;
+	private boolean isPresent=false;
 	@Column(name = "ML")
-	private Integer ml;
+	private Integer ml=0;
 	@Column(name = "PATHFILEIMG")
 	private String pathFileImg;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)

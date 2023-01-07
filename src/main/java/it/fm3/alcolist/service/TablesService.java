@@ -26,16 +26,16 @@ public class TablesService implements TablesServiceI{
 	public Tables add(TablesDTO t) throws Exception {
 		Tables newTables= new Tables();
 		this.buildTablesByTablesDTO(newTables,t);
-		if(tablesRepository.findByUuid(t.uuid) != null)
-			throw new Exception("product already exists");
+		if(tablesRepository.findByUuid(t.uuid) != null || tablesRepository.findBynumber(t.number)!=null)
+			throw new Exception("Table already exists");
 		tablesRepository.save(newTables);
-		 System.out.println("\n\n@@@@@@ NUOVO PRODOTTO: "+newTables);
 		 return newTables;
 	}
 
 	@Override
 	public Tables delete(String uuid) throws Exception {
-		// TODO completare delete tables
+		Tables table = this.get(uuid);
+		tablesRepository.delete(table);
 		return null;
 	}
 
@@ -55,6 +55,15 @@ public class TablesService implements TablesServiceI{
 			return t;
 		else 
 			throw new Exception("Table with uuid: " +uuid+ " not exist");
+	}
+	
+	@Override
+	public Tables get(Integer number) throws Exception {
+		Tables t = tablesRepository.findBynumber(number);
+		if(t != null)
+			return t;
+		else 
+			throw new Exception("Table with number: " +number+ " not exist");
 	}
 	
 	private void buildTablesByTablesDTO(Tables tables, TablesDTO tablesDTO) {

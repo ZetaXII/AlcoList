@@ -63,6 +63,7 @@ public class ProductService implements ProductServiceI{
 		product.setCategory(productDTO.category);
 		product.setAlcoholicPercentage(productDTO.alcoholicPercentage);
 		product.setPresent(productDTO.present);
+		if(productDTO.ml== null)productDTO.ml=0;
 		if(productDTO.ml==0)product.setPresent(false);
 		else product.setPresent(true);
 		product.setMl(productDTO.ml);
