@@ -25,6 +25,10 @@ public class CocktailService implements CocktailServiceI{
 	@Autowired
 	private CocktailRepository cocktailRepository;
 	
+	public static Integer INCREMENT = 1;
+	public static Integer DECREMENT = 0;
+	
+	
 	@Override
 	public Cocktail add(CocktailDTO cocktailDto) throws Exception {
 		Cocktail newCocktail= new Cocktail();

@@ -141,7 +141,7 @@ public class OrdinationService implements OrdinationServiceI{
 		ocRes.getOrdination().setNumbersOfCocktails(actualNumber + 1);
 		Double actualTotal = ocRes.getOrdination().getTotal();
 		ocRes.getOrdination().setTotal(actualTotal + ocRes.getCocktail().getPrice());
-		cocktailService.updateSold(ocRes.getCocktail().getUuid(), 1);
+		cocktailService.updateSold(ocRes.getCocktail().getUuid(), CocktailService.INCREMENT);
 		return ocRes.getOrdination();
 	}
 	
@@ -228,4 +228,44 @@ public class OrdinationService implements OrdinationServiceI{
 		List<Ordination> voidList = new ArrayList<>();
 		return voidList;
 	}
+
+	@Override
+	public Ordination removeCocktail(OrderedCocktailDTO ord) throws Exception {
+		OrderedCocktail ocSearch = orderedCocktailRepository.findByOrderUuidAndCocktailUuid(ord.ordinationUuid, ord.cocktailUuid);
+		if(ocSearch==null)
+			throw new Exception("Ordination or Cocktail not exist");
+			
+		Ordination ordination = ocSearch.getOrdination();
+		if(ordination.getStatus() == OrdinationStatusEnum.CREATED || ordination.getStatus() == OrdinationStatusEnum.PENDING){
+		//FIXME gestione prodotto da aggiungere quantità in ml
+		//this.useProductForCocktail(ord.cocktailUuid);
+		Integer actualNumber = ocSearch.getOrdination().getNumbersOfCocktails();
+		ocSearch.getOrdination().setNumbersOfCocktails(actualNumber - 1);
+		Double actualTotal = ocSearch.getOrdination().getTotal();
+		ocSearch.getOrdination().setTotal(actualTotal - ocSearch.getCocktail().getPrice());
+		cocktailService.updateSold(ocSearch.getCocktail().getUuid(), CocktailService.DECREMENT); // 0 DECREMENTO
+		if(ocSearch.getQuantity() != 1) 
+			ocSearch.setQuantity(ocSearch.getQuantity()-1);
+		else
+			orderedCocktailRepository.delete(ocSearch);
+		}
+		
+		return ordination;
+		
+	}
+	
+	@Override
+	public Ordination update(String uuid) throws Exception {
+		//TODO solo tavolo
+		Ordination o = this.get(uuid);
+//		if(o.getStatus().ordinal()==0 || o.getStatus().ordinal()==1){
+//			//this.removeCocktail()
+//			int res = 0;
+//		}
+//		else
+//			throw new Exception("non-changeable ordination ");
+		
+		return null;
+	}
+
 }

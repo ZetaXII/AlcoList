@@ -90,7 +90,38 @@ public class StatisticsService implements StatisticsServiceI{
 				throw new Exception("Limit undefined");
 			Pageable p = null;
 			p = PageRequest.of(0, limit);
-			return cocktailRepository.findTop10ByOrderBySoldDesc(p);
+			return cocktailRepository.findAllByOrderBySoldDesc(p);
+			//return cocktailRepository.findTop5ByOrderBySoldDesc();
+	}
+
+	@Override
+	public List<Cocktail> getBestSellingCocktailsByFlavour() throws Exception {
+		List<Integer> totalSold = cocktailRepository.findBestSellingByFlavour();
+		if(totalSold == null)
+			throw new Exception("Error filtered flavour sold");
+		
+		List<Cocktail> list = new ArrayList<Cocktail>();
+		Cocktail a = new Cocktail();
+		a.setFlavour("Amaro");
+		a.setSold(totalSold.get(0));
+		list.add(0, a);
+		
+		Cocktail c = new Cocktail();
+		c.setFlavour("Aspro");
+		c.setSold(totalSold.get(1));
+		list.add(1, c);
+		
+		Cocktail d = new Cocktail();
+		d.setFlavour("Dolce");
+		d.setSold(totalSold.get(2));
+		list.add(2, d);
+		
+		Cocktail s = new Cocktail();
+		s.setFlavour("Secco");
+		s.setSold(totalSold.get(3));
+		list.add(3, s);
+		
+		return  list;
 	}
 
 }

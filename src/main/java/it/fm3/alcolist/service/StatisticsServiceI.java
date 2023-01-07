@@ -9,7 +9,9 @@ public interface StatisticsServiceI {
 	Integer getNumbersOfCreatedByUser(String UserUuid) throws Exception;
 	Integer getNumbersOfDeliveredByUser(String UserUuid) throws Exception;
 	Integer getNumbersOfExecutedByUser(String UserUuid) throws Exception;
+	//List<Cocktail> getBestSellingCocktails(Integer limit) throws Exception;
 	List<Cocktail> getBestSellingCocktails(Integer limit) throws Exception;
+	List<Cocktail> getBestSellingCocktailsByFlavour() throws Exception;
 	//cocktail più venduti divisi
 		// categoria
 		// cocktail

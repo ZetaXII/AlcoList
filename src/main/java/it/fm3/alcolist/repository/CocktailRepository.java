@@ -67,8 +67,11 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	//@Query("SELECT c FROM Cocktail c ORDER BY c.sold DESC LIMIT 5")
 	//List<Cocktail> findBestSellingCocktails(@Param("limit") Integer limit);
 	//Passenger findFirstByOrderBySeatNumberAsc(Integer limit);
-	//List<Cocktail> findTopByOrderBySoldDesc(Pageable pageable);
-	List<Cocktail> findTop10ByOrderBySoldDesc(Pageable pageable);
+	List<Cocktail> findAllByOrderBySoldDesc(Pageable pageable);
+	List<Cocktail> findTop5ByOrderBySoldDesc();
 	//	List<Cocktail> findTop10ByOrderBySoldDesc(Pageable pageable);
-	
+	//@Query("SELECT flavour, SUM(sold) as totalsold FROM Cocktail GROUP BY flavour")
+	@Query("SELECT SUM(sold) as totalsold FROM Cocktail GROUP BY flavour ORDER BY flavour ASC")
+	List<Integer> findBestSellingByFlavour();
+	//SELECT flavour, SUM(sold) as TotalSold FROM public.cocktail GROUP BY flavour
 }
