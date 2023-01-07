@@ -1,5 +1,7 @@
 package it.fm3.alcolist.service;
 
+import java.util.List;
+
 import org.json.simple.JSONObject;
 
 import it.fm3.alcolist.DTO.UserAccountDTO;
@@ -14,4 +16,5 @@ public interface UserAccountServiceI{
 	JSONObject login(UserAccountDTO u) throws Exception;
 	UserAccount get(String uuid);
 	UserAccountResultDTO searchByFields(UserAccountDTO userDTO) throws Exception;
+	List<UserAccount> getAll();
 }

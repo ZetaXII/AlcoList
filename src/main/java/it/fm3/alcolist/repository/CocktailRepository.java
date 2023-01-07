@@ -69,5 +69,6 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	//Passenger findFirstByOrderBySeatNumberAsc(Integer limit);
 	//List<Cocktail> findTopByOrderBySoldDesc(Pageable pageable);
 	List<Cocktail> findTop10ByOrderBySoldDesc(Pageable pageable);
+	//	List<Cocktail> findTop10ByOrderBySoldDesc(Pageable pageable);
 	
 }

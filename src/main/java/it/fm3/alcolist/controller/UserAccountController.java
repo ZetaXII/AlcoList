@@ -64,4 +64,9 @@ public class UserAccountController {
 		return ResponseEntity.ok(userService.searchByFields(user));
 	}
 	
+	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	public ResponseEntity<?> getAll() throws Exception {
+		return ResponseEntity.ok(userService.getAll());
+	}
+	
 }

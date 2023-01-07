@@ -174,4 +174,8 @@ public class UserAccountService implements UserAccountServiceI{
 		else return userAccountRepository.findAll();
 		
 	}
+	@Override
+	public List<UserAccount> getAll() {
+		return userAccountRepository.findAll();
+	}
 }
