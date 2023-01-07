@@ -21,13 +21,15 @@
 <%@include file="../../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
-    if(!roleList.includes("WAITER"))
+    if(roleList.includes("WAITER"))
     {
         logout();
     }
 </script>
 <script>
-    function selectedRole(id){
+
+    //Ruoli mutuamente esclusivi
+    /*function selectedRole(id){
         let managerbtn = document.getElementById("MANAGER");
         let bartenderbtn = document.getElementById("BARTENDER");
         let waiterbtn = document.getElementById("WAITER");
@@ -57,7 +59,27 @@
                 managerbtn.classList.remove("badgeChecked");
                 break;
         }
+    }*/
 
+    //Ruoli paralleli
+    function selectedRole(id){
+        let managerbtn = document.getElementById("MANAGER");
+        let bartenderbtn = document.getElementById("BARTENDER");
+        let waiterbtn = document.getElementById("WAITER");
+        $(document).ready(function () {
+            $('input[name="roleField"]').val(id);
+        });
+        switch (id){
+            case "MANAGER":
+                managerbtn.classList.toggle("badgeChecked");
+                break;
+            case "BARTENDER":
+                bartenderbtn.classList.toggle("badgeChecked");
+                break;
+            case "WAITER":
+                waiterbtn.classList.toggle("badgeChecked");
+                break;
+        }
     }
 
 
@@ -84,11 +106,23 @@
                                     <input type="text" id="nameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Nome" maxlength="50" required>
 
                                     <input type="text" id="surnameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Cognome" maxlength="255" required>
-                                    <div class="cocktail-tags py-2 mb-3">
+                                <div class="cocktail-tags py-2 mb-3">
+                                    <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                    <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
+                                    <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
+                                <!--<div class="row cocktail-tags py-2 mb-3" style="background-color: var(--secondaryBlue);">
+                                    <div class="col-xl-4 col-lg-4 col-md-4">
+                                        <h5 style="color: #eaeaea">Ruolo 1</h5>
                                         <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4">
+                                        <h5 style="color: #eaeaea">Ruolo 2</h5>
                                         <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
+                                    </div>
+                                    <div class="col-4"><h5 style="color: #eaeaea">Ruolo 3</h5>
                                         <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
-                                        <!--<input type="radio" class="radio" checked="true" id="MANAGER" value="MANAGER" onclick="selectedRole(this.id)"><span>MANAGER</span></input>
+                                    </div>
+                                    <input type="radio" class="radio" checked="true" id="MANAGER" value="MANAGER" onclick="selectedRole(this.id)"><span>MANAGER</span></input>
                                         <input type="radio" class="radio" id="BARTENDER" onclick="selectedRole(this.id)"><span>BARTENDER</span></input>
                                         <input type="radio" class="radio" id="WAITER" onclick="selectedRole(this.id)"><span>CAMERIERE</span></input>
                                     --></div>
@@ -106,9 +140,11 @@
         </div>
     </div>
 </div>
-
+<script>
+    var roles = [];
+</script>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
-<script src="${pageContext.request.contextPath}/script/getUser.js"></script>
+<script src="${pageContext.request.contextPath}/script/addUser.js"></script>
 <script src="${pageContext.request.contextPath}/script/loadUserSessionCredentialsJS.js"></script>
 </body>
 </html>

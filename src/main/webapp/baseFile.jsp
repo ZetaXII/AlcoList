@@ -13,7 +13,7 @@
     <%@include file="navBar.jsp"%>
     <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
     <script>
-        if(!roleList.includes("RUOLO"))
+        if(roleList.includes("RUOLO"))
         {
             logout();
         }

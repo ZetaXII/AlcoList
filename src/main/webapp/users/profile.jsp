@@ -40,7 +40,7 @@
                 <div class="card profile p-4" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                     <div class="row profile" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                         <div class="col-xl-4 col-lg-4 col-md-4 mt-4 mb-4">
-                            <img style="width: 100px; border-radius: 50%" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
+                            <img style="width: 200px; border-radius: 50%" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
                         </div>
                         <div class="col-xl-8 col-lg-8 col-md-8">
                             <div class="card-body mt-4 mb-4">

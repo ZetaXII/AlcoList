@@ -15,7 +15,7 @@
 <script>
     if(!roleList.includes("BARTENDER"))
     {
-        logout();
+        //logout();
     }
 </script>
 

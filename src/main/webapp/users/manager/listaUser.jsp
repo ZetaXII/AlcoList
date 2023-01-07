@@ -15,21 +15,11 @@
 <%@include file="../../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
-    (document).ready(function()
-    {
-        let user_name = name.charAt(0).toUpperCase() + name.slice(1);
-        const user_surname = surname.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
-        let user_tot = user_name+" "+user_surname;
-        $(".profile-title").text(user_tot);
-        $(".role").text(mainRole);
-        $(".email").text(email);
-    });
-
     function redirectNewUser(){
         window.location.href = $("#contextPath").val()+'/users/manager/addUser.jsp';
     }
 
-    if(!roleList.includes("WAITER"))
+    if(roleList.includes("WAITER"))
     {
         logout();
     }
@@ -48,8 +38,8 @@
 
             </div>
         </div>
-        <% for( i = 0; i < 11; i+=1) { %>
-        <div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">
+        <div class="append-user" value=""></div>
+        <!--<div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">
             <div class="row g-0 user-row" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                 <div class="col-md-3">
                     <img class="m-2 p-2" style="vertical-align: central; width:100px; border-radius: 50%" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile-pic">
@@ -68,21 +58,15 @@
                     </a>
                 </div>
             </div>
-
-        </div>
-        <%}%>
+        </div>-->
         </div>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
 <script src="${pageContext.request.contextPath}/script/loadUserSessionCredentialsJS.js"></script>
-<script src="${pageContext.request.contextPath}/script/getUser.js"></script>
+<script src="${pageContext.request.contextPath}/script/userJS.js"></script>
 <script>
-    function goToInfo(id){
-        console.log("DIV PRESSED");
-        console.log(id);
-        //window.location='${pageContext.request.contextPath}/users/infoUser.jsp/uuid=26aec96d-6e7a-4d63-9063-171b35a72526';
-    }
+    appendUser(getAllUsers());
 </script>
 </body>
 </html>

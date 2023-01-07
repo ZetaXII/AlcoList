@@ -73,6 +73,6 @@
   infoUser();
 </script>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
-<script src="${pageContext.request.contextPath}/script/getUser.js"></script>
+<script src="${pageContext.request.contextPath}/script/userJS.js"></script>
 </body>
 </html>
