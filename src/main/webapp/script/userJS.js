@@ -1,5 +1,6 @@
 function redirectInfoUser(uuid)
 {
+    console.log("melania")
     window.location.href= $("#contextPath").val()+"/users/manager/infoUser.jsp?uuid="+uuid;
     //window.location.href= $("#contextPath").val()+"/users/profile.jsp";
 }
@@ -52,12 +53,14 @@ function infoUser()
     /*prende la query di ricerca e vede se ci sono delle variabili di GET*/
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
+    console.log("MELANIA:" +urlParams)
     /*recupera il valore della variabile uuid se esiste*/
     let userUuid = urlParams.get('uuid');
     let user= getUser(userUuid);
 
     $(".user-name").append(user.name);
     $(".user-email").append(user.email);
+    $(".user-role").append()
 
     if(user.role==="MANAGER")
     {
@@ -81,12 +84,13 @@ function goToInfo(id){
 
 function appendUser(allUsers){
     for(user in allUsers) {
+        console.log("melania: " + allUsers[user])
         if(allUsers[user].dateDelete == null){
             let tagRoles = "";
             for (ruolo in allUsers[user].roles) {
                 tagRoles = tagRoles + "<span class=\"role my-4 user-tag\">" + allUsers[user].roles[ruolo].name + "</span>\n"
             }
-            let userCard = "<div class=\"card mb-4\" onclick=\"redirectInfoUser("+allUsers[user].uuid+")\" id=\"userRow\" style=\"background-color: var(--secondaryBlue); border-radius: 30px;\">\n" +
+            let userCard = "<div class=\"card mb-4\" onclick='redirectInfoUser(\""+allUsers[user].uuid+"\")' id=\"userRow\" style=\"background-color: var(--secondaryBlue); border-radius: 30px;\">\n" +
                 "            <div class=\"row g-0 user-row\" style=\"background-color: var(--secondaryBlue); border-radius: 30px;\">\n" +
                 "                <div class=\"col-md-3\">\n" +
                 "                    <img class=\"m-2 p-2\" style=\"vertical-align: central; width:100px; border-radius: 50%\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png\" alt=\"profile-pic\">\n" +

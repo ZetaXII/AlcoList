@@ -21,7 +21,7 @@
 <%@include file="../../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
-    if(roleList.includes("WAITER"))
+    if(!roleList.includes("MANAGER"))
     {
         logout();
     }
@@ -66,9 +66,6 @@
         let managerbtn = document.getElementById("MANAGER");
         let bartenderbtn = document.getElementById("BARTENDER");
         let waiterbtn = document.getElementById("WAITER");
-        $(document).ready(function () {
-            $('input[name="roleField"]').val(id);
-        });
         switch (id){
             case "MANAGER":
                 managerbtn.classList.toggle("badgeChecked");
@@ -126,7 +123,6 @@
                                         <input type="radio" class="radio" id="BARTENDER" onclick="selectedRole(this.id)"><span>BARTENDER</span></input>
                                         <input type="radio" class="radio" id="WAITER" onclick="selectedRole(this.id)"><span>CAMERIERE</span></input>
                                     --></div>
-                                    <input type="text" name="roleField" id="roleField" hidden="hidden" value="MANAGER">
                                         <p class="card-text cocktail-description"><input type="email" id="emailField" class="addCocktailFields form-control py-2 mb-4" placeholder="Email" autocomplete="off" required></p>
                                         <p class="price"><input type="password" id="passwordField" class="addCocktailFields form-control py-2 mb-4" placeholder="Password" maxlength="50" autocomplete="off" required></p>
                                         <div class="text-center">

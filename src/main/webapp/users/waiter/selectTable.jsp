@@ -28,9 +28,28 @@
     <script>
         $(document).ready(function()
         {
-            for(let i=1; i<11; i++)
-            {
-                $(".containerTables").append('<div class="col d-flex justify-content-center text-center"><div class="card cardTable"> <div class="card-body"><h5 class="card-title mt-2">&nbsp;</h5><p class="card-text h1 mt-5">'+i+'</p></div></div>')
+            let tables = getAllTables().sort((a,b)=> (a.number>b.number) ? 1 : (b.number>a.number) ? -1 : 0);
+            for(let i=0; i<tables.length; i++) {
+                let table
+                if (tables[i].isFree) {
+                    table = '<div class="col d-flex justify-content-center text-center" id="'+tables[i].uuid+'" onclick="addComanda(id)" >' +
+                        '<div class="card cardTable"> ' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title mt-2">&nbsp;</h5>' +
+                        '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                        '</div>' +
+                        '</div>'
+                } else {
+                    table = '<div class="col d-flex justify-content-center text-center" >' +
+                        '<div class="card cardTableDisabled"> ' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title mt-2">&nbsp;</h5>' +
+                        '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                        '</div>' +
+                        '</div>'
+                }
+                $(".containerTables").append(table)
+
             }
         });
     </script>
@@ -51,6 +70,16 @@
             cursor: pointer;
             transition: 0.3s;
         }
+
+        .cardTableDisabled {
+            height: 16rem;
+            width: 16rem;
+            color: #F93C3C;
+            background-color: var(--secondaryBlue);
+            border: 2px solid #F93C3C;
+        }
     </style>
+
+<script src="${pageContext.request.contextPath}/script/tableJS.js"></script>
 </body>
 </html>

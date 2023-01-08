@@ -1,15 +1,33 @@
 function addUser()
 {
+
     let name=$("#nameField").val();
     let surname=$("#surnameField").val();
     let emailUser=$("#emailField").val();
     let password=$("#passwordField").val();
-    let mainRole=$("#roleField").val();
     let managerIsChecked = document.getElementById("MANAGER").classList.contains("badgeChecked")
     let bartenderIsChecked = document.getElementById("BARTENDER").classList.contains("badgeChecked")
     let waiterIsChecked = document.getElementById("WAITER").classList.contains("badgeChecked")
 
-    if(managerIsChecked || bartenderIsChecked || waiterIsChecked) {
+    roles = []
+    if (managerIsChecked){
+        roles.push("MANAGER")
+    }
+
+    if (bartenderIsChecked){
+        roles.push("BARTENDER")
+    }
+
+    if (waiterIsChecked){
+        roles.push("WAITER")
+    }
+    if (roles.length===0){
+        alert("Seleziona almeno un ruolo")
+        return;
+    }
+    let mainRole=roles[0];
+
+    /*if(managerIsChecked || bartenderIsChecked || waiterIsChecked) {
         if (managerIsChecked){
             roles.push("MANAGER")
             if (bartenderIsChecked){
@@ -30,17 +48,15 @@ function addUser()
                 }
             }
         }
-    }
-    let roleList= roles;
-    alert(roleList)
+    }*/
 
-    if(name!="" && surname!="" && mainRole!="" && emailUser!="" && password!="" && roleList!=null)
+    if(name!=="" && surname!=="" && mainRole!=="" && emailUser!=="" && password!=="" && !!roles && roles.length>0)
     {
         let userModel=
             {
                 name: name,
                 surname: surname,
-                roleList: roleList,
+                roleList: roles,
                 mainRole: mainRole,
                 password: password,
                 email: emailUser

@@ -22,20 +22,21 @@
 <script>
   $(document).ready(function()
   {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
     let selectedUser = getUser(urlParams.get('uuid'));
-    selectedUser.stringify();
-    alert(selectedUser.stringify());
     let user_name = selectedUser.name.charAt(0).toUpperCase() + selectedUser.name.slice(1);
     const user_surname = selectedUser.surname.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
     let user_tot = user_name+" "+user_surname;
+    //TODO FILLARE CAMPI RESTANTI
     $(".profile-title").text(user_tot);
     $(".role").text(selectedUser.mainRole);
     $(".email").text(selectedUser.email);
   });
 
-  if(!roleList.includes("WAITER"))
+  if(roleList.includes("WAITER") || roleList.includes("BARTENDER"))
   {
-    //logout();
+    logout();
   }
 </script>
 

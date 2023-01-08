@@ -65,7 +65,7 @@
                     <!-- NAVBAR PER WAITER -->
                     <div class="waiter hidden">
                         <li class="list">
-                            <a href="#" class="nav-link">
+                            <a href="${pageContext.request.contextPath}/users/waiter/selectTable.jsp" class="nav-link">
                                 <i class='bx bxs-dish icon'></i>
                                 <span class="link">Comande</span>
                             </a>

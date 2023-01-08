@@ -48,7 +48,7 @@ $("#login").click(function(e)
                 }
                 else if(JSON.stringify(user.roles).includes("WAITER"))
                 {
-                    window.location.href = 'users/waiter/dashboard.jsp';
+                    window.location.href = 'users/waiter/selectTable.jsp';
                 }
             }
         },
