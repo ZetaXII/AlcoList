@@ -48,7 +48,7 @@ public class TablesController {
 		return ResponseEntity.ok(tablesService.get(uuid));
 	}
 	
-	@RequestMapping(value = "/getAll/", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() throws Exception {
 		return ResponseEntity.ok(tablesService.getAll());
 	}

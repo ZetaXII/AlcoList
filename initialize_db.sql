@@ -1,17 +1,17 @@
-INSERT INTO public.cocktail(description, flavour, inmenu, isalcoholic, isiba, name, pathfileimg, price, uuid) values
-('Descrizione americano', 'Amaro', 'true', 'true', 'true', 'Americano', null, '6', '02c6659a-8ae0-11ed-a1eb-0242ac120002'),
-('Descrizione negroni', 'Amaro', 'true', 'true', 'true', 'Negroni', null, '5.5', '09a7ae50-8ae0-11ed-a1eb-0242ac120002'),
-('Descrizione gin tonic', 'Amaro', 'true', 'true', 'true', 'Gin Tonic', null, '6', '14648296-8ae0-11ed-a1eb-0242ac120002'),
-('Descrizione Tequila sour', 'Dolce', 'true', 'true', 'true', 'Tequila Sour', null, '7', '964f23e1-f435-40f8-b999-8cb197edd4c3'),
-('Descrizione new york sour', 'Dolce', 'true', 'true', 'true', 'New York Sour', null, '8', '41d399c1-b5db-4286-bf50-195bd621439a'),
-('Il Tequila Sunrise è un cocktail alcolico internazionale riconosciuto ufficialmente dalla International Bartenders Association a base di Tequila.', 'Dolce', 'true', 'true', 'true', 'Tequila Sunrise', null, '7.5','42b5ce82-bf79-4cbe-9084-fcd1e0a46e25'),
-('Il Moscow mule è un cocktail dal sapore pungente, fresco e dissetante: perfetto per le serate estive è semplice da preparare anche a casa. Ci occorrono solo 3 ingredienti: vodka, succo di lime e ginger beer. Il gusto particolare di questo drink è dato proprio dal mix di lime e zenzero.', 'Aspro', 'true', 'true', 'true', 'Moscow Mule', null, '7.5', 'a1b7bc72-a16c-4a2b-b213-62ff1fd4c848'),
-('Descrizione del vino rosso', 'Amaro', 'true', 'true', 'false', 'Calice di Vino Rosso', null, '4.5', '2f871784-4a65-4676-a944-a7b910c491f8'),
-('Descrizione del vino bianco', 'Amaro', 'true', 'true', 'false', 'Calice di Vino Bianco', null, '4.5', '958bed1d-8915-4049-ab55-9c52d13621e9'),
-('Moët Impérial è lo champagne iconico della Maison. Creato nel 1869, incarna lo stile unico di Moët & Chandon, uno stile che si distingue per il suo fruttato brillante, il suo palato seducente e la sua elegante maturità.', 'Secco', 'true', 'true', 'false', 'Calice di Prosecco', null, '3', '574f8f40-d47e-43bf-aa36-c879055ae315'),
-('Armonico ed equilibrato, con un lieve fondo di frutta matura e piacevoli sensazioni di crosta di pane.', 'Secco', 'true', 'true', 'false', 'Calice di Prosecco', null, '3', 'faf21883-ddde-4bfc-9ddf-d8b519df87ea'),
-('Amaro del capo è un liquore di erbe frutto di un’antica ricetta Calabrese. Il vecchio Amaro del Capo racchiude in sé i principi attivi di ben 29 Erbe benefiche, servito ad una temperatura di -20 è un ottimo digestivo, grazie anche ai suoi ingredienti principali: Arancia amara, Ginepro, Liquirizia, Miele.', 'Amaro', 'true', 'true', 'false', 'Amaro Del Capo', null, '2.5', 'ab500ecd-38d3-4492-a338-133925887fef'),
-('Il Petrus Boonekamp è un amaro di origine olandese, creato nel 1777 a Leidschendam dal liquorista Petrus Boonekamp, la cui esistenza è dimostrata da fonti locali.', 'Amaro', 'true', 'true', 'false', 'Amaro Petrus', null, '2.5', '8e67b1ed-c931-45eb-a3ee-2b45a1a38eb1');
+INSERT INTO public.cocktail(description, flavour, inmenu, isalcoholic, isiba, name, pathfileimg, price, uuid, sold) values
+('Descrizione americano', 'Amaro', 'true', 'true', 'true', 'Americano', null, '6', '02c6659a-8ae0-11ed-a1eb-0242ac120002',0),
+('Descrizione negroni', 'Amaro', 'true', 'true', 'true', 'Negroni', null, '5.5', '09a7ae50-8ae0-11ed-a1eb-0242ac120002',0),
+('Descrizione gin tonic', 'Amaro', 'true', 'true', 'true', 'Gin Tonic', null, '6', '14648296-8ae0-11ed-a1eb-0242ac120002',0),
+('Descrizione Tequila sour', 'Dolce', 'true', 'true', 'true', 'Tequila Sour', null, '7', '964f23e1-f435-40f8-b999-8cb197edd4c3',0),
+('Descrizione new york sour', 'Dolce', 'true', 'true', 'true', 'New York Sour', null, '8', '41d399c1-b5db-4286-bf50-195bd621439a',0),
+('Il Tequila Sunrise è un cocktail alcolico internazionale riconosciuto ufficialmente dalla International Bartenders Association a base di Tequila.', 'Dolce', 'true', 'true', 'true', 'Tequila Sunrise', null, '7.5','42b5ce82-bf79-4cbe-9084-fcd1e0a46e25',0),
+('Il Moscow mule è un cocktail dal sapore pungente, fresco e dissetante: perfetto per le serate estive è semplice da preparare anche a casa. Ci occorrono solo 3 ingredienti: vodka, succo di lime e ginger beer. Il gusto particolare di questo drink è dato proprio dal mix di lime e zenzero.', 'Aspro', 'true', 'true', 'true', 'Moscow Mule', null, '7.5', 'a1b7bc72-a16c-4a2b-b213-62ff1fd4c848',0),
+('Descrizione del vino rosso', 'Amaro', 'true', 'true', 'false', 'Calice di Vino Rosso', null, '4.5', '2f871784-4a65-4676-a944-a7b910c491f8',0),
+('Descrizione del vino bianco', 'Amaro', 'true', 'true', 'false', 'Calice di Vino Bianco', null, '4.5', '958bed1d-8915-4049-ab55-9c52d13621e9',0),
+('Moët Impérial è lo champagne iconico della Maison. Creato nel 1869, incarna lo stile unico di Moët & Chandon, uno stile che si distingue per il suo fruttato brillante, il suo palato seducente e la sua elegante maturità.', 'Secco', 'true', 'true', 'false', 'Calice di Prosecco', null, '3', '574f8f40-d47e-43bf-aa36-c879055ae315',0),
+('Armonico ed equilibrato, con un lieve fondo di frutta matura e piacevoli sensazioni di crosta di pane.', 'Secco', 'true', 'true', 'false', 'Calice di Prosecco', null, '3', 'faf21883-ddde-4bfc-9ddf-d8b519df87ea',0),
+('Amaro del capo è un liquore di erbe frutto di un’antica ricetta Calabrese. Il vecchio Amaro del Capo racchiude in sé i principi attivi di ben 29 Erbe benefiche, servito ad una temperatura di -20 è un ottimo digestivo, grazie anche ai suoi ingredienti principali: Arancia amara, Ginepro, Liquirizia, Miele.', 'Amaro', 'true', 'true', 'false', 'Amaro Del Capo', null, '2.5', 'ab500ecd-38d3-4492-a338-133925887fef',0),
+('Il Petrus Boonekamp è un amaro di origine olandese, creato nel 1777 a Leidschendam dal liquorista Petrus Boonekamp, la cui esistenza è dimostrata da fonti locali.', 'Amaro', 'true', 'true', 'false', 'Amaro Petrus', null, '2.5', '8e67b1ed-c931-45eb-a3ee-2b45a1a38eb1',0);
 
 -- INIT ROLES
 insert into public.role(name) values ('WAITER'),('BARTENDER'),('MANAGER');

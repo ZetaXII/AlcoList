@@ -43,7 +43,7 @@ public class Ordination {
 	@JsonIgnore
 	private Tables table;
 	@Column(name = "TOTAL")
-	private Double total;
+	private Double total=0.0;
 	@Column(name = "STATUS")
 	private OrdinationStatusEnum status;
 	

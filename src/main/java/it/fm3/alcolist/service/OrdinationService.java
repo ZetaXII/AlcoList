@@ -83,12 +83,13 @@ public class OrdinationService implements OrdinationServiceI{
 	}
 	
 	private void buildOrdinationByDTO(Ordination ordination, OrdinationDTO ordinationDTO) throws Exception {
-		if(ordinationDTO.status == null) 
+		if(ordinationDTO.status != null) 
 			ordination.setStatus(ordinationDTO.status);
 		if(ordinationDTO.dateCreation == null) 
 			ordination.setDateCreation(new Date());
-		if(ordinationDTO.dateLastModified == null) 
-			ordination.setDateLastModified(new Date());
+		else
+			ordination.setDateCreation(ordinationDTO.dateCreation);
+		ordination.setDateLastModified(new Date());
 		if(StringUtils.hasText(ordinationDTO.tableUuid)) {
 			Tables t=tablesService.get(ordinationDTO.tableUuid);
 			if(t==null)throw new Exception("Table with uuid: "+ordinationDTO.tableUuid+" not found");
@@ -100,6 +101,8 @@ public class OrdinationService implements OrdinationServiceI{
 			ordination.setUuid(ordinationDTO.uuid);
 		if(ordinationDTO.total!=null)
 			ordination.setTotal(ordinationDTO.total);
+		else 
+			ordination.setTotal(0.0);
 		if(StringUtils.hasText(ordinationDTO.createdByUserUuid)){
 			System.out.println("recupero l'utente");
 			UserAccount u=userAccountService.get(ordinationDTO.createdByUserUuid);
@@ -146,12 +149,13 @@ public class OrdinationService implements OrdinationServiceI{
 	}
 	
 	private void useProductForCocktail(String cocoktailUuid,int operation) throws Exception{
-		System.out.println("sono in useProductForCocktail");
+		System.out.println("@@@@@@ cocoktailUuid "+cocoktailUuid+" operation: "+operation);
 		Set<Ingredient> ingredients = cocktailService.getIngredients(cocoktailUuid);
 		Iterator<Ingredient> i = ingredients.iterator();	
 		while(i.hasNext()) {
 			   Ingredient ingredient=i.next();
 			   if(ingredient.getProduct().getMl()!=null) {
+				   
 				   this.updateProductQuantity(ingredient.getProduct(), ingredient.getQuantity()*operation);
 				   ingredientRepository.deactivateFinischedIngredients(ingredient.getProduct().getUuid());
 			   }
@@ -159,8 +163,9 @@ public class OrdinationService implements OrdinationServiceI{
 	}
 	
 	private void updateProductQuantity(Product p,int quantity) throws Exception {
-		if(p.getMl()>=quantity) {
-			p.setMl(p.getMl()-quantity);
+		System.out.println("@@@@@@ product "+p.getName()+" quatity: "+quantity);
+		if(p.getMl()+quantity>=0) {
+			p.setMl(p.getMl()+quantity);
 			if(p.getMl()==0)p.setPresent(false);
 		}else throw new Exception("quantity not sufficient for product "+p.getCategory()+" "+p.getName());
 	}
