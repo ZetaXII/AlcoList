@@ -53,6 +53,15 @@ public class OrdinationController {
 		}
 	}
 	
+	@RequestMapping(value = "/removeCocktail", method = RequestMethod.POST)
+	public ResponseEntity<?> removeCocktail(@RequestBody OrderedCocktailDTO oc, HttpServletRequest request){
+		try {
+			return ResponseEntity.ok(ordinationService.removeCocktail(oc));
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
 	public ResponseEntity<?> searchByFields(@RequestBody OrdinationDTO ordination, HttpServletRequest request) throws Exception {
 		return ResponseEntity.ok(ordinationService.searchByFields(ordination));
