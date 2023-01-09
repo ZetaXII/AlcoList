@@ -65,9 +65,9 @@ public class OrdinationController {
 		}
 	}
 	
-	@RequestMapping(value = "/updateStatus/{uuid}", method = RequestMethod.POST)
-	public ResponseEntity<?> updateStatus(@PathVariable(name = "uuid") String uuid,@RequestParam OrdinationStatusEnum status,@RequestBody MessageDTO msg, HttpServletRequest request) throws Exception{
-		return ResponseEntity.ok(ordinationService.updateStatus(uuid,status,msg));
+	@RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
+	public ResponseEntity<?> updateStatus(@RequestParam OrdinationStatusEnum status,@RequestBody MessageDTO msg, HttpServletRequest request) throws Exception{
+		return ResponseEntity.ok(ordinationService.updateStatus(msg.ordinationUuid,status,msg));
 	}
 	
 	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
