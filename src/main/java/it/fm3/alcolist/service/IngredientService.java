@@ -1,6 +1,7 @@
 package it.fm3.alcolist.service;
 
 
+import java.util.Set;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -39,6 +40,20 @@ public class IngredientService implements IngredientServiceI{
 	@Override
 	public Ingredient delete(String uuid) throws Exception {
 		Ingredient ingredientToDelete = get(uuid);
+		Cocktail c = ingredientToDelete.getCocktail();
+		Product p = ingredientToDelete.getProduct();
+		
+		if(c.isAlcoholic()==true && p.getAlcoholicPercentage() != 0 ) {
+			Set<Ingredient> ingredients = c.getIngredients();
+			int n = 0;
+			for(Ingredient i : ingredients) {
+				if(i.getProduct().getAlcoholicPercentage() != 0)
+					n++;
+			}
+			if(n == 1)
+				c.setAlcoholic(false);
+		}
+				
 		ingredientRepository.delete(ingredientToDelete);
 		return ingredientToDelete;
 	}

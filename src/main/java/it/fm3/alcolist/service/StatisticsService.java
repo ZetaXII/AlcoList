@@ -97,11 +97,8 @@ public class StatisticsService implements StatisticsServiceI{
 	@Override
 	public List<Cocktail> getBestSellingCocktailsByFlavour() throws Exception {
 		List<Integer> totalSold = cocktailRepository.findBestSellingByFlavour();
-		
-		for(Integer i : totalSold) {
-			if(i == null)
-				throw new Exception("Error filtered flavour sold");
-		}
+		if(totalSold == null)
+			throw new Exception("Error filtered flavour sold");
 		
 		List<Cocktail> list = new ArrayList<Cocktail>();
 		Cocktail a = new Cocktail();
