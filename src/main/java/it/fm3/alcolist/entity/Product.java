@@ -32,7 +32,7 @@ public class Product {
 	@Column(name = "IS_PRESENT")
 	private boolean isPresent=false;
 	@Column(name = "ML")
-	private Integer ml=0;
+	private Integer ml;
 	@Column(name = "PATHFILEIMG")
 	private String pathFileImg;
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
