@@ -38,7 +38,8 @@ public class Cocktail {
 	@Column(name = "DESCRIPTION",length=500)
 	private String description;
 	@Column(name = "FLAVOUR",length=50)
-	private String flavour;//TODO da definire enumeration aspro secco dolce amaro
+	private String flavour;//UPGRADE attualmente sul db viene salvata una stringa
+						   //bosognerebber gestire con enum flavour
 	@Column(name = "ISIBA")//C'è ma bisogna integrare le query
 	private boolean isIBA;
 	@Column(name = "ISALCOHOLIC")

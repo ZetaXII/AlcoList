@@ -36,7 +36,7 @@ public class ProductService implements ProductServiceI{
 	@Override
 	public Product delete(String uuid) throws Exception {
 		Product productToDelete = get(uuid);
-		//FIXME aggiungere controllo con link agli ingredienti
+		//TODO aggiungere controllo con link agli ingredienti
 		productRepository.delete(productToDelete);
 		return productToDelete;
 	}

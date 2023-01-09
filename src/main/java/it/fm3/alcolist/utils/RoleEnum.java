@@ -1,5 +1,7 @@
 package it.fm3.alcolist.utils;
-//QQQ attualmente non in uso da definire un file di costanti final static???
+//UPGRADE RoleEnum attualmente non in uso 
+//un possibile uso è sui controlli di sicurezza
+//da implementare eventualmento con token
 public enum RoleEnum {
 	WAITER,
 	BARTEDER,

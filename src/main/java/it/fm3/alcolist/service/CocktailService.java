@@ -55,7 +55,6 @@ public class CocktailService implements CocktailServiceI{
 
 	@Override
 	public Cocktail get(String uuid) throws Exception {
-		//FIXME si bloccava sulla set ingredients poi cambiata con la repository diretta
 		Cocktail c=cocktailRepository.findByUuid(uuid);
 		if(c==null) throw new Exception ("Cocktail with uuid "+uuid+" not exists");
 //		Set<Ingredient> ingredientsList = this.getIngredients(uuid);

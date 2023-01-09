@@ -15,21 +15,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import it.fm3.alcolist.DTO.MessageDTO;
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
 import it.fm3.alcolist.DTO.OrdinationResultDTO;
 import it.fm3.alcolist.DTO.OrdinationStatusEnum;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
+import it.fm3.alcolist.entity.Message;
 import it.fm3.alcolist.entity.OrderedCocktail;
 import it.fm3.alcolist.entity.Ordination;
 import it.fm3.alcolist.entity.Product;
 import it.fm3.alcolist.entity.Tables;
 import it.fm3.alcolist.entity.UserAccount;
 import it.fm3.alcolist.repository.IngredientRepository;
+import it.fm3.alcolist.repository.MessageRepository;
 import it.fm3.alcolist.repository.OrderedCocktailRepository;
 import it.fm3.alcolist.repository.OrdinationRepository;
-import it.fm3.alcolist.repository.TablesRepository;
 import it.fm3.alcolist.utils.RoleEnum;
 
 @Service
@@ -50,6 +52,8 @@ public class OrdinationService implements OrdinationServiceI{
 	private OrderedCocktailRepository orderedCocktailRepository;
 	@Autowired
 	private IngredientRepository ingredientRepository;
+	@Autowired
+	private MessageRepository messageRepository;
 
 
 	@Override
@@ -65,16 +69,49 @@ public class OrdinationService implements OrdinationServiceI{
 
 	@Override
 	public Ordination delete(String uuid) throws Exception {
-		// TODO implementare delete ordination
+		Ordination order= this.get(uuid);
+		if(!order.getStatus().isEditable() || order.getStatus().isRequireMessage())
+			throw new Exception("Status das not permit delete of order");
+		else
+			ordinationRepository.delete(order);
 		return null;
 	}
 
 	@Override
-	public Ordination updateStatus(String orderUuid,OrdinationStatusEnum status) throws Exception {
-		// TODO updateStatus ordination
-		return null;
+	//FIXME messages non funziona
+	public Ordination updateStatus(String orderUuid,OrdinationStatusEnum status,MessageDTO msg) throws Exception {
+		Ordination order=this.get(orderUuid);
+		if(order.getStatus()==status)
+			throw new Exception("ordination has already the state "+status.name());
+		if(!order.getStatus().isEditable() && !(status.ordinal()==order.getStatus().ordinal()-1 || status.ordinal()==order.getStatus().ordinal()+1))
+			throw new Exception("Illegal update status");
+		else {
+			//sono nel caso editable a true
+			if(order.getStatus().isRequireMessage()&&( msg==null||StringUtils.hasText(msg.note))) 
+				throw new Exception("Note is required");
+		}
+		if(msg.userUuid==null)
+			throw new Exception("userUuid is required");
+		String msgStatus="status  "+order.getStatus().getLabel()+" -> "+status.getLabel();
+		if(StringUtils.hasText(msg.note))
+			msg.note=msgStatus+"\n"+msg.note;
+		else
+			msg.note=msgStatus;
+		Message msgToSave=this.createMessage(msg);
+		messageRepository.save(msgToSave);
+		order.setStatus(status);
+		return order;
 	}
 
+	private Message createMessage(MessageDTO msg) throws Exception{
+		if(msg==null || !StringUtils.hasText(msg.note) || !StringUtils.hasText(msg.userUuid))
+				throw new Exception("note and user is required for the message");
+		else {
+			UserAccount u= userAccountService.get(msg.userUuid);
+			return new Message(msg.note,u);
+		}
+	}
+	
 	@Override
 	public Ordination get(String uuid) throws Exception {
 		Ordination o=this.ordinationRepository.findByUuid(uuid);
@@ -170,7 +207,6 @@ public class OrdinationService implements OrdinationServiceI{
 		}else throw new Exception("quantity not sufficient for product "+p.getCategory()+" "+p.getName());
 	}
 
-	//FIXME DA DEFINIRE API PER PASSAGGIO STATO DA CREATED A SENT 
 	
 	@Override
 	public OrdinationResultDTO searchByFields(OrdinationDTO ordinationDTO) throws Exception {

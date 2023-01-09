@@ -75,10 +75,10 @@ public class UserAccountService implements UserAccountServiceI{
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject login(UserAccountDTO u) throws Exception {
-		//QQQ Integrare gestione token??? NO
-		//come verrà gestito il login? 
-		//il frontend controlla che un utente sia loggato?
-		//come definisco un utente loggato?
+		//UPGRADE Integrare gestione token??? NO non ora
+		//come verrà gestito il login? appezzottato
+		//il frontend controlla che un utente sia loggato? si
+		//come definisco un utente loggato? non lo definisco
 		JSONObject response = new JSONObject();
 		ArrayList<UserAccount> users = (ArrayList<UserAccount>) userAccountRepository.findByEmailAndDateDelete(u.email, null);
 		if(users.size() == 1) { //check user email

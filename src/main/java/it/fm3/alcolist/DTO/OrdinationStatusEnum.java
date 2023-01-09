@@ -1,13 +1,39 @@
 package it.fm3.alcolist.DTO;
 
 public enum OrdinationStatusEnum {
-	CREATED,
-	PENDING,
-	WORK_IN_PROGRESS,
-	COMPLETED,
-	DELIVERED,
-	ENDED
+	CREATED("Creata",true,false),
+	PENDING("In Attesa",true,false),
+	WORK_IN_PROGRESS("In Elaborazione",true,true),
+	COMPLETED("Da consegnare",false,false),
+	DELIVERED("Consegnata",false,false),
+	ENDED("Terminata",false,false)
+	;
+	
+	
+	private final String label;
+    private final boolean editable;
+    private final boolean requireMessage;
+    
+	private OrdinationStatusEnum(String label, boolean editable, boolean requireMessage) {
+		this.label = label;
+		this.editable = editable;
+		this.requireMessage = requireMessage;
+	}
+	
+	public String getLabel() {
+		return label;
+	}
+	public boolean isEditable() {
+		return editable;
+	}
+	public boolean isRequireMessage() {
+		return requireMessage;
+	}
+    
+    
+    
 }
+
 
 /*
  GESTIONE ORDINI

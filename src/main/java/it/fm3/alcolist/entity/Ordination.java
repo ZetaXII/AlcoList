@@ -71,7 +71,15 @@ public class Ordination {
 	@Column(name = "NUMBERS_OF_COCKTAILS")
 	private Integer numbersOfCocktails = 0;
 	
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordination")
+	private Set<Message> messages;
 	
+	public Set<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
+	}
 	public Date getDateLastModified() {
 		return dateLastModified;
 	}
