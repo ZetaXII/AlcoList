@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
     <title>Dashboard</title>
     <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -26,72 +27,84 @@
     <div class="container-fluid p-4">
         <div class="content">
             <div class="row gx-3 gy-3">
-                <div class="col-lg-4">
-                    <div class="card h-auto">
-                        <div class="card-header">
+
+                <div class="col-lg-6 mb-2">
+                    <div class="card h-auto" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
+                        <div class="card-header" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
                             <h5>Utenti totali</h5>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item mt-2"><p class="fs-4"><img src="${pageContext.request.contextPath}/img/waiter.svg" class="img-fluid" height="52px" width="52px" > <b>5</b> Camerieri</p></li>
-                            <li class="list-group-item mt-2"><p class="fs-4"><img src="${pageContext.request.contextPath}/img/waiter.svg" class="img-fluid" height="52px" width="52px" > <b>3</b> Bartender</p></li>
-                            <li class="list-group-item mt-2"><p class="fs-4"><img src="${pageContext.request.contextPath}/img/waiter.svg" class="img-fluid" height="52px" width="52px" > <b>1</b> Manager</p></li>
+                        <ul class="list-group list-group-flush" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
+                            <li class="list-group-item mt-2" style="background-color: var(--secondaryBlue); color: var(--white);"><p class="fs-4"><img src="${pageContext.request.contextPath}/img/avatar.svg" class="img-fluid" height="52px" width="52px" style="background-color: var(--white); border-radius: 100%;"> <b class="waiterNumber"></b> Camerieri</p></li>
+                            <li class="list-group-item mt-2" style="background-color: var(--secondaryBlue); color: var(--white);"><p class="fs-4"><img src="${pageContext.request.contextPath}/img/avatar.svg" class="img-fluid" height="52px" width="52px" style="background-color: var(--white); border-radius: 100%;"> <b class="bartenderNumber"></b> Bartender</p></li>
+                            <li class="list-group-item mt-2" style="background-color: var(--secondaryBlue); color: var(--white);"><p class="fs-4"><img src="${pageContext.request.contextPath}/img/avatar.svg" class="img-fluid" height="52px" width="52px" style="background-color: var(--white); border-radius: 100%;"> <b class="managerNumber"></b> Manager</p></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <div class="card mb-3">
-                        <img src="${pageContext.request.contextPath}/img/manage-users.svg" class="card-img-top p-3" width="300px" height="255px" alt="...">
-                        <div class="card-body gap-2">
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Gestisci utenti</button>
-                            </div>
-                        </div>
+
+                <div class="col-xl-6 gy-2">
+                    <div class="card" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
+                        <canvas id="pie-chart" class="py-1 my-3" height="295px"></canvas><!--GRAFICO A TORTA-->
                     </div>
                 </div>
-                <div class="col-xl-6 gy-1">
-                    <div class="card">
-                        <canvas id="pie-chart" height="300px"></canvas>
+
+                <div class="col-xl-12 gy-2 gy-sx-5">
+                    <div class="card" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
+                        <canvas id="bar-chart" class="py-1 my-3" height="300px"></canvas><!--GRAFICO A BARRE-->
                     </div>
                 </div>
-                <div class="col-xl-6 gy-1 gy-sx-3">
-                    <div class="card">
-                        <canvas id="bar-chart" height="300px"></canvas>
-                    </div>
-                </div>
+
                 <div class="col-md-6 col-lg-4">
-                    <div class="card mb-3">
-                        <img src="${pageContext.request.contextPath}/img/manage-menu.svg" class="card-img-top p-5" width="300px" height="320px" alt="...">
+                    <div class="card mb-3" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
+                        <div class="card-title ps-3 pt-3">
+                            <span class="h4 p-2 my-5">Camerieri per ordini creati</span>
+                        </div>
                         <div class="card-body">
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Gestisci men&ugrave;</button>
+                            <div class="d-grid lista-migliori-camerieri-ordini-creati overflow-auto" style="height: 300px;">
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-6 col-lg-4">
-                    <div class="card mb-3">
-                        <img src="${pageContext.request.contextPath}/img/manage-market.svg" class="card-img-top p-5" width="300px" height="320px" alt="...">
+                    <div class="card mb-3" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
+                        <div class="card-title ps-3 pt-3">
+                            <span class="h4 p-2 my-5">Bartender per ordini realizzati</span>
+                        </div>
                         <div class="card-body">
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Gestisci magazzino</button>
+                            <div class="d-grid lista-migliori-bartender-ordini-eseguiti overflow-auto" style="height: 300px;">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-4">
-                    <div class="card mb-3">
-                        <img src="${pageContext.request.contextPath}/img/manage-cocktails.svg" class="card-img-top p-3" width="300px" height="320px" alt="...">
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card mb-3" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
+                        <div class="card-title ps-3 pt-3">
+                            <span class="h4 p-2 my-5">Camerieri per ordini consegnati</span>
+                        </div>
                         <div class="card-body">
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Gestisci cocktails</button>
+                            <div class="d-grid lista-migliori-camerieri-ordini-consegnati overflow-auto" style="height: 300px;">
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
-<script src="${pageContext.request.contextPath}/script/dashboardCharts.js"></script>
+<%--<script src="${pageContext.request.contextPath}/script/dashboardCharts.js"></script>--%>
+<script src="${pageContext.request.contextPath}/script/statsJS.js"></script>
+<script>
+    $(".waiterNumber").append(getNumbersOfUsers("Waiter"));
+    $(".bartenderNumber").append(getNumbersOfUsers("Bartender"));
+    $(".managerNumber").append(getNumbersOfUsers("Manager"));
+
+    getBestSellingCocktails();
+    getBestSellingCocktailsByFlavour();
+    getNumbersOfCreatedByUserUuid();
+    getNumbersOfExecutedByUserUuid();
+    getNumbersOfDeliveredByUserUuid()
+</script>
 </body>
 </html>

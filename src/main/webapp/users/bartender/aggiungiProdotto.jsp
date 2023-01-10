@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
     <title>Aggiungi prodotto</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- JavaScript Bundle with Popper -->
@@ -30,21 +31,21 @@
             <!-- card che mostra le info del cocktail-->
             <div class="card info-item-panel mb-3 p-1" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                 <div class="row g-0" style="background-color: var(--secondaryBlue); border-radius: 30px;">
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-1 text-center">
                         <a id="backToListCocktail" href="${pageContext.request.contextPath}/users/bartender/magazzino.jsp?page=0&name=&category="><i class='bx bx-chevron-left back-button'></i></a>
-                        <img src="" class="img-fluid rounded-start p-4" id="item-img" width="300px">
+                        <!--<img src="" class="img-fluid rounded-start p-4" id="item-img" width="300px">-->
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-11">
                         <form class="card-body p-4 mt-4">
                             <h5 class="card-title"><input type="text" id="categoryField" class="modifyItemFields form-control py-2 mb-4" placeholder="Categoria" maxlength="50" required></h5>
 
                             <h5 class="card-title"><input type="text" id="titleField" class="modifyItemFields form-control py-2 mb-4" placeholder="Nome" maxlength="50" required></h5>
 
-                            <input type="text" id="pathFileImgField" onfocusout="changeImg()" class="modifyItemFields form-control py-2 mb-4" placeholder="Link dell'immagine" maxlength="255" required>
+                            <!--<input type="text" id="pathFileImgField" onfocusout="changeImg()" class="modifyItemFields form-control py-2 mb-4" placeholder="Link dell'immagine" maxlength="255" required>-->
 
                             <p class="card-text cocktail-description"><input type="number" id="alcoholicPercentage" class="modifyItemFields form-control py-2 mb-4" placeholder="Percentuale alcolica" maxlength="50" required></p>
 
-                            <p class="price"><input type="number" id="ml" class="modifyItemFields form-control py-2 mb-4" placeholder="Quantit&agrave; disponibile (ml)" maxlength="50" required></p>
+                            <p class="price"><input type="number" id="ml" class="modifyItemFields form-control py-2 mb-4" placeholder="Quantit&agrave; disponibile (ml)" maxlength="50"></p>
 
                             <div class="text-center">
                                 <button class="btn btn-modifyCocktail px-2 m-2 w-50 text-center" onclick="addProduct()">Aggiungi prodotto</button>

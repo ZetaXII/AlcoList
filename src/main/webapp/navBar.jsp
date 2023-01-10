@@ -3,7 +3,9 @@
 <input type="hidden" value="${pageContext.request.contextPath}" id="contextPath">
 <html lang="en">
 <head>
-    <title></title>
+    <title>NavBar</title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
+    <link rel="manifest" href="/site.webmanifest">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +23,7 @@
         <div class="logo">
             <i class='bx bx-menu menu-icon'></i>
             <span class="logo-name">AlcoList</span>
-            <a href="#" class="user-info p-0 mt-1 text-center mx-3" style="right:20px; position: fixed; transition: 0.2s;">
+            <a href="${pageContext.request.contextPath}/users/profile.jsp" class="user-info p-0 mt-1 text-center mx-3" style="right:20px; position: fixed; transition: 0.2s;">
                 <span class="user-name"></span> <span class="badge bg-danger"></span><i class='bx bx-user-circle icon' style="font-size: 30px"></i>
             </a>
         </div>
@@ -40,12 +42,6 @@
                             <a href="${pageContext.request.contextPath}/users/manager/listaUser.jsp" class="nav-link">
                                 <i class='bx bxs-user-detail icon' ></i>
                                 <span class="link">Personale</span>
-                            </a>
-                        </li>
-                        <li class="list">
-                            <a href="#" class="nav-link">
-                                <i class='bx bx-stats icon'></i>
-                                <span class="link">Statistiche</span>
                             </a>
                         </li>
                     </div>

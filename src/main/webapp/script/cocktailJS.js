@@ -63,6 +63,7 @@ function infoCocktail()
     let cocktailUuid = urlParams.get('uuid');
     let cocktail= getCocktail(cocktailUuid);
     let ingredients=cocktail.ingredients;
+    let optional="";
 
     $(".item-name").append(cocktail.name);
     $(".cocktail-description").append(cocktail.description);
@@ -78,7 +79,7 @@ function infoCocktail()
     {
         for(i in ingredients)
         {
-            let ingredientQuantity=ingredients[i].product.ml;
+            let ingredientQuantity=ingredients[i].quantity;
             if(ingredientQuantity=="" || ingredientQuantity==" " || ingredientQuantity==null)
             {
                 ingredientQuantity="q.b.";
@@ -87,8 +88,18 @@ function infoCocktail()
             {
                 ingredientQuantity=ingredientQuantity+" ml.";
             }
+
+            if(ingredients[i].optional==true)
+            {
+                optional="(facoltativo)";
+            }
+            else
+            {
+                optional="";
+            }
+
             let ingredientName=" "+ingredients[i].product.category+" "+ingredients[i].product.name;
-            $(".ingredient-list").append("<li><span class='ingredient-qt'>"+ingredientQuantity+"</span>"+ingredientName.toLowerCase()+"</li>");
+            $(".ingredient-list").append("<li><span class='ingredient-qt'>"+ingredientQuantity+"</span>"+ingredientName.toLowerCase()+" "+optional+"</li>");
         }
     }
 
@@ -344,7 +355,7 @@ function addCocktail()
 
             success:function(result)
             {
-                redirectInfoCocktail(result.uuid);
+                window.location.href= $("#contextPath").val()+"/users/bartender/aggiungiIngredientiCocktail.jsp?uuid="+result.uuid;
             },
             error: function(error)
             {
@@ -414,7 +425,7 @@ function modifyCocktail()
 
                 success:function(result)
                 {
-                    redirectInfoCocktail(result.uuid);
+                    window.location.href= $("#contextPath").val()+"/users/bartender/aggiungiIngredientiCocktail.jsp?uuid="+result.uuid;
                 },
                 error: function(error)
                 {
@@ -515,14 +526,7 @@ function paginatedMenu(size, page)
 
         for(j in ingredients)
         {
-            if(j<(ingredients.length-2))
-            {
-                ingredientsList=ingredientsList+"<span>"+ingredients[j].product.category+" "+ingredients[j].product.name+", </span>";
-            }
-            else if(j==(ingredients.length-1))
-            {
-                ingredientsList=ingredientsList+"<span>"+ingredients[j].product.category+" "+ingredients[j].product.name+". </span>";
-            }
+            ingredientsList=ingredientsList+" "+ingredients[j].product.category+" "+ingredients[j].product.name+",";
         }
 
         if(cocktailsArray[i].iba==false)
@@ -552,7 +556,14 @@ function paginatedMenu(size, page)
             inMenu="men&ugrave;";
         }
 
-        let cocktailCard="" +
+        ingredientsList=ingredientsList.substring(0, ingredientsList.length-1)+"."; //mette il punto alla fine della stringa
+
+        if(ingredientsList.length<60)
+        {
+            ingredientsList=ingredientsList+"<br/><br/>";
+        }
+
+        let cocktailCard=
             "<div class='col-sm-12 col-xl-6'>" +
             "   <div class='card info-item-panel mt-4' style='background-color: var(--secondaryBlue); border-radius: 30px;'>" +
             "       <div class='row g-0' style='background-color: var(--secondaryBlue); border-radius: 30px;'>" +
@@ -568,7 +579,7 @@ function paginatedMenu(size, page)
                     "               <span class='badge cocktail-isIBA'>"+isIBA+"</span>" +
                     "               <span class='badge cocktail-isAlcoholic'>"+isAlcoholic+"</span>" +
                     "           </div>" +
-                    "           <div class='ingredient-list-menu p-1'>"+ingredientsList+"</div>"+
+                    "           <div class='ingredient-list-menu p-1'><span style='color:var(--lightBlue)'>Ingredienti: </span>"+ingredientsList.toLowerCase()+"</div>"+
             "               </div>" +
             "           </div>" +
             "       </div>" +

@@ -1,6 +1,7 @@
 <%int i=0;%>
 <html>
 <head>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
     <title>Cocktails</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- JavaScript Bundle with Popper -->
@@ -118,7 +119,7 @@
 
     $("#searchNameField").val(searchName);
 
-    paginatedCocktailList(6,page,searchName,searchFlavour,searchIsAlcoholic);
+    paginatedCocktailList(12,page,searchName,searchFlavour,searchIsAlcoholic);
 
     if(roleList.includes("WAITER") && JSON.parse(roleList).length==1)
     {
@@ -126,14 +127,6 @@
         $(".btn-erase").toggle("hidden");
         $(".btn-modify").toggle("hidden");
     }
-
-    /*$(".filters").toggle("hidden");
-
-    function openFilters()
-    {
-        $(".filters").toggle("show");
-    }*/
-
 </script>
 </body>
 </html>
