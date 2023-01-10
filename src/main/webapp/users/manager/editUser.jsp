@@ -29,7 +29,6 @@
         let user_name = selectedUser.name.charAt(0).toUpperCase() + selectedUser.name.slice(1);
         const user_surname = selectedUser.surname.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
         let user_tot = user_name+" "+user_surname;
-        //TODO FILLARE CAMPI RESTANTI
         $("#profile-title1").text(user_tot);
         $("#profile-title2").text(user_tot);
         let user_roleList = JSON.stringify(selectedUser.roles);

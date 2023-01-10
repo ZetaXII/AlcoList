@@ -1,8 +1,9 @@
 function redirectInfoUser(uuid)
 {
-    console.log("melania")
     window.location.href= $("#contextPath").val()+"/users/manager/infoUser.jsp?uuid="+uuid;
-    //window.location.href= $("#contextPath").val()+"/users/profile.jsp";
+}
+function redirectListaUser(){
+    window.location.href = $("#contextPath").val()+"/users/manager/listaUser.jsp";
 }
 
 function getUser(uuid) {
@@ -156,7 +157,6 @@ function modifyUser(uuidUser){
 
             success:function(result)
             {
-                alert("UUID DELL'USER MODIFICATO: "+result.uuid)
                 redirectInfoUser(result.uuid);
             },
             error: function(error)
@@ -221,9 +221,10 @@ function deleteUser(uuid)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
 
-        success:function(cocktail)
+        success:function()
         {
             alert("L'utente è stato eliminato correttamente")
+            redirectListaUser()
         },
         error: function(error)
         {

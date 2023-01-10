@@ -13,10 +13,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
   <!-- CSS -->
+  <link href="${pageContext.request.contextPath}/style/infoCocktailStyle.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/style/profile.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/style/infoCocktailStyle.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/style/listaStyle.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../../navBar.jsp"%>
@@ -37,8 +36,8 @@
     const user_surname = selectedUser.surname.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
     let user_tot = user_name+" "+user_surname;
     let user_uuid = selectedUser.uuid
-    $("#uuid").val(user_uuid)
-    //TODO FILLARE CAMPI RESTANTI
+    $("#uuidEdit").val(user_uuid)
+    $("#uuidDelete").val(user_uuid)
     $("#profile-title1").text(user_tot);
     $("#profile-title2").text(user_tot);
     let user_roleList = JSON.stringify(selectedUser.roles);
@@ -91,8 +90,8 @@
 <div class="container-fluid p-4">
   <div class="content">
     <div class="row gx-4 containerTables px-3">
-      <div class="col-10"></div>
-      <div class="col-2 mb-5"> <button id="uuid" value="" class="btn btn-view" style="color: #ebc23b" onclick="redirectEditUser(value)">EDIT</button></div>
+      <div class="col-9"></div>
+      <div class="col-3 mb-5"> <button id="uuidEdit" value="" class="badge-user btn btn-view" onclick="redirectEditUser(value)">EDIT</button><button id="uuidDelete" value="" class="badge-user btn btn-view" onclick="deleteUser(value)">DELETE</button></div>
     </div>
     <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
       <div class="col-md-12 col-lg-12 col-xl-12 mt-1">
