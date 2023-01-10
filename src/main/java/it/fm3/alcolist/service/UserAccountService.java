@@ -47,7 +47,7 @@ public class UserAccountService implements UserAccountServiceI{
 	public UserAccount add(UserAccountDTO userDto) throws Exception{
 		UserAccount newUser= new UserAccount();
 		this.buildUserAccountByUserAccountDTO(newUser,userDto);
-		if(userAccountRepository.findByEmailAndDateDelete(userDto.email, null).size()>0)
+		if(userAccountRepository.findByEmail(userDto.email).size()>0)
 			throw new Exception("user already exists");
 		 userAccountRepository.save(newUser);
 		 System.out.println("\n\n@@@@@@ NUOVO UTENTE: "+newUser);
@@ -59,7 +59,7 @@ public class UserAccountService implements UserAccountServiceI{
 		UserAccount userToDelete = userAccountRepository.findByUuid(uuid);
 		if(userToDelete==null)
 			throw new Exception("user not found with uuid: "+uuid);
-		userToDelete.setDateDelete(new Date());
+		userAccountRepository.delete(userToDelete);
 		return userToDelete;
 	}
 
@@ -80,7 +80,7 @@ public class UserAccountService implements UserAccountServiceI{
 		//il frontend controlla che un utente sia loggato? si
 		//come definisco un utente loggato? non lo definisco
 		JSONObject response = new JSONObject();
-		ArrayList<UserAccount> users = (ArrayList<UserAccount>) userAccountRepository.findByEmailAndDateDelete(u.email, null);
+		ArrayList<UserAccount> users = (ArrayList<UserAccount>) userAccountRepository.findByEmail(u.email);
 		if(users.size() == 1) { //check user email
 			if(users.get(0).getPassword().equals(encriptPassword(u.password))) { 	//check password
 				String jsonString = mapper.writeValueAsString(users.get(0));
@@ -117,8 +117,6 @@ public class UserAccountService implements UserAccountServiceI{
 		if(StringUtils.hasText(userDTO.password))
 			user.setPassword(this.encriptPassword(userDTO.password));
 		user.setEmail(userDTO.email);
-		if(userDTO.dateDelete!=null)
-			user.setDateDelete(userDTO.dateDelete);
 		if(!StringUtils.hasText(userDTO.uuid))
 			user.setUuid(UUID.randomUUID().toString());
 		else

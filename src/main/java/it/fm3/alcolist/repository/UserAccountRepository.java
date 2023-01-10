@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import it.fm3.alcolist.entity.UserAccount;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
-	List<UserAccount> findByEmailAndDateDelete(String email,Date dataDelete);
+	List<UserAccount> findByEmail(String email);
 	UserAccount findByUuid(String uuid);
 }

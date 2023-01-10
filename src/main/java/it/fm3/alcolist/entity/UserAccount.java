@@ -2,6 +2,7 @@ package it.fm3.alcolist.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,9 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
@@ -38,11 +41,19 @@ public class UserAccount {
 	private String password;
 	@Column(name = "EMAIL", length = 50, nullable = false)
 	private String email;
-	@Column(name = "DATE_DELETE")
-	private Date dateDelete;
+
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
+	@OneToMany(mappedBy="user")
+	@JsonIgnore
+	private Set<Message> messages;
 	
+	public Set<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
+	}
 	public long getId() {
 		return id;
 	}
@@ -74,12 +85,7 @@ public class UserAccount {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getDateDelete() {
-		return dateDelete;
-	}
-	public void setDateDelete(Date dateDelete) {
-		this.dateDelete = dateDelete;
-	}
+
 	public String getUuid() {
 		return uuid;
 	}
@@ -103,7 +109,7 @@ public class UserAccount {
 	@Override
 	public String toString() {
 		return "UserAccount [id=" + id + ", name=" + name + ", surname=" + surname + ", roles=" + roles + ", mainRole="
-				+ mainRole + ", password=" + password + ", email=" + email + ", dateDelete=" + dateDelete + ", uuid="
+				+ mainRole + ", password=" + password + ", email=" + email  + ", uuid="
 				+ uuid + "]";
 	}
 	

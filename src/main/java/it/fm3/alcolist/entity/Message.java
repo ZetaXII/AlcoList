@@ -11,9 +11,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="MESSAGE")
+
 public class Message {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,6 +26,8 @@ public class Message {
 	@Column(name = "NOTE", length = 50)
 	private String note;
 	@OneToOne
+	@JsonIgnore //UPGRADE per ora non si vede chi ha scritto il messaggio
+				//se tolgo il json ignore va in errore
 	private UserAccount user;
 	@Column(name = "CREATION_DATE", length = 50)
 	private Date creationDate;
@@ -34,17 +38,32 @@ public class Message {
 	
 	
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", note=" + note + ", user=" + user + ", creationDate=" + creationDate
+				+ ", ordination=" + ordination + "]";
+	}
+	public Message() {
+		super();
+	}
 	public Ordination getOrdination() {
 		return ordination;
 	}
 	public void setOrdination(Ordination ordination) {
 		this.ordination = ordination;
 	}
-	public Message(String note, UserAccount user) {
+	public Message(String note, UserAccount user,Ordination o) {
 		super();
 		this.note = note;
 		this.user = user;
 		this.creationDate=new Date();
+		this.ordination=o;
 	}
 	public String getNote() {
 		return note;

@@ -32,6 +32,7 @@ import it.fm3.alcolist.repository.IngredientRepository;
 import it.fm3.alcolist.repository.MessageRepository;
 import it.fm3.alcolist.repository.OrderedCocktailRepository;
 import it.fm3.alcolist.repository.OrdinationRepository;
+import it.fm3.alcolist.repository.UserAccountRepository;
 import it.fm3.alcolist.utils.RoleEnum;
 
 @Service
@@ -46,6 +47,8 @@ public class OrdinationService implements OrdinationServiceI{
 	private TablesServiceI tablesService;
 	@Autowired
 	private UserAccountServiceI userAccountService;
+	@Autowired
+	private UserAccountRepository userAccountRepository;
 	@Autowired
 	private CocktailServiceI cocktailService;
 	@Autowired
@@ -78,7 +81,6 @@ public class OrdinationService implements OrdinationServiceI{
 	}
 
 	@Override
-	//FIXME messages non funziona
 	
 	public Ordination updateStatus(String orderUuid,OrdinationStatusEnum status,MessageDTO msg) throws Exception {
 		Ordination order=this.get(orderUuid);
@@ -98,18 +100,22 @@ public class OrdinationService implements OrdinationServiceI{
 			msg.note=msgStatus+"\n"+msg.note;
 		else
 			msg.note=msgStatus;
-		Message msgToSave=this.createMessage(msg);
+		Message msgToSave=this.createMessage(msg,order);
+		System.out.println("\n\n@@@@@@ msgToSave: "+msgToSave);
 		messageRepository.save(msgToSave);
 		order.setStatus(status);
 		return order;
 	}
 
-	private Message createMessage(MessageDTO msg) throws Exception{
+	private Message createMessage(MessageDTO msg,Ordination o) throws Exception{
+		if(o==null)
+			o=ordinationRepository.findByUuid(msg.ordinationUuid);
 		if(msg==null || !StringUtils.hasText(msg.note) || !StringUtils.hasText(msg.userUuid))
 				throw new Exception("note and user is required for the message");
 		else {
-			UserAccount u= userAccountService.get(msg.userUuid);
-			return new Message(msg.note,u);
+			UserAccount u= userAccountRepository.findByUuid(msg.userUuid);
+			if(u==null) throw new Exception("User with uuid: "+msg.userUuid+" not found");
+			return new Message(msg.note,u,o);
 		}
 	}
 	

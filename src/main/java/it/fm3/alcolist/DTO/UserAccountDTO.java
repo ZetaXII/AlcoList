@@ -11,7 +11,6 @@ public class UserAccountDTO {
 	public String mainRole;
 	public String password;
 	public String email;
-	public Date dateDelete;
 	public String uuid;
 	public Integer page;
 	public Integer size;
