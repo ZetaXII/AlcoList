@@ -31,12 +31,9 @@
 
 <div class="container-fluid p-4">
     <div class="content">
-        <div class="row justify-content-end mb-6">
-            <div class="col-8"></div>
-            <div class="col-4 addUser card-body" style="margin-top: -60px;">
-                <button class="btn-modifyCocktail" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">NUOVO DIPENDENTE</button>
-
-            </div>
+        <div class="row gx-5 containerTables">
+            <div class="col-9"></div>
+            <div class="col-3 mb-4"><button class="badge-user btn btn-view" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">NUOVO DIPENDENTE</button></div>
         </div>
         <div class="append-user" value=""></div>
         <!--<div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">

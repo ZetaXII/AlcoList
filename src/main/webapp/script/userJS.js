@@ -211,6 +211,37 @@ function modifyUser_2()
     }
 }
 
+function deleteSelf(uuid)
+{
+    $.ajax({
+        async: false,
+        method: "DELETE",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-users/delete?uuid="+uuid,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+        success:function()
+        {
+            alert("L'utente è stato eliminato correttamente")
+            logout()
+        },
+        error: function(error)
+        {
+            console.log("generic error"+ JSON.stringify(error));
+        }
+    });
+}
+function confirmDeleteSelf(uuid)
+{
+    if (confirm("Sei sicuro di voler eliminare l'utente?"))
+    {
+        deleteSelf(uuid);
+        window.location.reload();
+    }
+}
+
+
 function deleteUser(uuid)
 {
     $.ajax({
