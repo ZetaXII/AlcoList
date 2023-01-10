@@ -1,7 +1,7 @@
-let surname= sessionStorage.getItem("surname");
-let mainRole= sessionStorage.getItem("mainRole");
-let roleList= sessionStorage.getItem("roleList");
-let name= sessionStorage.getItem("name");
-let uuid= sessionStorage.getItem("uuid");
-let email= sessionStorage.getItem("email");
+surname = sessionStorage.getItem("surname");
+mainRole = sessionStorage.getItem("mainRole");
+roleList = sessionStorage.getItem("roleList");
+name = sessionStorage.getItem("name");
+uuid = sessionStorage.getItem("uuid");
+email = sessionStorage.getItem("email");
 
