@@ -4,6 +4,7 @@ function redirectInfoUser(uuid)
     window.location.href= $("#contextPath").val()+"/users/manager/infoUser.jsp?uuid="+uuid;
     //window.location.href= $("#contextPath").val()+"/users/profile.jsp";
 }
+
 function getUser(uuid) {
     let u;
     $.ajax({
@@ -47,41 +48,6 @@ function getAllUsers(){
     });
     return u;
 }
-
-function infoUser()
-{
-    /*prende la query di ricerca e vede se ci sono delle variabili di GET*/
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    console.log("MELANIA:" +urlParams)
-    /*recupera il valore della variabile uuid se esiste*/
-    let userUuid = urlParams.get('uuid');
-    let user= getUser(userUuid);
-
-    $(".user-name").append(user.name);
-    $(".user-email").append(user.email);
-    $(".user-role").append()
-
-    if(user.role==="MANAGER")
-    {
-        $(".user-role").append("MANAGER");
-    }
-    else if(user.role==="BARTENDER")
-    {
-        $(".user.role").append("BARTENDER");
-    }
-    else if(user.role==="WAITER")
-    {
-        $(".user.role").append("WAITER");
-    }
-}
-
-function goToInfo(id){
-    console.log("DIV PRESSED");
-    console.log(id);
-    window.location='${pageContext.request.contextPath}/users/infoUser.jsp/uuid=26aec96d-6e7a-4d63-9063-171b35a72526';
-}
-
 function appendUser(allUsers){
     for(user in allUsers) {
         console.log("melania: " + allUsers[user])
@@ -97,7 +63,7 @@ function appendUser(allUsers){
                 "                </div>\n" +
                 "                <div class=\"col-md-7\">\n" +
                 "                    <div class=\"card-body mt-2 mb-3\">\n" +
-                "                        <h5 class=\"card-title profile-title\">" + allUsers[user].name + "</h5>\n" + tagRoles +
+                "                        <h5 class=\"card-title profile-title\">" + allUsers[user].name + " " +allUsers[user].surname + "</h5>\n" + tagRoles +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "                <div class=\"col-md-2\">\n" +
@@ -136,8 +102,74 @@ function infoModifyUser() //inserisce nei rispettivi campi le varie info del coc
 
     document.getElementById("user-img").src=cocktail.pathFileImg;
 }
+function modifyUser(uuidUser){
+    let name=$("#nameField").val();
+    let surname=$("#surnameField").val();
+    let emailUser=$("#emailField").val();
+    let password=$("#passwordField").val();
+    let uuid = uuidUser
+    let managerIsChecked = document.getElementById("MANAGER").classList.contains("badgeChecked")
+    let bartenderIsChecked = document.getElementById("BARTENDER").classList.contains("badgeChecked")
+    let waiterIsChecked = document.getElementById("WAITER").classList.contains("badgeChecked")
 
-function modifyUser()
+    roles = []
+    if (managerIsChecked){
+        roles.push("MANAGER")
+    }
+
+    if (bartenderIsChecked){
+        roles.push("BARTENDER")
+    }
+
+    if (waiterIsChecked){
+        roles.push("WAITER")
+    }
+    if (roles.length===0){
+        alert("Seleziona almeno un ruolo")
+        return;
+    }
+    let mainRole=roles[0];
+
+    alert("nome: "+name+" cognome: "+surname+" email: "+emailUser+" password: "+password+" roles: "+roles+" mainrole: "+mainRole)
+
+    if(name!=="" && surname!=="" && mainRole!=="" && emailUser!=="" && password!=="" && !!roles && roles.length>0 && uuid!=="")
+    {
+        let userModel=
+            {
+                name: name,
+                surname: surname,
+                roleList: roles,
+                mainRole: mainRole,
+                password: password,
+                email: emailUser,
+                uuid: uuid
+            }
+
+        $.ajax({
+            async: true,
+            method: "POST",
+            crossDomain: true,
+            url:"http://localhost:8090/manage-users/update",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data:JSON.stringify(userModel),
+
+            success:function(result)
+            {
+                alert("UUID DELL'USER MODIFICATO: "+result.uuid)
+                redirectInfoUser(result.uuid);
+            },
+            error: function(error)
+            {
+                alert("ERRORE")
+                console.log("generic error"+ JSON.stringify(error));
+                window.location.href = $("#contextPath").val()+"/users/manager/listaUser.jsp";
+            }
+        });
+    }
+}
+
+function modifyUser_2()
 {
     let name=$("#nameField").val();
     let surname=$("#surnameField").val();

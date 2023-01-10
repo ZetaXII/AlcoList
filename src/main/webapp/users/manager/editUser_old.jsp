@@ -1,21 +1,20 @@
 <%--
   Created by IntelliJ IDEA.
   User: melaniaconte
-  Date: 10/01/23
-  Time: 12:40
+  Date: 03/01/23
+  Time: 09:51
   To change this template use File | Settings | File Templates.
 --%>
 <html>
 <head>
-    <title id="profile-title1"></title>
+    <title>Modifica User</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
     <!-- CSS -->
-    <link href="${pageContext.request.contextPath}/style/infoCocktailStyle.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/style/profile.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../../navBar.jsp"%>
@@ -30,35 +29,21 @@
         const user_surname = selectedUser.surname.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
         let user_tot = user_name+" "+user_surname;
         //TODO FILLARE CAMPI RESTANTI
-        $("#profile-title1").text(user_tot);
-        $("#profile-title2").text(user_tot);
+        $("#profile-title").text(user_tot);
         let user_roleList = JSON.stringify(selectedUser.roles);
-
-        //$("#nameField").setAttribute("placeholder", ""+user_name)
-        $("#submitEdit").val(selectedUser.uuid)
-        $("#nameField").val(user_name)
-        $("#surnameField").val(user_surname)
-
-        let managerbtn = document.getElementById("MANAGER");
-        let bartenderbtn = document.getElementById("BARTENDER");
-        let waiterbtn = document.getElementById("WAITER")
-
         if(user_roleList.includes("MANAGER"))
         {
-            managerbtn.classList.add("badgeChecked")
             $(".ruoli").append("<span class=\"my-4 user-tag role\">MANAGER</span>");
         }
         if(user_roleList.includes("BARTENDER"))
         {
-            bartenderbtn.classList.add("badgeChecked")
             $(".ruoli").append("<span class=\"my-4 user-tag role\">BARTENDER</span>");
         }
         if(user_roleList.includes("WAITER"))
         {
-            waiterbtn.classList.add("badgeChecked")
             $(".ruoli").append("<span class=\"my-4 user-tag role\">WAITER</span>");
         }
-        $("#emailField").val(selectedUser.email);
+        $(".email").text(selectedUser.email);
     });
 
     if(!roleList.includes("MANAGER"))
@@ -66,26 +51,30 @@
         logout();
     }
 
-    function selectedRole(id){
-        let managerbtn = document.getElementById("MANAGER");
-        let bartenderbtn = document.getElementById("BARTENDER");
-        let waiterbtn = document.getElementById("WAITER");
-        switch (id){
-            case "MANAGER":
-                managerbtn.classList.toggle("badgeChecked");
-                break;
-            case "BARTENDER":
-                bartenderbtn.classList.toggle("badgeChecked");
-                break;
-            case "WAITER":
-                waiterbtn.classList.toggle("badgeChecked");
-                break;
+    function toggleIsInEditMode(isInEditingMode){
+        console.log("ISEDIT E': "+isInEditingMode)
+        isInEditingMode = !isInEditingMode
+        console.log("ORA ISEDIT E': "+isInEditingMode)
+        let textFields = document.getElementsByClassName('edit')
+        if (isInEditingMode){
+            console.log("AGGIUNGO DISABLED A: ")
+            console.log(textFields)
+            for (i of textFields){
+                textFields[i].setAttribute('disabled','')
+            }
+        } else {
+            console.log("RIMUOVO DISABLED")
+            console.log(textFields)
+            for (i of textFields){
+                textFields[i].removeAttribute('disabled')
+            }
         }
     }
+
 </script>
 
 <div class="title">
-    <h1 class="h1" id="profile-title2"></h1>
+    <h1 class="h1" id="profile-title"></h1>
 </div>
 
 <div class="container-fluid p-4">
@@ -106,12 +95,12 @@
                                 <div class="cocktail-tags py-2 mb-3">
                                     <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
                                     <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
-                                    <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">WAITER</button>
+                                    <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
                                 </div>
                                 <p class="card-text cocktail-description"><input type="email" id="emailField" class="addCocktailFields form-control py-2 mb-4" placeholder="Email" autocomplete="off" required></p>
                                 <p class="price"><input type="password" id="passwordField" class="addCocktailFields form-control py-2 mb-4" placeholder="Password" maxlength="50" autocomplete="off" required></p>
                                 <div class="text-center">
-                                    <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" style="border: none" id="submitEdit" value="uuid" onclick="modifyUser(value)">Aggiorna utente</button>
+                                    <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" style="border: none" onclick="addUser()">Aggiungi utente</button>
                                 </div>
                             </form>
                         </div>

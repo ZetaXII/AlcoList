@@ -19,14 +19,21 @@
         const user_surname = surname.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
         let user_tot = user_name+" "+user_surname;
         $(".profile-title").text(user_tot);
-        $(".role").text(mainRole);
+
+        if(roleList.includes("MANAGER"))
+        {
+            $(".ruoli").append("<span class=\"role my-4 user-tag\">MANAGER</span>");
+        }
+        if(roleList.includes("BARTENDER"))
+        {
+            $(".ruoli").append("<span class=\"role my-4 user-tag\">BARTENDER</span>");
+        }
+        if(roleList.includes("WAITER"))
+        {
+            $(".ruoli").append("<span class=\"role my-4 user-tag\">WAITER</span>");
+        }
         $(".email").text(email);
     });
-
-    if(!roleList.includes("WAITER"))
-    {
-        //logout();
-    }
 </script>
 
 <div class="title">
@@ -48,7 +55,7 @@
                                 <div class="user-profile fs-6">
                                     <ul class="pt-3 px-3">
                                         <li><span style="color:var(--lightBlue)">Email: </span><span class="email"></span></li>
-                                        <li><span class="badge user-tag role"></span></li>
+                                        <li class="ruoli"><span class="badge user-tag role"></span></li>
                                     </ul>
                                 </div>
                             </div>

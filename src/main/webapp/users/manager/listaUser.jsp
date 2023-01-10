@@ -19,7 +19,7 @@
         window.location.href = $("#contextPath").val()+'/users/manager/addUser.jsp';
     }
 
-    if(!roleList.includes("MANAGER") && (roleList.includes("WAITER") || roleList.includes("BARTENDER")) )
+    if(!roleList.includes("MANAGER"))
     {
         logout();
     }

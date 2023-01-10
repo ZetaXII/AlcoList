@@ -112,7 +112,7 @@ function paginatedCocktailList(size, page) //stampa a video la lista paginata de
             "                           </div>" +
             "                       </div>" +
             "                   </div>" +
-            "       <div class='col-xl-2 col-lg-2 col-md-5 col-sm-5 justify-content-center item-options pb-2 px-4'>   " +
+            "       <div class='card-body d-flex col-xl-2 col-lg-2 col-md-5 col-sm-5 justify-content-center item-options pb-2 px-4'>   " +
             "<div class='row' style='background-color: var(--secondaryBlue)'>"+
             "           <button style='border: 0;' value='"+tableUuid+"' id='"+cocktailsArray[i].uuid+"' class='btn btn-view px-2 m-2 mb-3 w-50' onclick='addCocktailInOrdination(id,value)'><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-plus-lg\" viewBox=\"0 0 16 16\">\n" +
             "  <path fill-rule=\"evenodd\" d=\"M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z\"/>\n" +
