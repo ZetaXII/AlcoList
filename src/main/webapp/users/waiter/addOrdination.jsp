@@ -43,8 +43,10 @@
     <div class="content">
 
         <div class="row gx-4 containerTables px-3">
-            <div class="col-10"></div>
-            <div class="col-2"> <button class="btn btn-view" style="color: #ebc23b" onclick="saveComanda()">INVIA COMANDA</button></div>
+            <div class="col-9"></div>
+            <div class="col-3">
+                <button class="badge-user btn btn-view" onclick="saveComanda()">INVIA COMANDA</button>
+            </div>
         </div>
 
         <div class="row gx-4 containerTables px-3">

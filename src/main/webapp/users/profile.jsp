@@ -13,13 +13,19 @@
 <%@include file="../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
+    function redirectEditUser(uuid)
+    {
+        window.location.href= $("#contextPath").val()+"/users/manager/editUser.jsp?uuid="+uuid;
+    }
+
     $(document).ready(function()
     {
         let user_name = name.charAt(0).toUpperCase() + name.slice(1);
         const user_surname = surname.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
         let user_tot = user_name+" "+user_surname;
         $(".profile-title").text(user_tot);
-
+        $("#uuidDelete").val(uuid)
+        $("#uuidEdit").val(uuid)
         if(roleList.includes("MANAGER"))
         {
             $(".ruoli").append("<span class=\"role my-4 user-tag\">MANAGER</span>");
@@ -42,6 +48,13 @@
 
 <div class="container-fluid p-4">
     <div class="content">
+        <div class="row gx-4 containerTables px-3">
+            <div class="col-9"></div>
+            <div class="col-3 mb-5">
+                <button id="uuidEdit" value="" class="badge-user btn btn-view" onclick="redirectEditUser(value)">EDIT</button>
+                <button id="uuidDelete" value="" class="badge-user btn btn-view" onclick="confirmDeleteSelf(value)">DELETE</button>
+            </div>
+        </div>
         <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
             <div class="col-md-12 col-lg-12 col-xl-12 mt-1">
                 <div class="card profile p-4" style="background-color: var(--secondaryBlue); border-radius: 30px;">
@@ -65,7 +78,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> <script src="${pageContext.request.contextPath}/script/userJS.js"></script>
+<script src="${pageContext.request.contextPath}/script/logoutJS.js"></script>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
+<script src="${pageContext.request.contextPath}/script/loadUserSessionCredentialsJS.js"></script>
 </body>
 </html>
