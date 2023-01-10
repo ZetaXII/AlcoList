@@ -67,7 +67,8 @@ public class ProductService implements ProductServiceI{
 			product.setPresent(false);
 		else 
 			product.setPresent(true);
-		product.setMl(productDTO.ml);
+		if(product.getMl() != null)
+			product.setMl(productDTO.ml);
 		product.setPathFileImg(productDTO.pathFileImg);
 		if(!StringUtils.hasText(productDTO.uuid))
 			product.setUuid(UUID.randomUUID().toString());
