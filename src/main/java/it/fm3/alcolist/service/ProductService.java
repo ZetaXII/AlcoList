@@ -58,22 +58,25 @@ public class ProductService implements ProductServiceI{
 		return p;
 	}
 	
-	private void buildProductByProductDTO(Product product, ProductDTO productDTO) {
+	private void buildProductByProductDTO(Product product, ProductDTO productDTO) throws Exception {
 		product.setName(productDTO.name);
 		product.setCategory(productDTO.category);
 		product.setAlcoholicPercentage(productDTO.alcoholicPercentage);
 		product.setPresent(productDTO.present);
-		if(productDTO.ml==0)
+		product.setMl(productDTO.ml);
+		product.setPathFileImg(productDTO.pathFileImg);
+		if(productDTO.ml!=null && productDTO.ml==0)
 			product.setPresent(false);
 		else 
 			product.setPresent(true);
-		if(product.getMl() != null)
-			product.setMl(productDTO.ml);
-		product.setPathFileImg(productDTO.pathFileImg);
 		if(!StringUtils.hasText(productDTO.uuid))
 			product.setUuid(UUID.randomUUID().toString());
 		else
 			product.setUuid(productDTO.uuid);
+		if(product.getMl()==null) {
+			if(productDTO.present==null)
+				throw new Exception("Present is null");
+		}
 	}
 	
 	@Override
