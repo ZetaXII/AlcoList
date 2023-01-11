@@ -108,6 +108,10 @@ function paginatedProductList(size, page, name, category)
             //ml="<span class='badge product-ml'>"+productsArray[i].ml+" ml</span>";
             ml=productsArray[i].ml+" ml";
         }
+        else
+        {
+            ml="&nbsp;";
+        }
 
         if(parseInt(productsArray[i].alcoholicPercentage)<=0 || productsArray[i].alcoholicPercentage==null)
         {
@@ -250,6 +254,11 @@ function modifyProduct()
         ml="0";
         present="false";
     }
+    else if(ml=="" || ml==" " || ml==null)
+    {
+        ml=null;
+        present="true";
+    }
 
     if(parseFloat(alcoholicPercentage)<=0)
     {
@@ -300,10 +309,15 @@ function addProduct()
     let ml=$("#ml").val();
     let present="true";
 
-    if(parseInt(ml)<=0)
+    if(parseInt(ml)<=0 && ml!=null)
     {
         ml="0";
         present="false";
+    }
+    else if(ml=="" || ml==" " || ml==null)
+    {
+        ml=null;
+        present="true";
     }
 
     if(parseFloat(alcoholicPercentage)<=0)
