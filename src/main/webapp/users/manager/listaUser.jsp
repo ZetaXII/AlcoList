@@ -31,13 +31,26 @@
 
 <div class="container-fluid p-4">
     <div class="content">
+        <div class="row gx-4 containerTables px-3">
+            <div class="col-8"></div>
+            <div class="col-4 addUser card-body" style="margin-top: -60px;">
+                <button class="btn-modifyCocktail" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">NUOVO DIPENDENTE</button>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="append-user text-light" value="">
+
+                    </div>
+                    <!--<div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">
+=======
         <div class="row gx-5 containerTables">
             <div class="col-9"></div>
             <div class="col-3 mb-4">
                 <button class="badge-user btn btn-view" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">NUOVO DIPENDENTE</button>
             </div>
         <div class="append-user text-light" value=""></div>
-        <!--<div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">
+        <div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">
+>>>>>>> 770c7fd2581d9d45d03224fc14c01db472d629fb
             <div class="row g-0 user-row" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                 <div class="col-md-3">
                     <img class="m-2 p-2" style="vertical-align: central; width:100px; border-radius: 50%" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile-pic">
@@ -57,6 +70,8 @@
                 </div>
             </div>
         </div>-->
+                </div>
+            </div>
         </div>
     </div>
 </div>

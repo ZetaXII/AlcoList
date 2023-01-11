@@ -52,7 +52,6 @@
             <div class="col-9"></div>
             <div class="col-3 mb-5">
                 <button id="uuidEdit" value="" class="badge-user btn btn-view" onclick="redirectEditUser(value)">EDIT</button>
-                <button id="uuidDelete" value="" class="badge-user btn btn-view" onclick="confirmDeleteSelf(value)">DELETE</button>
             </div>
         </div>
         <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
