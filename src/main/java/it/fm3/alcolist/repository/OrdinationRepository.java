@@ -43,4 +43,8 @@ public interface OrdinationRepository extends JpaRepository<Ordination, Long> {
 	@Query("SELECT COUNT(o) FROM Ordination o WHERE o.status=:status")
 	int countByStatus(@Param("status") OrdinationStatusEnum status);
 	
+	@Query("SELECT o FROM Ordination o WHERE o.status!= :status AND o.table.uuid= :tableUuid")
+	List<Ordination> findOpenOrdinationForTableUuid(@Param("status") OrdinationStatusEnum status,@Param("tableUuid") String tableUuid);
+	
+	
 }

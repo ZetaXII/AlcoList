@@ -75,4 +75,10 @@ public class OrdinationController {
 		return ResponseEntity.ok(ordinationService.searchByFields(ordination));
 	}
 	
+	//findOpenOrdinationForTableUuid
+	@RequestMapping(value = "/getOrdinationForTable/{tableUuid}", method = RequestMethod.GET)
+	public ResponseEntity<?> getOrdinationForTable(@PathVariable("tableUuid") String tableUuid, HttpServletRequest request) throws Exception {
+		return ResponseEntity.ok(ordinationService.findOpenOrdinationForTableUuid(tableUuid));
+	}
+	
 }

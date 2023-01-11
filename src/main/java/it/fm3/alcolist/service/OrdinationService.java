@@ -308,6 +308,10 @@ public class OrdinationService implements OrdinationServiceI{
 		o.setTable(t);
 		return o;
 	}
+	
+	public List<Ordination> findOpenOrdinationForTableUuid(String tableUuid){
+		return ordinationRepository.findOpenOrdinationForTableUuid(OrdinationStatusEnum.ENDED, tableUuid);
+	}
 
 
 }

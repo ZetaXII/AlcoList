@@ -1,5 +1,7 @@
 package it.fm3.alcolist.service;
 
+import java.util.List;
+
 import it.fm3.alcolist.DTO.MessageDTO;
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
@@ -15,5 +17,7 @@ public interface OrdinationServiceI {
 	Ordination addCocktail(OrderedCocktailDTO oc) throws Exception;
 	Ordination removeCocktail(OrderedCocktailDTO oc) throws Exception;
 	OrdinationResultDTO searchByFields (OrdinationDTO o) throws Exception;
-	Ordination update(String uuidOrder, String uuidTable) throws Exception; 
+	Ordination update(String uuidOrder, String uuidTable) throws Exception;
+	List<Ordination> findOpenOrdinationForTableUuid(String tableUuid);
+
 }
