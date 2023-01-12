@@ -52,7 +52,7 @@ function getAllUsers(){
 function appendUser(allUsers){
     for(user in allUsers) {
         console.log("melania: " + allUsers[user])
-        if(allUsers[user].dateDelete == null){
+        if(allUsers[user].dateDelete == null && allUsers[user].email!=email){
             let tagRoles = "";
             for (ruolo in allUsers[user].roles) {
                 tagRoles = tagRoles + "<span class=\"role my-4 user-tag\">" + allUsers[user].roles[ruolo].name + "</span>\n"
@@ -131,7 +131,7 @@ function modifyUser(uuidUser){
     }
     let mainRole=roles[0];
 
-    alert("nome: "+name+" cognome: "+surname+" email: "+emailUser+" password: "+password+" roles: "+roles+" mainrole: "+mainRole)
+    //alert("nome: "+name+" cognome: "+surname+" email: "+emailUser+" password: "+password+" roles: "+roles+" mainrole: "+mainRole)
 
     if(name!=="" && surname!=="" && mainRole!=="" && emailUser!=="" && password!=="" && !!roles && roles.length>0 && uuid!=="")
     {
@@ -161,9 +161,9 @@ function modifyUser(uuidUser){
             },
             error: function(error)
             {
-                alert("ERRORE")
+                //alert("ERRORE")
                 console.log("generic error"+ JSON.stringify(error));
-                window.location.href = $("#contextPath").val()+"/users/manager/listaUser.jsp";
+                //window.location.href = $("#contextPath").val()+"/users/manager/listaUser.jsp";
             }
         });
     }
