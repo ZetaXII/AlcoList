@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.fm3.alcolist.service.StatisticsServiceI;
+import it.fm3.alcolist.utils.RoleEnum;
 
 @RestController
 @CrossOrigin

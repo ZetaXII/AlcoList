@@ -3,6 +3,7 @@ package it.fm3.alcolist.service;
 import java.util.List;
 
 import it.fm3.alcolist.entity.Cocktail;
+import it.fm3.alcolist.utils.RoleEnum;
 
 public interface StatisticsServiceI {
 	Integer getByNumbersOfUsers (String role);

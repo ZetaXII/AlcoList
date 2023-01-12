@@ -20,7 +20,7 @@ public class Role {
 	private String name;
 	/*
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	private List<UserAccount> users;
+	private List<UserAccount> users;S
 	*/
 	
 	

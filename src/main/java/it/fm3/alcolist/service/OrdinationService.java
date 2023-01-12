@@ -19,7 +19,6 @@ import it.fm3.alcolist.DTO.MessageDTO;
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
 import it.fm3.alcolist.DTO.OrdinationResultDTO;
-import it.fm3.alcolist.DTO.OrdinationStatusEnum;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
 import it.fm3.alcolist.entity.Message;
@@ -33,6 +32,7 @@ import it.fm3.alcolist.repository.MessageRepository;
 import it.fm3.alcolist.repository.OrderedCocktailRepository;
 import it.fm3.alcolist.repository.OrdinationRepository;
 import it.fm3.alcolist.repository.UserAccountRepository;
+import it.fm3.alcolist.utils.OrdinationStatusEnum;
 import it.fm3.alcolist.utils.RoleEnum;
 
 @Service

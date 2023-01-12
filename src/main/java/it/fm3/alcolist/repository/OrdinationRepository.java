@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import it.fm3.alcolist.DTO.OrdinationStatusEnum;
 import it.fm3.alcolist.entity.Ordination;
+import it.fm3.alcolist.utils.OrdinationStatusEnum;
 
 public interface OrdinationRepository extends JpaRepository<Ordination, Long> {
 	//List<Product> findByEmailAndDateDelete(String email,Date dataDelete);

@@ -1,8 +1,9 @@
 package it.fm3.alcolist.entity;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
@@ -48,6 +48,19 @@ public class UserAccount {
 	@JsonIgnore
 	private Set<Message> messages;
 	
+	public UserAccount() {
+		super();
+	}
+	public UserAccount(String name, String surname, List<Role> roles, String mainRole, String password, String email) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.roles = roles;
+		this.mainRole = mainRole;
+		this.password = password;
+		this.email = email;
+		this.uuid = UUID.randomUUID().toString();
+	}
 	public Set<Message> getMessages() {
 		return messages;
 	}
@@ -112,5 +125,26 @@ public class UserAccount {
 				+ mainRole + ", password=" + password + ", email=" + email  + ", uuid="
 				+ uuid + "]";
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, mainRole, messages, name, roles, surname);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserAccount other = (UserAccount) obj;
+		boolean res= Objects.equals(email, other.email) && Objects.equals(mainRole, other.mainRole)
+				&& Objects.equals(messages, other.messages) && Objects.equals(name, other.name)
+				&& Objects.equals(roles, other.roles) && Objects.equals(surname, other.surname);
+		System.out.println("@@@@@@@@@@sto facendo l'equals e restituisce: "+res);
+		return res;
+	}
+	
+	
 	
 }

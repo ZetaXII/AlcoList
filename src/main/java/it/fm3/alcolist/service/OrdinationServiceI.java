@@ -6,8 +6,8 @@ import it.fm3.alcolist.DTO.MessageDTO;
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
 import it.fm3.alcolist.DTO.OrdinationResultDTO;
-import it.fm3.alcolist.DTO.OrdinationStatusEnum;
 import it.fm3.alcolist.entity.Ordination;
+import it.fm3.alcolist.utils.OrdinationStatusEnum;
 
 public interface OrdinationServiceI {
 	Ordination create(OrdinationDTO c) throws Exception;

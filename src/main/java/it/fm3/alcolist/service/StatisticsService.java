@@ -17,6 +17,7 @@ import it.fm3.alcolist.entity.UserAccount;
 import it.fm3.alcolist.repository.CocktailRepository;
 import it.fm3.alcolist.repository.OrdinationRepository;
 import it.fm3.alcolist.repository.UserAccountRepository;
+import it.fm3.alcolist.utils.RoleEnum;
 
 @Service
 @Transactional
@@ -37,20 +38,20 @@ public class StatisticsService implements StatisticsServiceI{
 		for(UserAccount u : usersList) {
 			List<Role> uRoles = u.getRoles();
 			int numbersRoles = uRoles.size();
-			if(role.equalsIgnoreCase("WAITER")) {
+			if(role==RoleEnum.WAITER.name()) {
 				for(Role r : uRoles) {
-					if(r.getName().equalsIgnoreCase(role) && numbersRoles == 1) {
+					if(r.getName()==role && numbersRoles == 1) {
 						usersFilteredRoleList.add(u);
 					}
 				}
-			}else if(role.equalsIgnoreCase("BARTENDER")) {
+			}else if(role==RoleEnum.BARTEDER.name()) {
 				boolean bart = false;
 				boolean man = false;
 				for(Role r : uRoles) {
-					if(r.getName().equalsIgnoreCase(role)){
+					if(r.getName()==role){
 						bart = true;
 					}
-					if(r.getName().equalsIgnoreCase("MANAGER")){
+					if(r.getName()==RoleEnum.MANAGER.name()){
 						man = true;
 					}
 				}
@@ -58,9 +59,9 @@ public class StatisticsService implements StatisticsServiceI{
 					usersFilteredRoleList.add(u);
 				}
 			}
-			else if(role.equalsIgnoreCase("MANAGER")) {
+			else if(role==RoleEnum.MANAGER.name()) {
 				for(Role r : uRoles) {
-					if(r.getName().equalsIgnoreCase(role)) {
+					if(r.getName()==role) {
 						usersFilteredRoleList.add(u);
 					}
 				}

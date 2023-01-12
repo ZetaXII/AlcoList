@@ -14,4 +14,5 @@ public interface TablesServiceI {
 	Tables get(Integer number) throws Exception;
 	List<Tables> getAll() throws Exception;
 	TablesResultDTO searchByFields(TablesDTO t) throws Exception;
+	Tables getTableByOrderUuid(String orderUuid);
 }

@@ -122,4 +122,9 @@ public class TablesService implements TablesServiceI{
 			return tablesRepository.findAll(pageable).getContent();
 		else return tablesRepository.findAll();
 	}
+	
+	public Tables getTableByOrderUuid(String orderUuid) {
+		return tablesRepository.findByOrderUuid(orderUuid);
+	}
+	
 }

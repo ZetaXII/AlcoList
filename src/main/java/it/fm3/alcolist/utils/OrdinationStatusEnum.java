@@ -1,4 +1,4 @@
-package it.fm3.alcolist.DTO;
+package it.fm3.alcolist.utils;
 
 public enum OrdinationStatusEnum {
 	CREATED("Creata",true,false),

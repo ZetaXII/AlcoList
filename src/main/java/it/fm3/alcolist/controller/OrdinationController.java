@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import it.fm3.alcolist.DTO.MessageDTO;
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
-import it.fm3.alcolist.DTO.OrdinationStatusEnum;
 import it.fm3.alcolist.service.OrdinationServiceI;
+import it.fm3.alcolist.utils.OrdinationStatusEnum;
 
 @RestController
 @CrossOrigin

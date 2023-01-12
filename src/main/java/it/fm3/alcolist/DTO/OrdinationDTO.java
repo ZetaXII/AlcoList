@@ -3,6 +3,8 @@ package it.fm3.alcolist.DTO;
 import java.util.ArrayList;
 import java.util.Date;
 
+import it.fm3.alcolist.utils.OrdinationStatusEnum;
+
 public class OrdinationDTO {
 	public ArrayList<String> cocktailUuidList;
 	public String tableUuid;

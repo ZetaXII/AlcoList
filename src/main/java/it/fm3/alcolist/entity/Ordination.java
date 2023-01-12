@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import it.fm3.alcolist.DTO.OrdinationStatusEnum;
+import it.fm3.alcolist.utils.OrdinationStatusEnum;
 
 @Entity
 @Table(name="ORDINATION")

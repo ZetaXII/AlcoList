@@ -52,9 +52,15 @@ public class TablesController {
 	public ResponseEntity<?> getAll() throws Exception {
 		return ResponseEntity.ok(tablesService.getAll());
 	}
+	/*
+	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
+	public ResponseEntity<?> searchByFields(@RequestBody TablesDTO t, HttpServletRequest request) throws Exception {
+		return ResponseEntity.ok(tablesService.searchByFields(t));
+	}*/
 	
-//	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
-//	public ResponseEntity<?> searchByFields(@RequestBody TablesDTO t, HttpServletRequest request) throws Exception {
-//		return ResponseEntity.ok(tablesService.searchByFields(t));
-//	}
+	@RequestMapping(value = "/getTableByOrderUuid/{uuid}", method = RequestMethod.GET)
+	public ResponseEntity<?> getTableByOrderUuid(@PathVariable(name = "uuid") String uuid) throws Exception {
+		return ResponseEntity.ok(tablesService.getTableByOrderUuid(uuid));
+	}
+	
 }
