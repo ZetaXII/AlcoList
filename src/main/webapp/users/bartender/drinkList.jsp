@@ -27,7 +27,8 @@
         console.log(urlParams.get('ordinationUuid'))
         let ordination = getOrdination(urlParams.get('ordinationUuid'))
         console.log(ordination)
-        $("#uuidComanda").val(ordination.uuid)
+        $("#uuidComandaCancel").val(ordination.uuid)
+        $("#uuidComandaComplete").val(ordination.uuid)
         drawCocktailCards(ordination.orderedCocktails);
     });
     if(roleList.includes("RUOLO"))
@@ -44,7 +45,9 @@
     <div class="content">
         <div class="flex-row gx-4 containerTables px-3">
             <div class="d-flex justify-content-end">
-                <button id="uuidComanda" value="" class="badge-user btn btn-view" onclick="completeComanda(this.value)">Chiudi Comanda</button></div>
+                <button id="uuidComandaCancel" value="" class="badge-user btn btn-view" onclick="cancelComanda(this.value)">Annulla</button>
+                <button id="uuidComandaComplete" value="" class="badge-user btn btn-view" onclick="completeComanda(this.value)">Chiudi Comanda</button>
+            </div>
         </div>
         <div class="row gx-4 containerTables px-3">
             <div class="cocktailList"></div>

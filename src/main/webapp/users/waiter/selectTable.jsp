@@ -11,6 +11,59 @@
 <body>
 <%@include file="../../navBar.jsp"%>
 <script>
+    $(document).ready(function()
+    {
+        let tables = getAllTables().sort((a,b)=> (a.number>b.number) ? 1 : (b.number>a.number) ? -1 : 0);
+        for(let i=0; i<tables.length; i++) {
+            let table
+            let stato
+            let ordinationsForTable = getOrdinationForTable(tables[i].uuid)
+            let ordination = ordinationsForTable[0]
+            if (ordination!==undefined){
+                console.log(ordination.status)
+                stato = ordination.status
+            }
+            //let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
+            if (ordination!==undefined && !tables[i].isFree && (stato === "PENDING" || stato === "COMPLETED")) {
+                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
+                    '<div class="card cardTableEditable"> ' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title mt-2" style="font-size: 16px; color: #ebc23b">'+stato+'&nbsp;</h5>' +
+                    '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                    '</div>' +
+                    '<div class="d-flex justify-content-center">' +
+                    '<!--<select class="selectStatus px-3" id="flavourField" style="z-index: 9999"></select>-->'+
+                    '</div>'+
+                    '</div>'
+            } else if (ordination!==undefined && !tables[i].isFree && stato === "WORK_IN_PROGRESS") {
+                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'">' +
+                    '<div class="card cardTableDisabled"> ' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title mt-2" style="font-size: 16px; color: #F93C3C">WORK IN PROGRESS&nbsp;</h5>' +
+                    '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                    '</div>' +
+                    '<div class="d-flex justify-content-center">' +
+                    '<!--<select class="selectStatus px-3" id="flavourField" style="z-index: 9999"></select>-->'+
+                    '</div>'+
+                    '</div>'
+            } else {
+                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
+                    '<div class="card cardTable"> ' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title mt-2">&nbsp;</h5>' +
+                    '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                    '</div>' +
+                    '<div class="d-flex justify-content-center">' +
+                    '<!--<select class="selectStatus px-3" id="statusField" style="z-index: 9999"></select>-->' +
+                    '</div>'+
+                    '</div>'
+            }
+            $(".containerTables").append(table)
+        }
+    });
+
+
+
     function getStatus()
     {
         return ["CREATED", "PENDING", "WORK IN PROGRESS", "COMPLETED", "DELIVERED", "ENDED"];
@@ -41,38 +94,7 @@
         </div>
     </div>
     <script>
-        $(document).ready(function()
-        {
-            let tables = getAllTables().sort((a,b)=> (a.number>b.number) ? 1 : (b.number>a.number) ? -1 : 0);
-            for(let i=0; i<tables.length; i++) {
-                let table
-                if (tables[i].isFree) {
-                    table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
-                        '<div class="card cardTable"> ' +
-                        '<div class="card-body">' +
-                        '<h5 class="card-title mt-2">&nbsp;</h5>' +
-                        '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
-                        '</div>' +
-                        '<div class="d-flex justify-content-center">' +
-                        '<select class="selectStatus px-3" id="statusField" style="z-index: 9999"></select>' +
-                        '</div>'+
-                        '</div>'
-                } else {
-                    table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
-                        '<div class="card cardTableDisabled"> ' +
-                        '<div class="card-body">' +
-                        '<h5 class="card-title mt-2">&nbsp;</h5>' +
-                        '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
-                        '</div>' +
-                        '<div class="d-flex justify-content-center">' +
-                        '<select class="selectStatus px-3" id="flavourField" style="z-index: 9999"></select>'+
-                        '</div>'+
-                        '</div>'
-                }
-                $(".containerTables").append(table)
 
-            }
-        });
     </script>
     <style>
         .cardTable
@@ -84,10 +106,18 @@
             border: 2px solid var(--lightBlue);
         }
 
-        .cardTable:hover
+        .cardTableEditable
         {
-            color: var(--yellow);
-            border-color: var(--yellow);
+            height: 16rem;
+            width: 16rem;
+            color: var(--white);
+            background-color: var(--secondaryBlue);
+            border: 2px solid #ebc23b;
+        }
+
+        .cardTable:hover, .cardTableEditable:hover
+        {
+            background-color: var(--primaryBlue);
             cursor: pointer;
             transition: 0.3s;
         }
