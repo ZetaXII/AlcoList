@@ -1,0 +1,10 @@
+
+.selectStatus
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    border-radius: 12px;
+    border:none;
+    text-transform: uppercase;
+    font-weight: lighter;
+}

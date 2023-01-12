@@ -1,7 +1,7 @@
 <html>
 <head>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
-    <title>Titolo</title>
+    <title>Banco</title>
     <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/img/favicon/favicon-16x16.png">
@@ -18,7 +18,10 @@
     <%@include file="../../navBar.jsp"%>
     <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
     <script>
-        if(!roleList.includes("BARTENDER"))
+        $(document).ready(function() {
+            loadBanco()
+        });
+        if(roleList.includes("WAITER") && !roleList.includes("BARTENDER") || !roleList.includes("MANAGER"))
         {
             logout();
         }
@@ -28,12 +31,13 @@
     </div>
 
     <div class="container-fluid p-4">
-        <div class="content">
-            <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
-                INSERIRE TUTTO IL BODY
+            <div class="content">
+                <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables mt-3">
+                        <div class="col-12 item-list"></div>
+                    </div>
             </div>
-        </div>
     </div>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
+<script src="${pageContext.request.contextPath}/script/ordinationJS.js"></script>
 </body>
 </html>

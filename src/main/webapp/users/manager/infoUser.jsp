@@ -90,11 +90,12 @@
 
 <div class="container-fluid p-4">
   <div class="content">
-    <div class="row gx-4 containerTables px-3">
-      <div class="col-9"></div>
-      <div class="col-3 mb-5"> <button id="uuidEdit" value="" class="badge-user btn btn-view" onclick="redirectEditUser(value)">EDIT</button><button id="uuidDelete" value="" class="badge-user btn btn-view" onclick="confirmDelete(value)">DELETE</button></div>
-    </div>
-    <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
+    <div class="flex-row gx-4 containerTables px-3">
+      <div class="d-flex justify-content-end">
+        <button id="uuidEdit" value="" class="badge-user btn btn-view" onclick="redirectEditUser(this.value)">Edit</button>
+        <button id="uuidDelete" value="" class="badge-user btn btn-view" onclick="confirmDelete(this.value)">Delete</button></div>
+      </div>
+    <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables mt-3">
       <div class="col-md-12 col-lg-12 col-xl-12 mt-1">
         <div class="card profile p-4" style="background-color: var(--secondaryBlue); border-radius: 30px;">
           <div class="row profile" style="background-color: var(--secondaryBlue); border-radius: 30px;">

@@ -6,10 +6,25 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
     <!-- CSS -->
     <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/style/comandeCSS.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../../navBar.jsp"%>
 <script>
+    function getStatus()
+    {
+        return ["CREATED", "PENDING", "WORK IN PROGRESS", "COMPLETED", "DELIVERED", "ENDED"];
+    }
+    function printStatusList()
+    {
+        let s=getStatus();
+        for(let i=0; i<s.length; i++)
+        {
+            console.log(s[i])
+            $('.selectStatus').append("<option value="+s[i]+" id="+i+">"+s[i]+"</option>");
+        }
+    }
+
     if(!roleList.includes("WAITER"))
     {
         logout();
@@ -32,20 +47,26 @@
             for(let i=0; i<tables.length; i++) {
                 let table
                 if (tables[i].isFree) {
-                    table = '<div class="col d-flex justify-content-center text-center" id="'+tables[i].uuid+'" onclick="addComanda(id)" >' +
+                    table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
                         '<div class="card cardTable"> ' +
                         '<div class="card-body">' +
                         '<h5 class="card-title mt-2">&nbsp;</h5>' +
                         '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
                         '</div>' +
+                        '<div class="d-flex justify-content-center">' +
+                        '<select class="selectStatus px-3" id="statusField" style="z-index: 9999"></select>' +
+                        '</div>'+
                         '</div>'
                 } else {
-                    table = '<div class="col d-flex justify-content-center text-center" >' +
+                    table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
                         '<div class="card cardTableDisabled"> ' +
                         '<div class="card-body">' +
                         '<h5 class="card-title mt-2">&nbsp;</h5>' +
                         '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
                         '</div>' +
+                        '<div class="d-flex justify-content-center">' +
+                        '<select class="selectStatus px-3" id="flavourField" style="z-index: 9999"></select>'+
+                        '</div>'+
                         '</div>'
                 }
                 $(".containerTables").append(table)
@@ -80,6 +101,11 @@
         }
     </style>
 
+<script src="${pageContext.request.contextPath}/script/utils.js"></script>
 <script src="${pageContext.request.contextPath}/script/tableJS.js"></script>
+<script src="${pageContext.request.contextPath}/script/ordinationJS.js"></script>
+<script>
+    printStatusList()
+</script>
 </body>
 </html>

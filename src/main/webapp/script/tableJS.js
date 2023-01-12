@@ -28,3 +28,7 @@ function addComanda(uuid){
     })
     window.location.href= $("#contextPath").val()+"/users/waiter/addOrdination.jsp?"+queryParams.toString();
 }
+
+function redirectEditOrdination(uuid){
+    window.location.href= $("#contextPath").val()+"/users/waiter/editOrdination.jsp?uuid="+uuid;
+}

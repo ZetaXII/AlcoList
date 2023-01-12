@@ -50,6 +50,13 @@
                     <!-- NAVBAR PER BARTENDER -->
                     <div class="bartender hidden">
                         <li class="list">
+                            <a href="${pageContext.request.contextPath}/users/bartender/dashboard.jsp" class="nav-link">
+                                <i class='bx bxs-store-alt icon'></i>
+                                <span class="link">Banco</span>
+                            </a>
+                        </li>
+                    <!----------------------------------- -->
+                        <li class="list">
                             <a href="${pageContext.request.contextPath}/users/bartender/magazzino.jsp?page=0&name=&category=" class="nav-link">
                                 <i class='bx bxs-store-alt icon'></i>
                                 <span class="link">Magazzino</span>

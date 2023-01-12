@@ -71,7 +71,7 @@ div > button {
 .badge-user{
     color: #eaeaea;
     background-color: var(--cocktailTag);
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     padding: 5px 32px;
     font-weight: lighter;
     border-radius: 20px;

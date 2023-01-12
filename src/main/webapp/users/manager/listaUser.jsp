@@ -31,12 +31,11 @@
 
 <div class="container-fluid p-4">
     <div class="content">
-        <div class="row gx-5 containerTables">
-            <div class="col-9"></div>
-            <div class="col-3 mb-4">
-                <button class="badge-user btn btn-view" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">NUOVO DIPENDENTE</button>
+        <div class="flex-row gx-5 containerTables">
+            <div class="d-flex justify-content-end">
+                <button class="badge-user btn btn-view" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">Nuovo dipendente</button>
             </div>
-        <div class="append-user text-light" value=""></div>
+        <div class="mt-4 append-user text-light" value=""></div>
         <!--<div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">
             <div class="row g-0 user-row" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                 <div class="col-md-3">
