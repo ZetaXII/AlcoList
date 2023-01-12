@@ -98,6 +98,14 @@ div > button {
     transition-duration: 0.3s;
 }
 
+.user-row:hover .hide{
+    display: block;
+}
+
+.user-row .hide {
+    display: none;
+}
+
 .forward-button {
     transform: scale(1.5);
     color: var(--yellow);

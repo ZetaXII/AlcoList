@@ -32,7 +32,7 @@
 
     <div class="container-fluid p-4">
             <div class="content">
-                <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables mt-3">
+                <div class="row row-cols-sm-12 row-cols-md-12 row-cols-lg-12 row-cols-xl-12 gx-1 gy-4 containerTables mt-3">
                         <div class="col-12 item-list"></div>
                     </div>
             </div>
