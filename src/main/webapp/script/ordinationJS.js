@@ -541,6 +541,57 @@ function updateStatus(tableUuid, userUuid, status){
     updateStatusWithOrder(ordination.uuid, userUuid, status)
 }
 
+function updateStatusToDelivered(tableUuid, userUuid){
+    console.log(tableUuid + " " + userUuid)
+    confirm("Aggiornare lo stato della comanda a 'DELIVERED'?")
+    let ordinationsForTable = getOrdinationForTable(tableUuid)
+    let ordination = ordinationsForTable.find(ordination => ordination.status === "COMPLETED")
+    console.log(ordination.status)
+    updateStatusWithOrder(ordination.uuid, userUuid, "DELIVERED")
+}
+
+function updateTable(uuid){
+    let note = "messaggio"; // FIXME
+    let body = {
+        number: note,
+        seats: userUuid,
+        uuid: ordinationUuid
+    };
+
+    let o;
+    $.ajax({
+        async: false,
+        method: "POST",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-ordinations/updateStatus?status="+status,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data:JSON.stringify(body),
+
+        success:function(result)
+        {
+            if(status==="PENDING"){
+                redirectToTableView()
+            }
+            o=result;
+        },
+        error: function(error)
+        {
+            alert(error)
+            console.log("generic error"+ JSON.stringify(error));
+        }
+    });
+    return o;
+}
+function updateStatusToEnded(tableUuid, userUuid){
+    console.log(tableUuid + " " + userUuid)
+    confirm("Aggiornare lo stato della comanda a 'ENDED'?")
+    let ordinationsForTable = getOrdinationForTable(tableUuid)
+    let ordination = ordinationsForTable.find(ordination => ordination.status === "DELIVERED")
+    console.log(ordination.status)
+    updateStatusWithOrder(ordination.uuid, userUuid, "ENDED")
+}
+
 function redirectToTableView(){
     window.location.href = $("#contextPath").val()+"/users/waiter/selectTable.jsp";
 }

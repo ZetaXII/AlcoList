@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Le mie info</title>
+    <title>Tavoli</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
@@ -23,27 +23,44 @@
                 console.log(ordination.status)
                 stato = ordination.status
             }
-            //let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
-            if (ordination!==undefined && !tables[i].isFree && (stato === "PENDING" || stato === "COMPLETED")) {
-                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
+            if (ordination!==undefined && !tables[i].isFree && stato === "PENDING") {
+                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="updateComanda(id,this.value)" >' +
                     '<div class="card cardTableEditable"> ' +
                     '<div class="card-body">' +
                     '<h5 class="card-title mt-2" style="font-size: 16px; color: #ebc23b">'+stato+'&nbsp;</h5>' +
                     '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
                     '</div>' +
                     '<div class="d-flex justify-content-center">' +
-                    '<!--<select class="selectStatus px-3" id="flavourField" style="z-index: 9999"></select>-->'+
                     '</div>'+
                     '</div>'
             } else if (ordination!==undefined && !tables[i].isFree && stato === "WORK_IN_PROGRESS") {
-                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'">' +
+                table = '<div class="col d-flex justify-content-center text-center" value="' + uuid + '" id="' + tables[i].uuid + '">' +
                     '<div class="card cardTableDisabled"> ' +
                     '<div class="card-body">' +
                     '<h5 class="card-title mt-2" style="font-size: 16px; color: #F93C3C">WORK IN PROGRESS&nbsp;</h5>' +
                     '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
                     '</div>' +
                     '<div class="d-flex justify-content-center">' +
-                    '<!--<select class="selectStatus px-3" id="flavourField" style="z-index: 9999"></select>-->'+
+                    '</div>' +
+                    '</div>'
+            } else if (ordination!==undefined && !tables[i].isFree && stato === "COMPLETED") {
+                table = '<div class="col d-flex justify-content-center text-center" id="'+tables[i].uuid+'" onclick="updateStatusToDelivered(id,uuid)" >' +
+                    '<div class="card cardTableCompleted"> ' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title mt-2" style="font-size: 16px; color: limegreen">'+stato+'&nbsp;</h5>' +
+                    '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                    '</div>' +
+                    '<div class="d-flex justify-content-center">' +
+                    '</div>'+
+                    '</div>'
+            } else if (ordination!==undefined && !tables[i].isFree && stato === "DELIVERED") {
+                table = '<div class="col d-flex justify-content-center text-center" id="'+tables[i].uuid+'" onclick="updateStatusToEnded(id,uuid)" >' +
+                    '<div class="card cardTableCompleted"> ' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title mt-2" style="font-size: 16px; color: limegreen">'+stato+'&nbsp;</h5>' +
+                    '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                    '</div>' +
+                    '<div class="d-flex justify-content-center">' +
                     '</div>'+
                     '</div>'
             } else {
@@ -54,7 +71,6 @@
                     '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
                     '</div>' +
                     '<div class="d-flex justify-content-center">' +
-                    '<!--<select class="selectStatus px-3" id="statusField" style="z-index: 9999"></select>-->' +
                     '</div>'+
                     '</div>'
             }
@@ -115,7 +131,7 @@
             border: 2px solid #ebc23b;
         }
 
-        .cardTable:hover, .cardTableEditable:hover
+        .cardTable:hover, .cardTableEditable:hover, .cardTableCompleted:hover
         {
             background-color: var(--primaryBlue);
             cursor: pointer;
@@ -128,6 +144,14 @@
             color: #F93C3C;
             background-color: var(--secondaryBlue);
             border: 2px solid #F93C3C;
+        }
+
+        .cardTableCompleted {
+            height: 16rem;
+            width: 16rem;
+            color: limegreen;
+            background-color: var(--secondaryBlue);
+            border: 2px solid limegreen;
         }
     </style>
 

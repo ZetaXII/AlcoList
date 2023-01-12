@@ -19,6 +19,24 @@ function getAllTables(){
     });
     return t;
 }
+function updateComanda(uuid){
+    let queryParams = new URLSearchParams({
+        uuid: uuid,
+        page: 0
+    })
+    window.location.href= $("#contextPath").val()+"/users/waiter/editOrdination.jsp?"+queryParams.toString();
+}
+function updateCompletedComandaToDelivered(tableUuid,userUuid){
+        confirm("Aggiornare lo stato della comanda a 'DELIVERED'?")
+        updateStatusToDelivered(tableUuid,userUuid,"DELIVERED")
+        window.location.href= $("#contextPath").val()+"/users/waiter/selectTable.jsp";
+}
+
+function updateDeliveredComanda(tableUuid,userUuid){
+    updateStatus(tableUuid,userUuid,"ENDED")
+    // TODO CHANGE TABLE ISFREE
+    window.location.href= $("#contextPath").val()+"/users/waiter/selectTable.jsp";
+}
 
 function addComanda(uuid){
     localStorage.removeItem("ComandaDict")

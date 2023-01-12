@@ -21,37 +21,18 @@
 <%@include file="../../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
-  function readComanda(tableUuid){
-    let o;
-    $.ajax({
-      async: false,
-      method: "GET",
-      crossDomain: true,
-      url:"http://localhost:8090/manage-ordinations/getOrdinationForTable/"+tableUuid,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-
-      success:function(result)
-      {
-        o=result;
-        redirectEditOrdination(JSON.stringify(result.uuid))
-      },
-      error: function(error)
-      {
-        console.log("generic error"+ JSON.stringify(error));
-      }
-    });
-    return o;
-  }
-
   var comandaDict = JSON.parse(localStorage.getItem("ComandaDict") ?? "{}")
   console.log("START: "+ JSON.stringify(comandaDict))
   $(document).ready(function() {
+    printFlavoursList();
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    let selectedTableOrdinations = readComanda(urlParams.get('uuid'));
-    //let page = parseInt(urlParams.get('page'));
-    paginatedCocktailList(6,0);
+    let page = parseInt(urlParams.get('page'));
+    let tableUuid = urlParams.get('uuid');
+    $("#inviaComanda").val(tableUuid)
+    //paginatedMenu(6,page)
+    paginatedCocktailList(6,page);
+    //let selectedTable = urlParams.get('uuid');
   });
 </script>
 
@@ -64,7 +45,7 @@
 
     <div class="flex-row gx-4 containerTables px-3">
       <div class="d-flex justify-content-end">
-        <button class="badge-user btn btn-view" onclick="saveComanda()">Invia comanda</button>
+        <button id="inviaComanda" value="" class="badge-user btn btn-view" onclick="updateStatus(this.value,uuid)">Aggiorna comanda</button>
       </div>
     </div>
 
@@ -82,6 +63,6 @@
   </div>
 </div>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
-<script src="${pageContext.request.contextPath}/script/ordinationJS.js"></script>
+<script src="${pageContext.request.contextPath}/script/editOrdination.js"></script>
 </body>
 </html>
