@@ -1,10 +1,7 @@
 package it.fm3.alcolist.DTO;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
-
-import it.fm3.alcolist.utils.RoleEnum;
 
 public class UserAccountDTO {
 	
@@ -17,6 +14,15 @@ public class UserAccountDTO {
 	public String uuid;
 	public Integer page;
 	public Integer size;
+	
+	public UserAccountDTO(String name, String surname, ArrayList<String> roleList, String mainRole, String email) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.roleList = roleList;
+		this.mainRole = mainRole;
+		this.email = email;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(email, mainRole, name, roleList, surname);

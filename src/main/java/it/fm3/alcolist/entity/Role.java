@@ -22,9 +22,7 @@ public class Role {
 	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	private List<UserAccount> users;S
 	*/
-	
-	
-	
+
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", name=" + name + "]";

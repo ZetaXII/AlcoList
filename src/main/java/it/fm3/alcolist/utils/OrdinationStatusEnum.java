@@ -3,7 +3,8 @@ package it.fm3.alcolist.utils;
 public enum OrdinationStatusEnum {
 	CREATED("Creata",true,false),
 	PENDING("In Attesa",true,false),
-	WORK_IN_PROGRESS("In Elaborazione",true,true),
+	SENTBACK("Rinviata",true,true),
+	WORK_IN_PROGRESS("In Elaborazione",false,false),
 	COMPLETED("Da consegnare",false,false),
 	DELIVERED("Consegnata",false,false),
 	ENDED("Terminata",false,false)

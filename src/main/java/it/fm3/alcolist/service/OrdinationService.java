@@ -85,6 +85,8 @@ public class OrdinationService implements OrdinationServiceI{
 	
 	public Ordination updateStatus(String orderUuid,OrdinationStatusEnum status,MessageDTO msg) throws Exception {
 		Ordination order=this.get(orderUuid);
+		if(order.getNumbersOfCocktails() == 0)
+			throw new Exception("Numbers of cocktails must be at least 1");
 		if(order.getStatus()==status)
 			throw new Exception("ordination has already the state "+status.name());
 		if(!order.getStatus().isEditable() && !(status.ordinal()==order.getStatus().ordinal()-1 || status.ordinal()==order.getStatus().ordinal()+1))
@@ -102,7 +104,6 @@ public class OrdinationService implements OrdinationServiceI{
 		else
 			msg.note=msgStatus;
 		Message msgToSave=this.createMessage(msg,order);
-		System.out.println("\n\n@@@@@@ msgToSave: "+msgToSave);
 		messageRepository.save(msgToSave);
 		order.setStatus(status);
 		if(status==OrdinationStatusEnum.ENDED) {
@@ -304,7 +305,6 @@ public class OrdinationService implements OrdinationServiceI{
 		}
 		
 		return ordination;
-		
 	}
 	
 	@Override
@@ -318,6 +318,4 @@ public class OrdinationService implements OrdinationServiceI{
 	public List<Ordination> findOpenOrdinationForTableUuid(String tableUuid){
 		return ordinationRepository.findOpenOrdinationForTableUuid(OrdinationStatusEnum.ENDED, tableUuid);
 	}
-
-
 }

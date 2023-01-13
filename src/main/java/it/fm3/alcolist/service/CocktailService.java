@@ -33,7 +33,6 @@ public class CocktailService implements CocktailServiceI{
 		if(cocktailRepository.findByUuid(cocktailDto.uuid) != null)
 			throw new Exception("Cocktail already exists");
 		cocktailRepository.save(newCocktail);
-		 System.out.println("\n\n@@@@@@ NUOVO PRODOTTO: "+newCocktail);
 		 return newCocktail;
 	}
 
@@ -84,6 +83,7 @@ public class CocktailService implements CocktailServiceI{
     }
 	
 	private void buildCocktailByCocktailDTO(Cocktail cocktail, CocktailDTO cocktailDTO) throws Exception {
+		checkCocktailNameField(cocktailDTO.name);
 		if(!StringUtils.hasText(cocktailDTO.name) || cocktailDTO.price == null || !StringUtils.hasText(cocktailDTO.description) || cocktailDTO.flavour == null || cocktailDTO.isIBA == null || cocktailDTO.inMenu == null || cocktailDTO.isAlcoholic == null || !StringUtils.hasText(cocktailDTO.pathFileImg))
 			throw new Exception("Compile all fields");
 		cocktail.setName(cocktailDTO.name);
@@ -150,6 +150,8 @@ public class CocktailService implements CocktailServiceI{
 		}
 		else if(StringUtils.hasText(cocktailDTO.name) && !StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)==null) {
 			//SOLO NOME
+			if(!this.checkLengthName(cocktailDTO.name))
+				return null;
 			cocktailResultDTO.totalResult = cocktailRepository.countByNameContainingIgnoreCase(cocktailDTO.name);
 			if(pageable!=null)
 				return cocktailRepository.findByNameContainsIgnoreCase(pageable, cocktailDTO.name);
@@ -171,6 +173,8 @@ public class CocktailService implements CocktailServiceI{
 		}
 		else if(StringUtils.hasText(cocktailDTO.name) && StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)==null) {
 			// NOME-GUSTO
+			if(!this.checkLengthName(cocktailDTO.name))
+				return null;
 			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndFlavourContainingIgnoreCase(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour);
 			if(pageable!=null)
 				return cocktailRepository.findByNameAndFlavourContainsIgnoreCase(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.flavour);
@@ -178,6 +182,8 @@ public class CocktailService implements CocktailServiceI{
 		}
 		else if(StringUtils.hasText(cocktailDTO.name) && !StringUtils.hasText(cocktailDTO.flavour) && (cocktailDTO.isAlcoholic)!=null) {
 			// NOME-ALCOLICO
+			if(!this.checkLengthName(cocktailDTO.name))
+				return null;
 			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.isAlcoholic);
 			if(pageable!=null)
 				return cocktailRepository.findByNameAndIsAlcoholic(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.isAlcoholic);
@@ -192,6 +198,8 @@ public class CocktailService implements CocktailServiceI{
 		}
 		else {
 			//COMPLETA
+			if(!this.checkLengthName(cocktailDTO.name))
+				return null;
 			cocktailResultDTO.totalResult = cocktailRepository.countByNameAndFlavourAndIsAlcoholic(cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
 			if(pageable!=null)
 				return cocktailRepository.findByNameAndFlavourAndIsAlcoholic(pageable, cocktailDTO.name.toUpperCase(), cocktailDTO.flavour, cocktailDTO.isAlcoholic);
@@ -199,6 +207,7 @@ public class CocktailService implements CocktailServiceI{
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void updateSold(String uuid, int operation) throws Exception {
 		Cocktail c = this.get(uuid);
@@ -206,9 +215,47 @@ public class CocktailService implements CocktailServiceI{
 		if(operation == this.INCREMENT) //INCREMENTO
 			c.setSold(actualSold + 1);
 		else //DECREMENTO
-			c.setSold(actualSold - 1);
-				
+			c.setSold(actualSold - 1);	
 	}	
+	
+	private boolean checkLengthName(String name) throws Exception {
+		boolean check = true;
+		if(this.checkIfStringContainsDigit(name)) {
+			check = false;
+			throw new Exception("The name must consist of only characters");
+		}
+		if(name.length() < 3) {
+			check = false;
+			throw new Exception("The length of the name must be at least 3 characters");
+		}
+		if(name.length() > 30) {
+			check = false;
+			throw new Exception("The length of the name should be 30 characters maximum");
+		}
+		return check;
+	}
+	
+	private boolean checkCocktailNameField(String name) throws Exception {
+		boolean check = true;
+		if(name.length() < 3) {
+			check = false;
+			throw new Exception("The cocktail length of the name must be at least 3 characters");
+		}
+		if(name.length() > 30) {
+			check = false;
+			throw new Exception("The cocktail length of the name should be 30 characters maximum");
+		}
+		return check;
+	}
+	
+	public boolean checkIfStringContainsDigit(String passCode){
+	      for (int i = 0; i < passCode.length(); i++) {
+	        if(Character.isDigit(passCode.charAt(i))) {
+	            return true;
+	        }
+	      }
+	      return false;
+	}
 	
 	
 }
