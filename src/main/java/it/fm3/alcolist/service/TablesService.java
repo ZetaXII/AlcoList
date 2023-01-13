@@ -67,7 +67,10 @@ public class TablesService implements TablesServiceI{
 	}
 	
 	private void buildTablesByTablesDTO(Tables tables, TablesDTO tablesDTO) {
-		tables.setNumber(tablesDTO.number);
+		if(tablesDTO.isFree!=null)
+			tables.setIsFree(tablesDTO.isFree);
+		if(tablesDTO.number!=null)
+			tables.setNumber(tablesDTO.number);
 		if(!StringUtils.hasText(tablesDTO.uuid))
 			tables.setUuid(UUID.randomUUID().toString());
 		else
