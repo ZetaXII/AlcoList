@@ -38,20 +38,20 @@ public class StatisticsService implements StatisticsServiceI{
 		for(UserAccount u : usersList) {
 			List<Role> uRoles = u.getRoles();
 			int numbersRoles = uRoles.size();
-			if(role==RoleEnum.WAITER.name()) {
+			if(role.equalsIgnoreCase("WAITER")) {
 				for(Role r : uRoles) {
 					if(r.getName()==role && numbersRoles == 1) {
 						usersFilteredRoleList.add(u);
 					}
 				}
-			}else if(role==RoleEnum.BARTEDER.name()) {
+			}else if(role.equalsIgnoreCase("BARTENDER")) {
 				boolean bart = false;
 				boolean man = false;
 				for(Role r : uRoles) {
-					if(r.getName()==role){
+					if(r.getName().equalsIgnoreCase(role)){
 						bart = true;
 					}
-					if(r.getName()==RoleEnum.MANAGER.name()){
+					if(r.getName().equalsIgnoreCase("MANAGER")){
 						man = true;
 					}
 				}
@@ -59,7 +59,7 @@ public class StatisticsService implements StatisticsServiceI{
 					usersFilteredRoleList.add(u);
 				}
 			}
-			else if(role==RoleEnum.MANAGER.name()) {
+			else if(role.equalsIgnoreCase("MANAGER")) {
 				for(Role r : uRoles) {
 					if(r.getName()==role) {
 						usersFilteredRoleList.add(u);
