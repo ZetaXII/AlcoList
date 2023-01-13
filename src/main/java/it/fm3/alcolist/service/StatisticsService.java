@@ -40,7 +40,7 @@ public class StatisticsService implements StatisticsServiceI{
 			int numbersRoles = uRoles.size();
 			if(role.equalsIgnoreCase("WAITER")) {
 				for(Role r : uRoles) {
-					if(r.getName()==role && numbersRoles == 1) {
+					if(r.getName().equalsIgnoreCase(role) && numbersRoles == 1) {
 						usersFilteredRoleList.add(u);
 					}
 				}
@@ -61,7 +61,7 @@ public class StatisticsService implements StatisticsServiceI{
 			}
 			else if(role.equalsIgnoreCase("MANAGER")) {
 				for(Role r : uRoles) {
-					if(r.getName()==role) {
+					if(r.getName().equalsIgnoreCase(role)) {
 						usersFilteredRoleList.add(u);
 					}
 				}
