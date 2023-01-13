@@ -4,7 +4,7 @@ public enum OrdinationStatusEnum {
 	CREATED("Creata",true,false),
 	PENDING("In Attesa",true,false),
 	SENTBACK("Rinviata",true,true),
-	WORK_IN_PROGRESS("In Elaborazione",false,false),
+	WORK_IN_PROGRESS("In Elaborazione",true,false),
 	COMPLETED("Da consegnare",false,false),
 	DELIVERED("Consegnata",false,false),
 	ENDED("Terminata",false,false)

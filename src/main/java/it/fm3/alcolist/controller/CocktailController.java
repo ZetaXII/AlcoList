@@ -55,7 +55,12 @@ public class CocktailController {
 	
 	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
 	public ResponseEntity<?> searchByFields(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
-		return ResponseEntity.ok(cocktailService.searchByFields(cocktail));
+		try {
+			return ResponseEntity.ok(cocktailService.searchByFields(cocktail));
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@RequestMapping(value = "/getMenu", method = RequestMethod.POST)
