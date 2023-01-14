@@ -53,7 +53,7 @@
                 <button id="uuidEdit" value="" class="badge-user btn btn-view" onclick="redirectEditUser(value)">Edit</button>
             </div>
         </div>
-        <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
+        <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 mt-4 containerTables">
             <div class="col-md-12 col-lg-12 col-xl-12 mt-1">
                 <div class="card profile p-4" style="background-color: var(--secondaryBlue); border-radius: 30px;">
                     <div class="row profile" style="background-color: var(--secondaryBlue); border-radius: 30px;">

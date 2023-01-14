@@ -105,6 +105,19 @@
     border: none;
 }
 
+.btn-newUser {
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    border-radius: 12px;
+}
+
+.btn-newUser:hover {
+    background-color: var(--yellow);
+    color: var(--secondaryBlue);
+    border: none;
+    transition-duration: 0.2s;
+}
+
 #backToListCocktail:hover
 {
     cursor: pointer;

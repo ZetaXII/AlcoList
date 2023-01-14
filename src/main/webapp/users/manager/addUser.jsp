@@ -124,7 +124,7 @@
                                         <input type="radio" class="radio" id="WAITER" onclick="selectedRole(this.id)"><span>CAMERIERE</span></input>
                                     --></div>
                                         <p class="card-text cocktail-description"><input type="email" id="emailField" class="addCocktailFields form-control py-2 mb-4" placeholder="Email" autocomplete="off" required></p>
-                                        <p class="price"><input type="password" id="passwordField" class="addCocktailFields form-control py-2 mb-4" placeholder="Password" maxlength="50" autocomplete="off" required></p>
+                                        <!--<p class="price"><input type="password" id="passwordField" class="addCocktailFields form-control py-2 mb-4" placeholder="Password" maxlength="50" autocomplete="off" required></p>-->
                                         <div class="text-center">
                                             <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" style="border: none" onclick="addUser()">Aggiungi utente</button>
                                         </div>

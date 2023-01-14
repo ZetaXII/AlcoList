@@ -18,16 +18,16 @@
             let table
             let stato
             let ordinationsForTable = getOrdinationForTable(tables[i].uuid)
-            let ordination = ordinationsForTable[0]
+            let ordination = ordinationsForTable[(ordinationsForTable.length)-1]
             if (ordination!==undefined){
                 console.log(ordination.status)
                 stato = ordination.status
             }
             if (ordination!==undefined && !tables[i].isFree && stato === "PENDING") {
-                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="updateComanda(id,this.value)" >' +
+                table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="updateComanda(id)" >' +
                     '<div class="card cardTableEditable"> ' +
                     '<div class="card-body">' +
-                    '<h5 class="card-title mt-2" style="font-size: 16px; color: #ebc23b">'+stato+'&nbsp;</h5>' +
+                    '<h5 class="card-title mt-2" style="font-size: 16px; color: yellow">'+stato+'&nbsp;</h5>' +
                     '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
                     '</div>' +
                     '<div class="d-flex justify-content-center">' +
@@ -63,6 +63,16 @@
                     '<div class="d-flex justify-content-center">' +
                     '</div>'+
                     '</div>'
+            } else if (ordination!==undefined && !tables[i].isFree && stato === "SENTBACK") {
+                table = '<div class="col d-flex justify-content-center text-center" id="'+tables[i].uuid+'" onclick="updateComanda(id,uuid)" >' +
+                    '<div class="card cardTableSentBack"> ' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title mt-2" style="font-size: 16px; color: orange">'+stato+'&nbsp;</h5>' +
+                    '<p class="card-text h1 mt-5">' + tables[i].number + '</p>' +
+                    '</div>' +
+                    '<div class="d-flex justify-content-center">' +
+                    '</div>'+
+                    '</div>'
             } else {
                 table = '<div class="col d-flex justify-content-center text-center" value="'+uuid+'" id="'+tables[i].uuid+'" onclick="addComanda(id,this.value)" >' +
                     '<div class="card cardTable"> ' +
@@ -78,29 +88,13 @@
         }
     });
 
-
-
-    function getStatus()
-    {
-        return ["CREATED", "PENDING", "WORK IN PROGRESS", "COMPLETED", "DELIVERED", "ENDED"];
-    }
-    function printStatusList()
-    {
-        let s=getStatus();
-        for(let i=0; i<s.length; i++)
-        {
-            console.log(s[i])
-            $('.selectStatus').append("<option value="+s[i]+" id="+i+">"+s[i]+"</option>");
-        }
-    }
-
     if(!roleList.includes("WAITER"))
     {
         logout();
     }
 </script>
     <div class="title">
-        <h1 class="h1">Dashboard</h1>
+        <h1 class="h1">Tavoli</h1>
     </div>
     <div class="container-fluid">
         <div class="content">
@@ -109,9 +103,7 @@
             </div>
         </div>
     </div>
-    <script>
 
-    </script>
     <style>
         .cardTable
         {
@@ -126,12 +118,12 @@
         {
             height: 16rem;
             width: 16rem;
-            color: var(--white);
+            color: yellow;
             background-color: var(--secondaryBlue);
             border: 2px solid #ebc23b;
         }
 
-        .cardTable:hover, .cardTableEditable:hover, .cardTableCompleted:hover
+        .cardTable:hover, .cardTableEditable:hover, .cardTableCompleted:hover, .cardTableSentBack:hover
         {
             background-color: var(--primaryBlue);
             cursor: pointer;
@@ -153,13 +145,18 @@
             background-color: var(--secondaryBlue);
             border: 2px solid limegreen;
         }
+
+        .cardTableSentBack {
+            height: 16rem;
+            width: 16rem;
+            color: orange;
+            background-color: var(--secondaryBlue);
+            border: 2px solid orange;
+        }
     </style>
 
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
 <script src="${pageContext.request.contextPath}/script/tableJS.js"></script>
 <script src="${pageContext.request.contextPath}/script/ordinationJS.js"></script>
-<script>
-    printStatusList()
-</script>
 </body>
 </html>

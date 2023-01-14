@@ -1,3 +1,4 @@
+
 function getAllTables(){
     let t=[];
     $.ajax({
@@ -26,6 +27,15 @@ function updateComanda(uuid){
     })
     window.location.href= $("#contextPath").val()+"/users/waiter/editOrdination.jsp?"+queryParams.toString();
 }
+function redirectToListOrdinations(uuidTable){
+    window.location.href= $("#contextPath").val()+"/users/waiter/listaComandeTable.jsp?uuid="+uuidTable;
+}
+
+function decideOnOrdination(uuidTable){
+    console.log("UUID TAVOLO IN DECIDEONORDINATION: "+uuidTable)
+    window.location.href= $("#contextPath").val()+"/users/waiter/decideOnOrdination.jsp?uuid="+uuidTable;
+}
+
 function updateCompletedComandaToDelivered(tableUuid,userUuid){
         confirm("Aggiornare lo stato della comanda a 'DELIVERED'?")
         updateStatusToDelivered(tableUuid,userUuid,"DELIVERED")

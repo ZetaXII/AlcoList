@@ -35,36 +35,45 @@ function getCocktailsPaginated(size, page, searchName, searchFlavour, searchIsAl
     });
     return c;
 }
+function getOrdination(uuid){
+    let o;
+    $.ajax({
+        async: false,
+        method: "GET",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-ordinations/get/"+uuid,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
 
-function paginatedCocktailList(size, page) //stampa a video la lista paginata dei cocktail
-{
+        success:function(ordination)
+        {
+            o=ordination;
+        },
+        error: function(error)
+        {
+            alert("generic error"+ error);
+        }
+    });
+    return o;
+}
+
+function getErrorMessage(uuidOrdination){
+    //TODO AGGIUNGERE CHECK SULLO STATO DELL'ORDINAZIONE PER SCEGLIERE SE VISUALIZZARE O MENO IL MESSAGGIO
+    console.log(uuidOrdination)
+    console.log(getOrdination(uuidOrdination).status)
+    if (getOrdination(uuidOrdination).status === "SENTBACK"){
+        $("#sentbackMessage").text("QUI VERRA' VISUALIZZATO L'ERRORE DI "+uuidOrdination)
+    }
+}
+
+function loadDrinkList(drinkList) {
     let isAlcoholic;
     let isIBA;
     let inMenu;
-
-    let cocktailsArray= getCocktailsPaginated(size, page, "", "", null);
-    if(cocktailsArray.length<=0)
-    {
-        $(".pageSwitch").toggle("hidden");
-        alert("La ricerca non ha prodotto risultati");
-    }
-
-    if(page==0)
-    {
-        /*se si ci trova alla pagina 0 allora NON viene mostrato il tasto per andare alla pagina precedente*/
-        $(".prevPage").toggle("hidden");
-    }
-
-    if(getCocktailsPaginated(size, page+1, "", "", null).length<1)
-    {
-        /*se nella pagina successiva non ci sono cocktail  allora non mostra il tasto per andare alla pagina successiva*/
-        $(".nextPage").toggle("hidden");
-    }
-
-    $(".pageNumber").append("Pagina "+(page+1));
-
+    let cocktailsArray= drinkList.map(orderedCocktail => orderedCocktail.cocktail );
     for(i in cocktailsArray) {
-        if(cocktailsArray[i].iba==false)
+
+        if(cocktailsArray[i].iba===false)
         {
             isIBA="no iba";
         }
@@ -73,7 +82,7 @@ function paginatedCocktailList(size, page) //stampa a video la lista paginata de
             isIBA="iba";
         }
 
-        if(cocktailsArray[i].alcoholic==false)
+        if(cocktailsArray[i].alcoholic===false)
         {
             isAlcoholic="Analcolico";
         }
@@ -82,7 +91,7 @@ function paginatedCocktailList(size, page) //stampa a video la lista paginata de
             isAlcoholic="Alcolico";
         }
 
-        if(cocktailsArray[i].inMenu==false)
+        if(cocktailsArray[i].inMenu===false)
         {
             inMenu="no men&ugrave;";
         }
@@ -95,7 +104,9 @@ function paginatedCocktailList(size, page) //stampa a video la lista paginata de
         const urlParams = new URLSearchParams(queryString);
         let tableUuid = urlParams.get('uuid');
         let uuids = tableUuid + "|" + cocktailsArray[i].uuid
-        let cocktailCard=
+        //let orderedCocktails = getOrdinationForTable(tableUuid)[0].orderedCocktails
+        console.log(cocktailsArray[i].price)
+        let cocktailCard =
             "<div class='col-sm-12 col-xl-12'>" +
             "   <div class='card info-item-panel mt-4' style='background-color: var(--secondaryBlue); border-radius: 30px;'>" +
             "       <div class='row g-0' style='background-color: var(--secondaryBlue); border-radius: 30px;'><div class='col-md-2 text-center'>" +
@@ -118,7 +129,7 @@ function paginatedCocktailList(size, page) //stampa a video la lista paginata de
             "           <button style='border: 0;' id='"+uuids+"' class='btn btn-view px-2 m-2 mb-3 w-50' onclick='addCocktailInOrdination(id)'><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-plus-lg\" viewBox=\"0 0 16 16\">\n" +
             "  <path fill-rule=\"evenodd\" d=\"M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z\"/>\n" +
             "</svg></button>" +
-            "<div class='row item-options pb-2 px-4' style='background-color: var(--secondaryBlue)' id='cocktail-"+cocktailsArray[i].uuid+"'>0</div>" +
+            "<div class='row item-options pb-2 px-4' style='background-color: var(--secondaryBlue)' id='cocktail-"+cocktailsArray[i].uuid+"'>"+drinkList[i].quantity+"</div>" +
             "           <button style='border: 0;' id='"+uuids+"' class='btn btn-view px-2 m-2 mb-3 w-50' onclick='removeCocktailinOrdination(id)'><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-dash\" viewBox=\"0 0 16 16\">\n" +
             "  <path d=\"M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z\"/>\n" +
             "</svg></button>" +
@@ -238,25 +249,44 @@ function _postRemoveOrderedCocktail(cocktailUuid,ordinationUuid){
     });
     return o;
 }
+function getOrdinationForTable(uuid){
+    let o;
+    $.ajax({
+        async: false,
+        method: "GET",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-ordinations/getOrdinationForTable/"+uuid,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+        success:function(result)
+        {
+            o=result;
+        },
+        error: function(error)
+        {
+            console.log("generic error"+ JSON.stringify(error));
+        }
+    });
+    return o;
+}
 
 function addCocktailInOrdination(uuids){
     let tableUuid = uuids.split("|")[0]
     let cocktailUuid = uuids.split("|")[1]
-
-    console.log(tableUuid +" " +cocktailUuid)
-
     let ordinationsForTable = getOrdinationForTable(tableUuid)
-    let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
+    let ordination = ordinationsForTable[0]
+    console.log(ordinationsForTable)
     if(ordination === null || ordination === undefined){
-        console.log("NON ESISTE, CREO")
+        console.log("Ordered not found.\nNew order created.")
         ordination = createOrdination(tableUuid,uuid);
-    } else {
-        console.log("ESISTE UEEE")
     }
-    console.log("ORDINATION UUID: " +ordination.uuid)
     if(!!_postAddOrderedCocktail(cocktailUuid,ordination.uuid)){
-        let cocktail = ordination.orderedCocktails.find(order => order.cocktail.uuid === cocktailUuid)
-        let counterID = "#cocktail-"+cocktailUuid
+        let cocktail = null;
+        if(!!ordination.orderedCocktails){
+            cocktail = ordination.orderedCocktails.find(order => order.cocktail.uuid === cocktailUuid)
+        }
+        let counterID = "#cocktail-"+cocktailUuid;
         if(!!cocktail){
             $(counterID).text(cocktail.quantity + 1)
         } else {
@@ -269,7 +299,7 @@ function removeCocktailinOrdination(uuids){
     let tableUuid = uuids.split("|")[0]
     let cocktailUuid = uuids.split("|")[1]
 
-    console.log(tableUuid +" " +cocktailUuid)
+    console.log("TABLEUUID: "+tableUuid +" COCKTAILUUID: " +cocktailUuid)
 
     let ordinationsForTable = getOrdinationForTable(tableUuid)
     let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
@@ -322,9 +352,12 @@ function updateStatusWithOrder(ordinationUuid, userUuid, status) {
     return o;
 }
 function updateStatus(tableUuid, userUuid){
-    let ordinationsForTable = getOrdinationForTable(tableUuid)
-    let ordination = ordinationsForTable.find(ordination => ordination.status === "PENDING")
-    updateStatusWithOrder(ordination.uuid, userUuid, "PENDING")
+    let ordination = getOrdinationForTable(tableUuid)[0]
+    if (ordination.status !== "PENDING") {
+        updateStatusWithOrder(ordination.uuid, userUuid, "PENDING")
+    } else {
+        redirectToTableView()
+    }
 }
 
 function redirectToTableView(){

@@ -51,7 +51,7 @@
                     <div class="bartender hidden">
                         <li class="list">
                             <a href="${pageContext.request.contextPath}/users/bartender/dashboard.jsp" class="nav-link">
-                                <i class='bx bxs-store-alt icon'></i>
+                                <i class='bx bx-list-ul icon'></i>
                                 <span class="link">Banco</span>
                             </a>
                         </li>

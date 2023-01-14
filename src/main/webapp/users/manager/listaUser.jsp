@@ -8,8 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js"></script>
     <!-- CSS -->
     <link href="${pageContext.request.contextPath}/style/profile.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/style/infoCocktailStyle.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/style/base.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/style/infoCocktailStyle.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../../navBar.jsp"%>
@@ -33,29 +33,9 @@
     <div class="content">
         <div class="flex-row gx-5 containerTables">
             <div class="d-flex justify-content-end">
-                <button class="btn-modifyCocktail" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">Nuovo dipendente</button>
+                <button class="btn-newUser" style="padding-left: 20px;padding-right: 20px" onclick="redirectNewUser()">Nuovo dipendente</button>
             </div>
         <div class="mt-4 append-user text-light" value=""></div>
-        <!--<div class="card mb-4" onclick="goToInfo(this.id)" id="userRow" style="background-color: var(--secondaryBlue); border-radius: 30px;">
-            <div class="row g-0 user-row" style="background-color: var(--secondaryBlue); border-radius: 30px;">
-                <div class="col-md-3">
-                    <img class="m-2 p-2" style="vertical-align: central; width:100px; border-radius: 50%" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile-pic">
-                </div>
-                <div class="col-md-7">
-                    <div class="card-body mt-2 mb-3">
-                        <h5 class="card-title profile-title">NOME</h5>
-                        <span class="role user-tag">RUOLO</span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a class="forward-button" href="${pageContext.request.contextPath}/users/manager/infoUser.jsp/uuid=26aec96d-6e7a-4d63-9063-171b35a72526">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>-->
         </div>
     </div>
 </div>

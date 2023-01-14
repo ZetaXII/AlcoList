@@ -29,6 +29,7 @@
         console.log(ordination)
         $("#uuidComandaCancel").val(ordination.uuid)
         $("#uuidComandaComplete").val(ordination.uuid)
+        $("#uuidComandaSendBack").val(ordination.uuid)
         drawCocktailCards(ordination.orderedCocktails);
     });
     if(roleList.includes("RUOLO"))
@@ -48,11 +49,14 @@
                 <button id="uuidComandaCancel" value="" class="badge-user btn btn-view" onclick="cancelComanda(this.value)">Annulla</button>
                 <button id="uuidComandaComplete" value="" class="badge-user btn btn-view" onclick="completeComanda(this.value)">Chiudi Comanda</button>
             </div>
+            <div class="d-flex justify-content-end">
+            <button id="uuidComandaSendBack" value="" class="badge-user btn btn-view" onclick="sendBackComanda(this.value)">Non realizzabile</button>
         </div>
         <div class="row gx-4 containerTables px-3">
             <div class="cocktailList"></div>
         </div>
     </div>
+</div>
 </div>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
 <script src="${pageContext.request.contextPath}/script/ordinationJS.js"></script>

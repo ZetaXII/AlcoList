@@ -4,7 +4,7 @@ function addUser()
     let name=$("#nameField").val();
     let surname=$("#surnameField").val();
     let emailUser=$("#emailField").val();
-    let password=$("#passwordField").val();
+    //let password=$("#passwordField").val();
     let managerIsChecked = document.getElementById("MANAGER").classList.contains("badgeChecked")
     let bartenderIsChecked = document.getElementById("BARTENDER").classList.contains("badgeChecked")
     let waiterIsChecked = document.getElementById("WAITER").classList.contains("badgeChecked")
@@ -50,7 +50,7 @@ function addUser()
         }
     }*/
 
-    if(name!=="" && surname!=="" && mainRole!=="" && emailUser!=="" && password!=="" && !!roles && roles.length>0)
+    if(name!=="" && surname!=="" && mainRole!=="" && emailUser!=="" /*&& password!==""*/ && !!roles && roles.length>0)
     {
         let userModel=
             {
@@ -58,7 +58,7 @@ function addUser()
                 surname: surname,
                 roleList: roles,
                 mainRole: mainRole,
-                password: password,
+                //password: password,
                 email: emailUser
             }
 

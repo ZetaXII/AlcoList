@@ -29,10 +29,12 @@
     const urlParams = new URLSearchParams(queryString);
     let page = parseInt(urlParams.get('page'));
     let tableUuid = urlParams.get('uuid');
+    let drinkList = getOrdinationForTable(tableUuid)[0].orderedCocktails
     $("#inviaComanda").val(tableUuid)
     //paginatedMenu(6,page)
-    paginatedCocktailList(6,page);
+    loadDrinkList(drinkList);
     //let selectedTable = urlParams.get('uuid');
+    getErrorMessage(getOrdinationForTable(tableUuid)[0].uuid);
   });
 </script>
 
@@ -43,6 +45,7 @@
 <div class="container-fluid p-4">
   <div class="content">
 
+    <div class="message" style="color: #eaeaea" id="sentbackMessage"></div>
     <div class="flex-row gx-4 containerTables px-3">
       <div class="d-flex justify-content-end">
         <button id="inviaComanda" value="" class="badge-user btn btn-view" onclick="updateStatus(this.value,uuid)">Aggiorna comanda</button>
@@ -57,7 +60,6 @@
         <span class="pageNumber"></span>
         <button class="btn nextPage" onclick="nextPageCocktail()"><i class='bx bx-chevron-right nextPage' ></i></button>
       </div>
-
       <div class="col-12 item-list"></div>
     </div>
   </div>
