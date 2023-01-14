@@ -17,7 +17,6 @@ import it.fm3.alcolist.entity.UserAccount;
 import it.fm3.alcolist.repository.CocktailRepository;
 import it.fm3.alcolist.repository.OrdinationRepository;
 import it.fm3.alcolist.repository.UserAccountRepository;
-import it.fm3.alcolist.utils.RoleEnum;
 
 @Service
 @Transactional

@@ -23,6 +23,12 @@ public class UserAccountDTO {
 		this.mainRole = mainRole;
 		this.email = email;
 	}
+	
+	public UserAccountDTO(String uuid) {
+		super();
+		this.uuid = uuid;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(email, mainRole, name, roleList, surname);
