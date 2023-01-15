@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
 import it.fm3.alcolist.DTO.UserAccountDTO;
@@ -35,10 +37,18 @@ class UserAccountControllerTest {
 	private UserAccountServiceI userService;
 
 	private UserAccount user;
+	
+	ObjectMapper objectMapper = new ObjectMapper();
 
 	@BeforeEach
 	void setup() {
 		user = new UserAccount();
+	}
+	
+	@Test
+	@DisplayName("Add User")
+	void testSaveUser() throws Exception {
+		//definisco ciò che mi aspetto nella response body (?)_
 		user.setName("Prova");
 		user.setSurname("Testing");
 		user.setEmail("mailprova@test.it");
@@ -48,31 +58,27 @@ class UserAccountControllerTest {
 		rolesList.add(waiter);
 		user.setMainRole(rolesList.get(0).getName());
 		user.setRoles(rolesList);
-	}
-	
-	@Test
-	void testSaveUser() throws Exception {
+		
+		//definsco ciò che passo all'add
 		ArrayList<String> rolesListDto = new ArrayList<String>();
 		String waiterDto = "WAITER";
 		rolesListDto.add(waiterDto);
 		UserAccountDTO userDTO = new UserAccountDTO("Prova", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
 		
-		Mockito.when(userService.add(userDTO)).thenReturn(user);
+		Mockito.when(userService.add(userDTO))
+		.thenReturn(user);
 		
-//		String c = "{\r\n" + 
-//				"  \"name\": \"Prova\",\r\n" +  
-//				"  \"surname\": \"Testing\",\r\n" + 
-//				"  \"roleList\": [\"WAITER\"] ,\r\n" + 
-//				"  \"mainRole\": \"WAITER\",\r\n" + 
-//				"  \"email\": \"mailprova@test.it\"\r\n" + 
-//				"}";
+		//definisco cio che passo in chiamata api mcvresult
+		String json = objectMapper.writeValueAsString(userDTO);
+//		= "{" +
+//				"\"name\": \"Prova\"," +  
+//				"\"surname\": \"Testing\"," + 
+//				"\"roleList\": [\"WAITER\"]," + 
+//				"\"mainRole\": \"WAITER\"," + 
+//				"\"email\": \"mailprova@test.it\"}";
 		
-		String json = "{" +
-				"\"name\": \"Prova\"," +  
-				"\"surname\": \"Testing\"," + 
-				"\"roleList\": [\"WAITER\"]," + 
-				"\"mainRole\": \"WAITER\"," + 
-				"\"email\": \"mailprova@test.it\"}";		
+		
+		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
@@ -102,143 +108,81 @@ class UserAccountControllerTest {
 		System.out.println("Tutto bene! :-)");	
 	}
 	
+		
 	@Test
-	void testSaveUserBadException() throws Exception {
-		//user = new UserAccount();
-//		user.setName("P");
-//		user.setSurname("Testing");
-//		user.setEmail("mailprova@test.it");
+	@DisplayName("NameMustBeAtLeastTwoCharacters")
+	void testSaveUserBadExceptionNameMustBeAtLeastTwoCharacters() throws Exception {
+		//definisco ciò che mi aspetto (?)
 		List<Role> rolesList = new ArrayList<>();
 		Role waiter = new Role();
 		waiter.setName("WAITER");
 		rolesList.add(waiter);
 		user.setMainRole(rolesList.get(0).getName());
 		user.setRoles(rolesList);
+		
+		
+		//definisco cio che passo all/ add
 		ArrayList<String> rolesListDto = new ArrayList<String>();
 		String waiterDto = "WAITER";
 		rolesListDto.add(waiterDto);
-		UserAccountDTO userDTO = new UserAccountDTO("Prova", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
+		UserAccountDTO userDTO = new UserAccountDTO("P", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
 		
-		UserAccount error = null;
-		Mockito.when(userService.add(userDTO)).thenReturn(error);
 		
-//		String c = "{\r\n" + 
-//				"  \"name\": \"Prova\",\r\n" +  
-//				"  \"surname\": \"Testing\",\r\n" + 
-//				"  \"roleList\": [\"WAITER\"] ,\r\n" + 
-//				"  \"mainRole\": \"WAITER\",\r\n" + 
-//				"  \"email\": \"mailprova@test.it\"\r\n" + 
-//				"}";
+		String messageError = "The length of the name must be at least 2 characters";
+		Mockito.when(userService.add(userDTO))
+		.thenThrow(new Exception (messageError));
 		
-		String json = "{" +
-				"\"name\": \"P\"," +  
-				"\"surname\": \"Testing\"," + 
-				"\"roleList\": [\"WAITER\"]," + 
-				"\"mainRole\": \"WAITER\"," + 
-				"\"email\": \"mailprova@test.it\"}";		
+		String json = objectMapper.writeValueAsString(userDTO);
+		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
 				.andDo(MockMvcResultHandlers.print())
-				//.andExpect(content().json())
+				//.andExpect(content(json).json())
 				.andExpect(MockMvcResultMatchers.status().isBadRequest()
 				).andReturn();
 		
-		String responseAsString = mvcResult.getResponse().getContentAsString();
-	
-		String nameRequest = JsonPath.parse(json).read("$.name");
-		String surnameRequest = JsonPath.parse(json).read("$.surname");
-		String rolesRequest = JsonPath.parse(json).read("$.roleList.[0]");
-		String mainRoleRequest = JsonPath.parse(json).read("$.mainRole");
-		String emailRequest = JsonPath.parse(json).read("$.email");
-		String bodyRequest = nameRequest + surnameRequest + rolesRequest + mainRoleRequest + emailRequest;
-		
-		String nameResponse = JsonPath.parse(responseAsString).read("$.name");
-		String surnameResponse = JsonPath.parse(responseAsString).read("$.surname");
-		String rolesResponse = JsonPath.parse(responseAsString).read("$.roles.[0].name");
-		String mainRoleResponse = JsonPath.parse(responseAsString).read("$.mainRole");
-		String emailResponse = JsonPath.parse(responseAsString).read("$.email");
-		String bodyResponse = nameResponse + surnameResponse + rolesResponse + mainRoleResponse + emailResponse;
-		
-		
-		Assertions.assertEquals(bodyRequest, bodyResponse);
-		System.out.println("Tutto bene! :-)");	
+		String bodyResponse = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals(messageError, bodyResponse);
+		System.out.println("Tutto bene con l'Exception! :-)");
+
 	}
 	
-	
-//	@Test
-//	void testGetUser() throws Exception {
-//		
-//		user = new UserAccount();
-//		user.setUuid("jnwdiqund-akjh323323-dwadsd-sadasda");
-//		user.setName("FEDE");
-//		user.setSurname("DIZ");
-//		user.setEmail("fede@gmail.com");
-//		List<Role> rolesList = new ArrayList<>();
-//		user.setMainRole("MANAGER");
-//		user.setRoles(rolesList);
-//		user.setPassword("2buhdabwhbfwh");
-//		
-//		String jsonExspected = "{\"uuid\":\"jnwdiqund-akjh323323-dwadsd-sadasda\","
-//				+ ""
-//				+ "}";
-//		
-//		UserAccountDTO userDTO = new UserAccountDTO("jnwdiqund-akjh323323-dwadsd-sadasda");
-//		
-//		Mockito.when(userService.get(userDTO.uuid)).thenReturn(user);
-//				
-//		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/manage-users/get/jnwdiqund-akjh323323-dwadsd-sadasda")
-//				.accept(MediaType.APPLICATION_JSON)
-//				.content(""))
-//				.andDo(MockMvcResultHandlers.print())
-//				//.andExpect(content().json())
-//				.andExpect(MockMvcResultMatchers.status().isOk()
-//				).andReturn();
-//		
-//		String resultAsString = mvcResult.getResponse().getContentAsString();
-//		
-//		System.out.println(resultAsString);
-//		Assertions.assertEquals(bodyRequest, bodyResponse);
-//		System.out.println("Tutto bene! :-)");	
-//	}
+	@Test
+	@DisplayName("NameShouldBe30CharactersMaximum")
+	void testSaveUserBadExceptionNameShouldBe30CharactersMaximum() throws Exception {
+		//definisco ciò che mi aspetto (?)
+		List<Role> rolesList = new ArrayList<>();
+		Role waiter = new Role();
+		waiter.setName("WAITER");
+		rolesList.add(waiter);
+		user.setMainRole(rolesList.get(0).getName());
+		user.setRoles(rolesList);
 		
-		//ObjectMapper objectMapper = new ObjectMapper(); // com.fasterxml.jackson.databind.ObjectMapper
-		//UserAccount myResponse = objectMapper.readValue(responseAsString, UserAccount.class);
-		//System.out.println(myResponse);
-		//MyResponse myResponse = objectMapper.readValue(responseAsString, MyResponse.class);
-	
-////	@Test
-////	public void shouldReturnErrorMessageToAdminWhenCreatingUserWithUsedUserName() throws Exception {
-////		String jsonErr= "{\"name\": \"Prova\",\"surname\": \"Testing\",\"roleList\": [\"WAITER\"],\"mainRole\": \"WAITER\",\"email\": \"fede@gmail.com\"}";
-////		
-////		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
-////				//.header("Authorization")
-////				.contentType(MediaType.APPLICATION_JSON)
-////				.content(jsonErr))
-////				//.andExpect(.content().json(jsonErr))
-////				//.andDo(MockMvcResultHandlers.print())
-////				.andExpect(MockMvcResultMatchers.status().isBadRequest())
-////				.andReturn();
-////		
-////		String content = mvcResult.getResponse().getContentAsString();
-////		System.out.println("OOOOO " + content);
-////	}
-//	
-//	@Test
-//	public void shouldReturnErrorMessageToAdminWhenCreatingUserWithUsedUserName() throws Exception {
-//		String jsonErr= "{\"name\": \"Prova\",\"surname\": \"Testing\",\"roleList\": [\"WAITER\"],\"mainRole\": \"WAITER\",\"email\": \"fede@gmail.com\"}";
-//		
-//		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
-//				//.header("Authorization")
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.content(jsonErr))
-//				//.andExpect(.content().json(jsonErr))
-//				//.andDo(MockMvcResultHandlers.print())
-//				.andExpect(MockMvcResultMatchers.status().isBadRequest())
-//				.andReturn();
-//		
-//		String content = mvcResult.getResponse().getContentAsString();
-//		System.out.println("OOOOO " + content);
-//	}
+		
+		//definisco cio che passo all/ add
+		ArrayList<String> rolesListDto = new ArrayList<String>();
+		String waiterDto = "WAITER";
+		rolesListDto.add(waiterDto);
+		UserAccountDTO userDTO = new UserAccountDTO("Provaaggiuntaconunnomelunghissimochesuperaitrentacaratteri", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
+		
+		
+		String messageError = "The length of the name should be 30 characters maximum";
+		Mockito.when(userService.add(userDTO))
+		.thenThrow(new Exception (messageError));
+		
+		String json = objectMapper.writeValueAsString(userDTO);
+		
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().isBadRequest()
+				).andReturn();
+		
+		String bodyResponse = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals(messageError, bodyResponse);
+		System.out.println("Tutto bene con l'Exception! :-)");
 
+	}
 }
