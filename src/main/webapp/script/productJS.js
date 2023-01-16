@@ -527,6 +527,8 @@ function addIngredient(uuidCocktail, uuidProduct, idBox)
             cocktailUuid: uuidCocktail
         }
 
+    //alert(JSON.stringify(model));
+
     $.ajax({
         async: false,
         method: "POST",
@@ -599,6 +601,8 @@ function modifyIngredient(idBox, uuidIngredient)
             isOptional: isOptional
         }
 
+    //alert(JSON.stringify(model));
+
     $.ajax({
         async: false,
         method: "POST",
@@ -620,20 +624,3 @@ function modifyIngredient(idBox, uuidIngredient)
     });
 }
 
-function setProductSearchFiltersForIngredients()
-{
-    let searchName= $("#searchNameField").val();
-    let searchCategory= $("#searchCategoryField").val();
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    let uuid = urlParams.get('uuid');
-    window.location.href= $("#contextPath").val()+"/users/bartender/aggiungiIngredientiCocktail.jsp?uuid="+uuid+"&searchName="+searchName+"&searchCategory="+searchCategory;
-}
-
-function resetProductSearchFiltersForIngredients()
-{
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    let uuid = urlParams.get('uuid');
-    window.location.href= $("#contextPath").val()+"/users/bartender/aggiungiIngredientiCocktail.jsp?uuid="+uuid+"&searchName=&searchCategory=";
-}
