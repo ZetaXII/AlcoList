@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
     <title>Titolo</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- JavaScript Bundle with Popper -->
@@ -23,7 +24,7 @@
     </div>
 
     <div class="container-fluid p-4">
-        <div class="content">
+        <div class="content"><div class="error"></div>
             <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
                 INSERIRE TUTTO IL BODY
             </div>

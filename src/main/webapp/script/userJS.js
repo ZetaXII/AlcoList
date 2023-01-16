@@ -162,7 +162,7 @@ function modifyUser(uuidUser){
             error: function(error)
             {
                 //alert("ERRORE")
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
                 //window.location.href = $("#contextPath").val()+"/users/manager/listaUser.jsp";
             }
         });
@@ -205,7 +205,7 @@ function modifyUser_2()
             },
             error: function(error)
             {
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
     }
@@ -228,7 +228,7 @@ function deleteUser(uuid)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 }
@@ -259,7 +259,7 @@ function deleteSelf(uuid)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 }

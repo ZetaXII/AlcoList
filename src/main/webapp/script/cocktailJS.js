@@ -48,7 +48,7 @@ function getCocktail(uuid)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return c;
@@ -168,7 +168,7 @@ function getCocktailsPaginated(size, page, searchName, searchFlavour, searchIsAl
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return c;
@@ -359,7 +359,7 @@ function addCocktail()
             },
             error: function(error)
             {
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
     }
@@ -429,7 +429,7 @@ function modifyCocktail()
                 },
                 error: function(error)
                 {
-                    console.log("generic error"+ JSON.stringify(error));
+                    $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
                 }
         });
     }
@@ -451,7 +451,7 @@ function deleteCocktail(uuid)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 }
@@ -486,7 +486,7 @@ function getMenuPaginated(size, page)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return c;

@@ -30,7 +30,7 @@
 </div>
 
 <div class="container-fluid px-4 py-0">
-    <div class="content">
+    <div class="content"><div class="error"></div>
         <div class="row gx-4 containerTables px-3">
             <div class="col-12 row row-cols-12 item-list-added">
                 <button class="btn btn-success my-2 p-2 mt-4" style="font-size: 16px;" onclick='window.location.href= $("#contextPath").val()+"/users/infoCocktail.jsp?uuid="+uuidCocktail+"&page=0&searchName=&searchFlavour=&searchIsAlcoholic="'>Fatto</button>

@@ -24,7 +24,7 @@
     </div>
 
     <div class="container-fluid p-4">
-        <div class="content">
+        <div class="content"><div class="error"></div>
             <div class="row gx-4 containerTables px-3">
                 INSERIRE TUTTO IL BODY
             </div>

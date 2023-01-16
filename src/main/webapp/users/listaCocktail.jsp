@@ -25,7 +25,7 @@
         <h1 class="h1 text-white" id="title"></h1>
     </div>
     <div class="container-fluid p-4">
-        <div class="content">
+        <div class="content"><div class="error"></div>
             <div class="row gx-4 gy-1 containerTables p-3">
 
                 <!--<div class="d-flex justify-content-center">

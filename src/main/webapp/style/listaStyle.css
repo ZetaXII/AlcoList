@@ -114,3 +114,24 @@
     background-color: var(--secondaryBlue);
     border-radius: 20px;
 }
+
+.ingredient-quantity-modify .btn-addIngredient, .ingredient-quantity-modify .btn-erase
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+}
+
+.ingredient-quantity-modify .btn-addIngredient:hover, .ingredient-quantity-modify .btn-erase:hover
+{
+    background-color: var(--yellow);
+    color: var(--cocktailTag);
+}
+
+.ingredient-quantity-modify .ingredient-quantity
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    border-radius: 12px;
+    border: none;
+}
+

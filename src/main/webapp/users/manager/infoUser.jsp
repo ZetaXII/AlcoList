@@ -7,6 +7,7 @@
 --%>
 <html>
 <head>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
   <title id="profile-title1"></title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- JavaScript Bundle with Popper -->
@@ -89,7 +90,9 @@
 </div>
 
 <div class="container-fluid p-4">
-  <div class="content">
+
+  <div class="content"><div class="error"></div>
+
     <div class="flex-row gx-4 containerTables px-3">
       <div class="d-flex justify-content-end">
         <button id="uuidEdit" value="" class="badge-user btn btn-view" onclick="redirectEditUser(this.value)">Edit</button>
@@ -118,6 +121,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>

@@ -30,7 +30,11 @@ function getCocktailsPaginated(size, page, searchName, searchFlavour, searchIsAl
         },
         error: function(error)
         {
+
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+
             console.log("generic error"+ JSON.stringify(error));
+
         }
     });
     return c;
@@ -219,7 +223,11 @@ function _postAddOrderedCocktail(cocktailUuid,ordinationUuid){
         },
         error: function(error)
         {
+
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+
             console.log("generic error"+ JSON.stringify(error));
+ 
         }
     });
     return o;
@@ -244,7 +252,11 @@ function _postRemoveOrderedCocktail(cocktailUuid,ordinationUuid){
         },
         error: function(error)
         {
+
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+
             console.log("generic error"+ JSON.stringify(error));
+ 
         }
     });
     return o;
@@ -265,7 +277,11 @@ function getOrdinationForTable(uuid){
         },
         error: function(error)
         {
+
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+
             console.log("generic error"+ JSON.stringify(error));
+ 
         }
     });
     return o;
@@ -346,7 +362,11 @@ function updateStatusWithOrder(ordinationUuid, userUuid, status) {
         error: function(error)
         {
             alert(error)
+
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+
             console.log("generic error"+ JSON.stringify(error));
+ 
         }
     });
     return o;
@@ -362,4 +382,6 @@ function updateStatus(tableUuid, userUuid){
 
 function redirectToTableView(){
     window.location.href = $("#contextPath").val()+"/users/waiter/selectTable.jsp";
+
 }
+ 

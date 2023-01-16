@@ -23,7 +23,7 @@
         <h1 class="h1" id="title"></h1>
     </div>
     <div class="container-fluid p-4">
-        <div class="content">
+        <div class="content"><div class="error"></div>
             <div class="row-cols-12 gx-1 gy-4 containerTables p-3">
 
                 <!-- card che mostra le info del cocktail-->

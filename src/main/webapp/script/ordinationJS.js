@@ -30,7 +30,7 @@ function getCocktailsPaginated(size, page, searchName, searchFlavour, searchIsAl
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return c;
@@ -272,7 +272,11 @@ function readComandePerStatus(status){
         },
         error: function(error)
         {
+
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+
             console.log("generic error"+ JSON.stringify(error));
+ 
         }
     });
     return o;
@@ -374,7 +378,7 @@ function createOrdination(tableUuid, userUuid){
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return o;
@@ -396,7 +400,7 @@ function getOrdinationForTable(uuid){
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return o;
@@ -422,7 +426,7 @@ function _postAddOrderedCocktail(cocktailUuid,ordinationUuid){
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return o;
@@ -447,7 +451,7 @@ function _postRemoveOrderedCocktail(cocktailUuid,ordinationUuid){
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return o;
@@ -498,6 +502,179 @@ function removeCocktailinOrdination(uuids){
         }
     }
 
+
+}
+
+function updateStatusWithOrder(ordinationUuid, userUuid, status, message) {
+    let note = message; // FIXME
+    let body = {
+        Note: note,
+        userUuid: userUuid,
+        ordinationUuid: ordinationUuid
+    };
+
+    let o;
+    $.ajax({
+        async: false,
+        method: "POST",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-ordinations/updateStatus?status="+status,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data:JSON.stringify(body),
+
+        success:function(result)
+        {
+            if(status==="PENDING"){
+                redirectToTableView()
+            }
+            o=result;
+        },
+        error: function(error)
+        {
+            if(status === "DELIVERED" || status === "ENDED"){
+                document.location.reload()
+            } else {
+                alert(error)
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+            }
+        }
+    });
+    return o;
+}
+
+
+function updateStatus(tableUuid, userUuid, status){
+    let ordinationsForTable = getOrdinationForTable(tableUuid)
+    let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
+    updateStatusWithOrder(ordination.uuid, userUuid, status, "PENDING")
+}
+
+function updateStatusToDelivered(tableUuid, userUuid){
+
+    console.log(tableUuid + " " + userUuid)
+    if (confirm("Aggiornare lo stato della comanda a 'DELIVERED'?")){
+        let ordinationsForTable = getOrdinationForTable(tableUuid)
+        let ordination = ordinationsForTable.find(ordination => ordination.status === "COMPLETED")
+        console.log(ordination.status)
+        updateStatusWithOrder(ordination.uuid, userUuid, "DELIVERED", "DELIVERED")
+        document.location.reload()
+    }
+}
+
+function updateTable(uuid){
+    let note = "messaggio"; // FIXME
+    let body = {
+        number: note,
+        seats: userUuid,
+        uuid: ordinationUuid
+    };
+
+    let o;
+    $.ajax({
+        async: false,
+        method: "POST",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-ordinations/updateStatus?status="+status,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data:JSON.stringify(body),
+
+        success:function(result)
+        {
+            if(status==="PENDING"){
+                redirectToTableView()
+            }
+            o=result;
+        },
+        error: function(error)
+        {
+            alert(error)
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+        }
+    });
+    return o;
+}
+function updateStatusToEnded(tableUuid, userUuid){
+    console.log(tableUuid + " " + userUuid)
+    if (confirm("Aggiornare lo stato della comanda a 'ENDED'?")){
+        let ordinationsForTable = getOrdinationForTable(tableUuid)
+        let ordination = ordinationsForTable.find(ordination => ordination.status === "DELIVERED")
+        console.log(ordination.status)
+        updateStatusWithOrder(ordination.uuid, userUuid, "ENDED", "ENDED")
+        document.location.reload()
+    }
+}
+
+function redirectToTableView(){
+    window.location.href = $("#contextPath").val()+"/users/waiter/selectTable.jsp";
+}
+
+function getOrdination(uuid){
+        let o;
+        $.ajax({
+            async: false,
+            method: "GET",
+            crossDomain: true,
+            url:"http://localhost:8090/manage-ordinations/get/"+uuid,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success:function(ordination)
+            {
+                o=ordination;
+            },
+            error: function(error)
+            {
+                alert("generic error"+ error);
+            }
+        });
+        return o;
+}
+
+function drawCocktailCards(orders){
+    for (i in orders) {
+        let card = "<div class=\"card mb-4\" id=\"userRow\" style=\"background-color: var(--secondaryBlue);color: #eaeaea; border-radius: 30px;\">\n" +
+        "            <div class=\"row g-0 user-row\" style=\"background-color: var(--secondaryBlue); border-radius: 30px;\">\n" +
+        "                <div class=\"col-md-3\">\n" +
+        "                    <div class=\"m-2 p-2\" style=\"vertical-align: central; width:80px; height: 80px; background-color: #283a57 ; border-radius: 50%\">" +
+        "                       <h5 style=\"padding-left:25px; padding-top: 23px;\">"+orders[i].quantity+"</h5>" +
+        "                    </div>\n" +
+        "                </div>\n" +
+        "                <div class=\"col-md-7\">\n" +
+        "                    <div class=\"card-body mt-3 mb-3\">\n" +
+        "                        <h5 class=\"card-title profile-title\">" +orders[i].cocktail.name+ "</h5>\n" +
+        "                    </div>\n" +
+        "                </div>\n" +
+        "            </div>\n" +
+        "           </div>"
+        //let cocktailCard = "<span>"+orders[i].cocktail.name+"</span><br>"
+        $(".cocktailList").append(card)
+    }
+}
+
+function completeComanda(ordinationUuid){
+    if(getOrdination(ordinationUuid).status === "WORK_IN_PROGRESS"){
+        updateStatusWithOrder(ordinationUuid,uuid,"COMPLETED", "COMPLETED")
+    }
+    window.location.href = $("#contextPath").val()+"/users/bartender/dashboard.jsp";
+}
+
+function sendBackComanda(ordinationUuid){
+    let result = prompt("Perche' vuoi mandare indietro la comanda?")
+    if(getOrdination(ordinationUuid).status === "WORK_IN_PROGRESS"){
+        alert(result)
+        updateStatusWithOrder(ordinationUuid,uuid,"SENTBACK",result)
+    }
+    window.location.href = $("#contextPath").val()+"/users/bartender/dashboard.jsp";
+}
+function cancelComanda(ordinationUuid){
+    if(getOrdination(ordinationUuid).status === "WORK_IN_PROGRESS"){
+        updateStatusWithOrder(ordinationUuid,uuid,"PENDING", "PENDING")
+    }
+    window.location.href = $("#contextPath").val()+"/users/bartender/dashboard.jsp";
+
+ 
 }
 
 function updateStatusWithOrder(ordinationUuid, userUuid, status, message) {

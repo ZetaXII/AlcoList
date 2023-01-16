@@ -54,7 +54,7 @@ $("#login").click(function(e)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 });

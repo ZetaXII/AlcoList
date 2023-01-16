@@ -37,7 +37,7 @@ function getProduct(uuid)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return p;
@@ -64,7 +64,7 @@ function getProductsPaginated(size, page, name, category) //ritorna un array di 
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return p;
@@ -201,7 +201,7 @@ function deleteProduct(uuid)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 }
@@ -294,7 +294,7 @@ function modifyProduct()
             },
             error: function(error)
             {
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
     }
@@ -352,7 +352,7 @@ function addProduct()
             },
             error: function(error)
             {
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
     }
@@ -544,7 +544,7 @@ function addIngredient(uuidCocktail, uuidProduct, idBox)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 }
@@ -575,7 +575,7 @@ function deleteIngredient(ingredientUuid)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 }
@@ -615,7 +615,7 @@ function modifyIngredient(idBox, uuidIngredient)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 }

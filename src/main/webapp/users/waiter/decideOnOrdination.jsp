@@ -8,6 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
+
+
   <title>Ordinazioni</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- JavaScript Bundle with Popper -->
@@ -36,7 +40,9 @@
 </div>
 
 <div class="container-fluid p-4">
-  <div class="content">
+
+  <div class="content"><div class="error"></div>
+
     <div class="row mt-5 gy-4 containerTables px-3">
       <div class="col d-flex justify-content-center text-center" >
         <div class="card cardTable" id="uuidTavoloAdd" value="" onclick="addComanda(this.value)">

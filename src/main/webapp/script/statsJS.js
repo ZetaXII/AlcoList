@@ -18,7 +18,7 @@ function getBestSellingCocktails()
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 
@@ -82,7 +82,7 @@ function getBestSellingCocktailsByFlavour()
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 
@@ -123,7 +123,7 @@ function getNumbersOfUsers(role)
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return returnRole;
@@ -147,7 +147,7 @@ function getNumbersOfCreatedByUserUuid()
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 
@@ -171,7 +171,7 @@ function getNumbersOfCreatedByUserUuid()
             },
             error: function(error)
             {
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
     }
@@ -200,7 +200,7 @@ function getNumbersOfExecutedByUserUuid()
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 
@@ -224,7 +224,7 @@ function getNumbersOfExecutedByUserUuid()
             },
             error: function(error)
             {
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
     }
@@ -253,7 +253,7 @@ function getNumbersOfDeliveredByUserUuid()
         },
         error: function(error)
         {
-            console.log("generic error"+ JSON.stringify(error));
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
 
@@ -278,7 +278,7 @@ function getNumbersOfDeliveredByUserUuid()
             },
             error: function(error)
             {
-                console.log("generic error"+ JSON.stringify(error));
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
     }

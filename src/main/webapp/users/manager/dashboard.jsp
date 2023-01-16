@@ -25,7 +25,7 @@
         <h1 class="h1" id="title"></h1>
     </div>
     <div class="container-fluid p-4">
-        <div class="content">
+        <div class="content"><div class="error"></div>
             <div class="row gx-3 gy-3">
 
                 <div class="col-lg-6 mb-2">

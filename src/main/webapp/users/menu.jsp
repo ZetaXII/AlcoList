@@ -17,7 +17,7 @@
         <h1 class="h1 text-white" id="title"></h1>
     </div>
     <div class="container-fluid px-4 py-0">
-        <div class="content">
+        <div class="content"><div class="error"></div>
             <div class="row gx-4 containerTables px-3">
 
                 <!--bottoni switch pagina-->

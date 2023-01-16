@@ -25,7 +25,7 @@
 </div>
 
 <div class="container-fluid px-4 py-0">
-    <div class="content">
+    <div class="content"><div class="error"></div>
         <div class="row gx-4 containerTables px-3">
 
             <div class="filters input-group my-3 py-5 px-2 justify-content-center w-100">
