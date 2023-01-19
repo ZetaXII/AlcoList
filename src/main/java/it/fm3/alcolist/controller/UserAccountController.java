@@ -29,7 +29,6 @@ public class UserAccountController {
 		try {
 			return ResponseEntity.ok(userService.add(user));
 		} catch (Exception e) {
-			// TODO definire un json che permetta al frontend di gestire le eccezioni: email già usata
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -49,7 +48,6 @@ public class UserAccountController {
 		try {
 			return ResponseEntity.ok(userService.login(user));
 		} catch (Exception e) {
-			// TODO definire un json che permetta al frontend di gestire le eccezioni: pwd errata o utente non esistente
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}

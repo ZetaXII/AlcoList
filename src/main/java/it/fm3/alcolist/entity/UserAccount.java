@@ -125,10 +125,7 @@ public class UserAccount {
 				+ mainRole + ", password=" + password + ", email=" + email  + ", uuid="
 				+ uuid + "]";
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, mainRole, messages, name, roles, surname);
-	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -138,12 +135,12 @@ public class UserAccount {
 		if (getClass() != obj.getClass())
 			return false;
 		UserAccount other = (UserAccount) obj;
-		boolean res= Objects.equals(email, other.email) && Objects.equals(mainRole, other.mainRole)
+		return Objects.equals(email, other.email) && id == other.id && Objects.equals(mainRole, other.mainRole)
 				&& Objects.equals(messages, other.messages) && Objects.equals(name, other.name)
-				&& Objects.equals(roles, other.roles) && Objects.equals(surname, other.surname);
-		System.out.println("@@@@@@@@@@sto facendo l'equals e restituisce: "+res);
-		return res;
+				&& Objects.equals(password, other.password) && Objects.equals(roles, other.roles)
+				&& Objects.equals(surname, other.surname) && Objects.equals(uuid, other.uuid);
 	}
+	
 	
 	
 	

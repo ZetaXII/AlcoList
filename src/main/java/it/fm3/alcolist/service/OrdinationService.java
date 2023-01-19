@@ -19,7 +19,6 @@ import it.fm3.alcolist.DTO.MessageDTO;
 import it.fm3.alcolist.DTO.OrderedCocktailDTO;
 import it.fm3.alcolist.DTO.OrdinationDTO;
 import it.fm3.alcolist.DTO.OrdinationResultDTO;
-import it.fm3.alcolist.DTO.TablesDTO;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
 import it.fm3.alcolist.entity.Message;
@@ -106,11 +105,7 @@ public class OrdinationService implements OrdinationServiceI{
 		Message msgToSave=this.createMessage(msg,order);
 		messageRepository.save(msgToSave);
 		order.setStatus(status);
-		if(status==OrdinationStatusEnum.ENDED) {
-			TablesDTO t=new TablesDTO();
-			t.isFree=true;
-			tablesService.update(t);
-		}
+		
 		return order;
 	}
 
