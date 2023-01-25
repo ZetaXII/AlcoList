@@ -318,7 +318,8 @@ function removeCocktailinOrdination(uuids){
     console.log("TABLEUUID: "+tableUuid +" COCKTAILUUID: " +cocktailUuid)
 
     let ordinationsForTable = getOrdinationForTable(tableUuid)
-    let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
+    //let ordination = ordinationsForTable.find(ordination => ordination.status === "PENDING" || ordination.status === "SENTBACK" || ordination.status === "CREATED")
+    let ordination= ordinationsForTable[0];
     if(ordination === null || ordination === undefined){
         createOrdination(tableUuid,uuid);
         return;

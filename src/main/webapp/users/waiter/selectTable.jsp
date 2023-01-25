@@ -15,6 +15,11 @@
 <body>
 <%@include file="../../navBar.jsp"%>
 <script>
+    if(!roleList.includes("WAITER"))
+    {
+        logout();
+    }
+
     $(document).ready(function()
     {
         let tables = getAllTables().sort((a,b)=> (a.number>b.number) ? 1 : (b.number>a.number) ? -1 : 0);
@@ -91,11 +96,6 @@
             $(".containerTables").append(table)
         }
     });
-
-    if(!roleList.includes("WAITER"))
-    {
-        logout();
-    }
 </script>
     <div class="title">
         <h1 class="h1">Tavoli</h1>

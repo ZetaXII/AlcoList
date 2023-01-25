@@ -25,6 +25,11 @@
 <%@include file="../../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
+  if(!roleList.includes("WAITER"))
+  {
+    logout();
+  }
+
   var comandaDict = JSON.parse(localStorage.getItem("ComandaDict") ?? "{}")
   console.log("START: "+ JSON.stringify(comandaDict))
   $(document).ready(function() {

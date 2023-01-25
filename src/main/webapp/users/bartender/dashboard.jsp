@@ -18,13 +18,13 @@
     <%@include file="../../navBar.jsp"%>
     <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
     <script>
-        $(document).ready(function() {
-            loadBanco()
-        });
-        if(roleList.includes("WAITER") && !roleList.includes("BARTENDER") || !roleList.includes("MANAGER"))
+        if(!roleList.includes("BARTENDER"))
         {
             logout();
         }
+        $(document).ready(function() {
+            loadBanco()
+        });
     </script>
     <div class="title">
         <h1 class="h1" id="title"></h1>

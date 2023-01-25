@@ -24,6 +24,10 @@
 <%@include file="../../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
+    if(!roleList.includes("BARTENDER"))
+    {
+        logout();
+    }
     $(document).ready(function() {
         printFlavoursList();
         const queryString = window.location.search;
@@ -36,10 +40,6 @@
         $("#uuidComandaSendBack").val(ordination.uuid)
         drawCocktailCards(ordination.orderedCocktails);
     });
-    if(roleList.includes("RUOLO"))
-    {
-        logout();
-    }
 </script>
 
 <div class="title">

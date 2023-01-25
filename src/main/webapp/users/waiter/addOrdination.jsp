@@ -22,6 +22,12 @@
 <%@include file="../../navBar.jsp"%>
 <!--Controlla il ruolo dell'utente prima di mostrare la pagina -->
 <script>
+    if(!roleList.includes("WAITER"))
+    {
+        logout();
+    }
+</script>
+<script>
     let pending = "PENDING"
     var comandaDict = JSON.parse(localStorage.getItem("ComandaDict") ?? "{}")
     console.log("START: "+ JSON.stringify(comandaDict))
