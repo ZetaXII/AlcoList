@@ -90,7 +90,7 @@
 </div>
 
 <div class="container-fluid p-4">
-    <div class="content"><div class="error"></div>
+    <div class="content"><div class="error mb-5"></div>
         <div class="row row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gx-1 gy-4 containerTables">
             <div class="col-md-12 col-lg-12 col-xl-12 mt-1">
                 <div class="card info-cocktail-panel mb-3 p-1" style="background-color: var(--secondaryBlue); border-radius: 30px;">
@@ -101,34 +101,34 @@
                         </div>
                         <div class="col-md-7">
                             <form class="card-body p-4 mt-4">
-                                    <input type="text" id="nameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Nome" maxlength="50" required>
+                                <input type="text" id="nameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Nome" maxlength="50" required>
 
-                                    <input type="text" id="surnameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Cognome" maxlength="255" required>
+                                <input type="text" id="surnameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Cognome" maxlength="255" required>
                                 <div class="cocktail-tags py-2 mb-3">
+                                <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
+                                <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
+                            <!--<div class="row cocktail-tags py-2 mb-3" style="background-color: var(--secondaryBlue);">
+                                <div class="col-xl-4 col-lg-4 col-md-4">
+                                    <h5 style="color: #eaeaea">Ruolo 1</h5>
                                     <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4">
+                                    <h5 style="color: #eaeaea">Ruolo 2</h5>
                                     <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
+                                </div>
+                                <div class="col-4"><h5 style="color: #eaeaea">Ruolo 3</h5>
                                     <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
-                                <!--<div class="row cocktail-tags py-2 mb-3" style="background-color: var(--secondaryBlue);">
-                                    <div class="col-xl-4 col-lg-4 col-md-4">
-                                        <h5 style="color: #eaeaea">Ruolo 1</h5>
-                                        <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                </div>
+                                <input type="radio" class="radio" checked="true" id="MANAGER" value="MANAGER" onclick="selectedRole(this.id)"><span>MANAGER</span></input>
+                                    <input type="radio" class="radio" id="BARTENDER" onclick="selectedRole(this.id)"><span>BARTENDER</span></input>
+                                    <input type="radio" class="radio" id="WAITER" onclick="selectedRole(this.id)"><span>CAMERIERE</span></input>
+                                --></div>
+                                    <p class="card-text cocktail-description"><input type="email" id="emailField" class="addCocktailFields form-control py-2 mb-4" placeholder="Email" autocomplete="off" required></p>
+                                    <!--<p class="price"><input type="password" id="passwordField" class="addCocktailFields form-control py-2 mb-4" placeholder="Password" maxlength="50" autocomplete="off" required></p>-->
+                                    <div class="text-center">
+                                        <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" style="border: none">Aggiungi utente</button>
                                     </div>
-                                    <div class="col-xl-4 col-lg-4 col-md-4">
-                                        <h5 style="color: #eaeaea">Ruolo 2</h5>
-                                        <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
-                                    </div>
-                                    <div class="col-4"><h5 style="color: #eaeaea">Ruolo 3</h5>
-                                        <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
-                                    </div>
-                                    <input type="radio" class="radio" checked="true" id="MANAGER" value="MANAGER" onclick="selectedRole(this.id)"><span>MANAGER</span></input>
-                                        <input type="radio" class="radio" id="BARTENDER" onclick="selectedRole(this.id)"><span>BARTENDER</span></input>
-                                        <input type="radio" class="radio" id="WAITER" onclick="selectedRole(this.id)"><span>CAMERIERE</span></input>
-                                    --></div>
-                                        <p class="card-text cocktail-description"><input type="email" id="emailField" class="addCocktailFields form-control py-2 mb-4" placeholder="Email" autocomplete="off" required></p>
-                                        <!--<p class="price"><input type="password" id="passwordField" class="addCocktailFields form-control py-2 mb-4" placeholder="Password" maxlength="50" autocomplete="off" required></p>-->
-                                        <div class="text-center">
-                                            <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" style="border: none" onclick="addUser()">Aggiungi utente</button>
-                                        </div>
                             </form>
                         </div>
                     </div>
@@ -139,6 +139,12 @@
 </div>
 <script>
     var roles = [];
+
+    $(".btn-addCocktail").click(function(e){
+        e.preventDefault();
+        addUser();
+    });
+
 </script>
 <script src="${pageContext.request.contextPath}/script/utils.js"></script>
 <script src="${pageContext.request.contextPath}/script/addUser.js"></script>

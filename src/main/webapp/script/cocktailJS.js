@@ -198,7 +198,7 @@ function paginatedCocktailList(size, page, searchName, searchFlavour, searchIsAl
     if(cocktailsArray.length<=0)
     {
         $(".pageSwitch").toggle("hidden");
-        alert("La ricerca non ha prodotto risultati");
+        //alert("La ricerca non ha prodotto risultati");
     }
 
     if(page==0)
@@ -320,49 +320,9 @@ function previousPageCocktail()
     window.location.href= src;
 }
 
-function addCocktail()
+function redirectToAddIngredients(uuid)
 {
-    let title=$("#titleField").val();
-    let pathFileImg=$("#pathFileImgField").val();
-    let flavour=$("#flavourField").val();
-    let isIba=$("#ibaField").is(":checked"); //restituisce true se checkato
-    let description=$("#descriptionField").val();
-    let price=($("#priceField").val());
-    let inMenu=$("#inMenuField").is(":checked"); //restituisce true se checkato
-
-    if(title!="" && pathFileImg!="" && flavour!="" && description!="" && (price!="" && price>0))
-    {
-        let cocktailModel=
-            {
-                name: title,
-                price: price,
-                description: description,
-                flavour: flavour,
-                pathFileImg: pathFileImg,
-                inMenu: inMenu,
-                isAlcoholic: "false",
-                isIBA: isIba
-            }
-
-        $.ajax({
-            async: true,
-            method: "POST",
-            crossDomain: true,
-            url:"http://localhost:8090/manage-cocktails/add",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data:JSON.stringify(cocktailModel),
-
-            success:function(result)
-            {
-                window.location.href= $("#contextPath").val()+"/users/bartender/aggiungiIngredientiCocktail.jsp?uuid="+result.uuid;
-            },
-            error: function(error)
-            {
-                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
-            }
-        });
-    }
+    window.location.href= $("#contextPath").val()+"/users/bartender/aggiungiIngredientiCocktail.jsp?uuid="+uuid;
 }
 
 function infoModifyCocktail() //inserisce nei rispettivi campi le varie info del cocktail da modificare
@@ -435,6 +395,54 @@ function modifyCocktail()
     }
 }
 
+function addCocktail()
+{
+    let title=$("#titleField").val();
+    let pathFileImg=$("#pathFileImgField").val();
+    let flavour=$("#flavourField").val();
+    let isIba=$("#ibaField").is(":checked"); //restituisce true se checkato
+    let description=$("#descriptionField").val();
+    let price=($("#priceField").val());
+    let inMenu=$("#inMenuField").is(":checked"); //restituisce true se checkato
+
+    if(title!="" && pathFileImg!="" && flavour!="" && description!="" && (price!="" && price>0))
+    {
+        let cocktailModel=
+            {
+                name: title,
+                price: price,
+                description: description,
+                flavour: flavour,
+                pathFileImg: pathFileImg,
+                inMenu: inMenu,
+                isAlcoholic: false,
+                isIBA: isIba
+            }
+
+        //alert(JSON.stringify(cocktailModel));
+
+        $.ajax({
+            async: false,
+            method: "POST",
+            crossDomain: true,
+            url:"http://localhost:8090/manage-cocktails/add",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data:JSON.stringify(cocktailModel),
+
+            success:function(result)
+            {
+                redirectToAddIngredients(result.uuid);
+            },
+            error: function(error)
+            {
+                //alert(error.responseText);
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+            }
+        });
+    }
+}
+
 function deleteCocktail(uuid)
 {
     $.ajax({
@@ -502,7 +510,7 @@ function paginatedMenu(size, page)
     if(cocktailsArray.length<=0)
     {
         $(".pageSwitch").toggle("hidden");
-        alert("La ricerca non ha prodotto risultati");
+        //alert("La ricerca non ha prodotto risultati");
     }
 
     if(page==0)

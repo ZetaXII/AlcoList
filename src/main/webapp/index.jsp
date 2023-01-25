@@ -20,10 +20,7 @@
             <span class="logo-name">AlcoList</span>
         </div>
     </nav>
-    <div class="alert alert-danger alert-dismissible error-message alert-error fade" role="alert" style="position:fixed; z-index: 9999; width: 50%; left:25%;">
-        <strong id="title-error">ERRORE!</strong><label id="message-error"> Controlla nuovamente i campi e riprova ad accedere.</label>
-        <button type="button" class="btn-close"  aria-label="Close"></button>
-    </div>
+    <div class="error text-center d-flex justify-content-center"></div>
 
     <div class="container mt-5 pt-5">
         <div class="row justify-content-center">

@@ -626,7 +626,7 @@ function getOrdination(uuid){
             },
             error: function(error)
             {
-                alert("generic error"+ error);
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
         return o;
@@ -706,10 +706,8 @@ function updateStatusWithOrder(ordinationUuid, userUuid, status, message) {
         {
             if(status === "DELIVERED" || status === "ENDED"){
                 document.location.reload()
-            } else {
-                alert(error)
-                console.log("generic error"+ JSON.stringify(error));
             }
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return o;
@@ -719,7 +717,14 @@ function updateStatusWithOrder(ordinationUuid, userUuid, status, message) {
 function updateStatus(tableUuid, userUuid, status){
     let ordinationsForTable = getOrdinationForTable(tableUuid)
     let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
-    updateStatusWithOrder(ordination.uuid, userUuid, status, "PENDING")
+    if(ordination==null)
+    {
+        $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong> Seleziona almeno un cocktail</div>");
+    }
+    else
+    {
+        updateStatusWithOrder(ordination.uuid, userUuid, status, "PENDING")
+    }
 }
 
 function updateStatusToDelivered(tableUuid, userUuid){

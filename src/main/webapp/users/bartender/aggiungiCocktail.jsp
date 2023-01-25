@@ -36,7 +36,7 @@
                             <img src="" class="img-fluid rounded-start p-4" id="item-img" width="300px">
                         </div>
                         <div class="col-md-7">
-                            <form class="card-body p-4 mt-4">
+                            <div class="card-body p-4 mt-4">
                                 <h5 class="card-title item-name"><input type="text" id="titleField" class="addCocktailFields form-control py-2 mb-4" placeholder="Titolo" maxlength="50" required></h5>
 
                                 <input type="text" id="pathFileImgField" onfocusout="changeImg()" class="addCocktailFields form-control py-2 mb-4" placeholder="Link dell'immagine" maxlength="255" required>
@@ -58,9 +58,9 @@
                                 <p class="card-text cocktail-description"><input type="text" id="descriptionField" class="addCocktailFields form-control py-2 mb-4" placeholder="Descrizione" maxlength="500" required></p>
                                 <p class="price"><input type="number" id="priceField" class="addCocktailFields form-control py-2 mb-4" placeholder="Prezzo (&euro;)" maxlength="50" required></p>
                                 <div class="text-center">
-                                    <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" onclick="addCocktail()">Aggiungi ingredienti</button>
+                                    <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" >Aggiungi ingredienti</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,6 +89,11 @@
             document.getElementById("item-img").src=noImage;
         }
     }
+
+    $(".btn-addCocktail").click(function(e){
+        e.preventDefault();
+        addCocktail();
+    });
 </script>
 </body>
 </html>

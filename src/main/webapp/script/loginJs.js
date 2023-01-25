@@ -16,14 +16,12 @@ $("#login").click(function(e)
 
         success:function(user)
         {
-            if(password.length<=0 || email.length<=0 || user.error=="wrong pwd, try again" || user.error=="User not found")
+            if(user.error!=null)
             {
-                $(".alert-error").addClass("show");
-                if(user.error!=null && user.error!="")
-                {
-                    $("#message-error").text(" "+user.error);
-                    $("#message-error").toggle("show");
-                }
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"margin-top: 8%; width:50%; margin-bottom: -50px\"><strong>ERRORE! </strong>"+user.error+".</div>");
+
+                $("#message-error").text(" "+user.error);
+                $("#message-error").toggle("show");
                 $(".form-control").removeClass("form-field");
                 $(".form-control").addClass("form-field-error");
             }

@@ -22,7 +22,7 @@ function addUser()
         roles.push("WAITER")
     }
     if (roles.length===0){
-        alert("Seleziona almeno un ruolo")
+        $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show mb-3\" role=\"alert\" style='margin-bottom: 300px;'><strong>ERRORE! </strong> Seleziona almeno un ruolo</div>");
         return;
     }
     let mainRole=roles[0];
@@ -77,7 +77,6 @@ function addUser()
             },
             error: function(error)
             {
-                alert("ERRORE")
                 $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
