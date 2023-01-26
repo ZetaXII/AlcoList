@@ -29,6 +29,8 @@ public class OrdinationController {
 	// TODO definire un json che permetta al frontend di gestire le eccezioni: status ordination
 	// in caso di errori per lo status 
 
+	
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody OrdinationDTO ordinationDTO, HttpServletRequest request){
 		try {
@@ -48,7 +50,7 @@ public class OrdinationController {
 	}
 	
 	@RequestMapping(value = "/addCocktail", method = RequestMethod.POST)
-	public ResponseEntity<?> add(@RequestBody OrderedCocktailDTO oc, HttpServletRequest request){
+	public ResponseEntity<?> addCocktail(@RequestBody OrderedCocktailDTO oc, HttpServletRequest request){
 		try {
 			return ResponseEntity.ok(ordinationService.addCocktail(oc));
 		} catch (Exception e) {
