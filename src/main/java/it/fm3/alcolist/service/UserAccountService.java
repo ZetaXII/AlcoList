@@ -81,6 +81,7 @@ public class UserAccountService implements UserAccountServiceI{
 			throw new Exception("user already exists");
 		String msg = "Ciao, benvenuto nel nostro Team!\n\nLa tua password è: " + userDto.password + "\n\nSaluti, Team AlcoList.";
 		String mail = userDto.email;
+		//ms
 		//String msg = "Ciao, sappiamo che lei fa parte del nostro Team!\n\n Con la presente le volevamo ricordare che bisgna terminare al più presto. \n\nSaluti, Team AlcoList.";
 		emailService.sendSimpleMessage(mail, "Invio password", msg);
 		userAccountRepository.save(newUser);
