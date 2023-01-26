@@ -367,6 +367,7 @@ function productListForIngredients()
     let searchCategory = urlParams.get('searchCategory');
     let productsArray= getProductsPaginated(null, 0, searchName, searchCategory);
     let ml=" ";
+    let mlField="hidden";
     let alcoholicPercentage;
     let cocktail=getCocktail(uuidCocktail);
     let cocktailIngredientsPresent= cocktail.ingredients;
@@ -457,14 +458,17 @@ function productListForIngredients()
             if(parseInt(productsArray[i].ml)<=0 || (productsArray[i].present==false) || productsArray[i].ml==" " || productsArray[i].ml=="")
             {
                 ml="<span class='product-ml ms-2'style='color: var(--red); font-size: 16px;'>Prodotto mancante!</span>";
+                mlField="hidden";
             }
             else if(productsArray[i].ml==null)
             {
                 ml="<span class='product-ml'> &nbsp;</span>";
+                mlField="hidden";
             }
             else if(productsArray[i].ml!=null)
             {
                 ml="<span class='product-ml ms-2'style='color: var(--yellow); font-size: 16px;'>"+productsArray[i].ml+" ml</span>";
+                mlField="show";
             }
 
             if(parseInt(productsArray[i].alcoholicPercentage)<=0 || productsArray[i].alcoholicPercentage==null)
@@ -488,7 +492,7 @@ function productListForIngredients()
                 "                                    <h5 class='card-title item-name' style='font-size: 18px'>"+productsArray[i].category+" "+productsArray[i].name+"</h5>\n" + ml +
                 "                                    <div class='item-tags'>\n"+alcoholicPercentage+
                             "                            <div class='d-flex justify-content-end ingredient-quantity-modify text-end'>" +                                       /*'aggiungiIngrediente(\""+uuidCocktail+"\",\""+productsArray[i].uuid+"\",\""+$("#"+i).val()+"\")'*/
-                            "                               <input type='number' id='"+i+"' placeholder='quantità (ml)' class='ingredient-quantity px-2 m-2 mb-3 w-50'>"+
+                            "                               <input type='number' id='"+i+"' placeholder='quantità (ml)' class='ingredient-quantity px-2 m-2 mb-3 w-50 "+mlField+"'>"+
                             "                               <select id='isOptional"+i+"' class='ingredient-quantity px-2 m-2 mb-3 w-25'>" +
                                                                 "<option value='false'>Obbligatorio</option>"+
                                                                 "<option value='true'>Facoltativo</option>"+
