@@ -254,6 +254,8 @@ public class UserAccountService implements UserAccountServiceI{
 	
 	private boolean checkRoleField(String role) throws Exception {
 		boolean check = true;
+		if(role.equalsIgnoreCase("") || role.isEmpty() || role == null)
+			throw new Exception("Bisogna selezionare almeno un ruolo");
 		if(this.checkIfStringContainsDigit(role)) {
 			check = false;
 			throw new Exception("Il Ruolo deve essere una stringa di soli caratteri");

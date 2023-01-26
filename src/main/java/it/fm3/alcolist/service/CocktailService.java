@@ -237,6 +237,8 @@ public class CocktailService implements CocktailServiceI{
 	
 	private boolean checkCocktailNameField(String name) throws Exception {
 		boolean check = true;
+		if(name.equalsIgnoreCase("") || name.isEmpty() || name == null)
+			throw new Exception("Bisogna inserire il Nome del cocktail");
 		if(name.length() < 3) {
 			check = false;
 			throw new Exception("Nome deve essere una stringa di almeno 3 caratteri");
