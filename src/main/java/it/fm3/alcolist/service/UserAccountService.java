@@ -215,34 +215,38 @@ public class UserAccountService implements UserAccountServiceI{
 	
 	private boolean checkNameField(String name) throws Exception {
 		boolean check = true;
+		if(name.equalsIgnoreCase("") || name.isEmpty() || name == null)
+			throw new Exception("Bisogna inserire il nome");
 		if(this.checkIfStringContainsDigit(name)) {
 			check = false;
-			throw new Exception("The name must consist of only characters");
+			throw new Exception("Il Nome deve essere una stringa di soli caratteri");
 		}
 		if(name.length() < 2) {
 			check = false;
-			throw new Exception("The length of the name must be at least 2 characters");
+			throw new Exception("Il Nome deve essere una stringa di almeno 2 caratteri");
 		}
 		if(name.length() > 30) {
 			check = false;
-			throw new Exception("The length of the name should be 30 characters maximum");
+			throw new Exception("Il Nome deve essere una stringa di massimo 30 caratteri");
 		}
 		return check;
 	}
 	
 	private boolean checkSurnameField(String name) throws Exception {
 		boolean check = true;
+		if(name.equalsIgnoreCase("") || name.isEmpty() || name == null)
+			throw new Exception("Bisogna inserire il nome");
 		if(this.checkIfStringContainsDigit(name)) {
 			check = false;
-			throw new Exception("The surname must consist of only characters");
+			throw new Exception("Il Cognome deve essere una stringa di soli caratteri");
 		}
 		if(name.length() < 2) {
 			check = false;
-			throw new Exception("The length of the surname must be at least 2 characters");
+			throw new Exception("Il Cognome deve essere una stringa di almeno 2 caratteri");
 		}
 		if(name.length() > 30) {
 			check = false;
-			throw new Exception("The length of the surname should be 30 characters maximum");
+			throw new Exception("Il Cognome deve essere una stringa di massimo 30 caratteri");
 		}
 		return check;
 	}
@@ -251,31 +255,40 @@ public class UserAccountService implements UserAccountServiceI{
 		boolean check = true;
 		if(this.checkIfStringContainsDigit(role)) {
 			check = false;
-			throw new Exception("The role must consist of only characters");
+			throw new Exception("Il Ruolo deve essere una stringa di soli caratteri");
 		}
 		if(role.length() < 5) {
 			check = false;
-			throw new Exception("The length of the role must be at least 2 characters");
+			throw new Exception("Il Ruolo deve essere una stringa di almeno 5 caratteri");
 		}
 		if(role.length() > 30) {
 			check = false;
-			throw new Exception("The length of the role should be 30 characters maximum");
+			throw new Exception("Il Ruolo deve essere una stringa di massimo 30 caratteri");
 		}
 		return check;
 	}
 	
 	public boolean checkEmailField(String email) throws Exception
     {
+		if(email.equalsIgnoreCase("") || email.isEmpty() || email == null)
+			throw new Exception("Bisogna inserire l'email");
+		
+		if(email.length() < 8) {
+			throw new Exception("L’Email deve essere una stringa di almeno 8 caratteri");
+		}
+		if(email.length() > 30) {
+			throw new Exception("L’Email deve essere una stringa di massimo 30 caratteri");
+		}
+		
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                             "[a-zA-Z0-9_+&*-]+)*@" +
                             "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                             "A-Z]{2,7}$";
                               
         Pattern pat = Pattern.compile(emailRegex);
-        if(email == null)
-        	return false;
+
         if(!pat.matcher(email).matches())
-        	throw new Exception("Email format not valid");
+        	throw new Exception("L’Email deve avere un formato valido");
         
         return true;
     }
