@@ -44,8 +44,12 @@ public class CocktailController {
 	}
 	
 	@RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET)
-	public ResponseEntity<?> getByName(@PathVariable(name = "uuid") String uuid) throws Exception {
+	public ResponseEntity<?> getByUuid(@PathVariable(name = "uuid") String uuid) throws Exception {
+		try {
 		return ResponseEntity.ok(cocktailService.get(uuid));
+		}catch(Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
 	}
 	
 	@RequestMapping(value = "/getIngredients/{uuid}", method = RequestMethod.GET)
@@ -64,7 +68,7 @@ public class CocktailController {
 	}
 
 	@RequestMapping(value = "/getMenu", method = RequestMethod.POST)
-    public ResponseEntity<?> getByMenu(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
+    public ResponseEntity<?> getMenu(@RequestBody CocktailDTO cocktail, HttpServletRequest request) throws Exception {
         return ResponseEntity.ok(cocktailService.getMenu(cocktail));
     }
 

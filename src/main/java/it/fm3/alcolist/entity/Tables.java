@@ -1,5 +1,7 @@
 package it.fm3.alcolist.entity;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,16 @@ public class Tables {
 	@Column(name = "UUID", length = 50, unique = true)
 	private String uuid;
 	
+	public Tables() {
+	}
+	
+	public Tables(Integer number, Boolean isFree, String uuid) {
+		super();
+		this.number = number;
+		this.isFree = isFree;
+		this.uuid = uuid;
+		this.uuid = UUID.randomUUID().toString();
+	}
 	public long getId() {
 		return id;
 	}

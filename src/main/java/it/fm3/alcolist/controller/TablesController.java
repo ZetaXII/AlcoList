@@ -44,7 +44,7 @@ public class TablesController {
 	}
 	
 	@RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET)
-	public ResponseEntity<?> getByName(@PathVariable(name = "uuid") String uuid) throws Exception {
+	public ResponseEntity<?> getByUuid(@PathVariable(name = "uuid") String uuid) throws Exception {
 		return ResponseEntity.ok(tablesService.get(uuid));
 	}
 	

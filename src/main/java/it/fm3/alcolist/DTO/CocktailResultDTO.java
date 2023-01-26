@@ -10,5 +10,18 @@ public class CocktailResultDTO {
 	public long startIndex;
 	public long itemsPerPage;
 	public List<Cocktail> cocktail;
+	
+	public CocktailResultDTO() {
+	}
+	
+	public CocktailResultDTO(long totalResult, long startIndex, long itemsPerPage, List<Cocktail> cocktail) {
+		super();
+		this.totalResult = totalResult;
+		this.startIndex = startIndex;
+		this.itemsPerPage = itemsPerPage;
+		this.cocktail = cocktail;
+	}
+	
+	
 
 }
