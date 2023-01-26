@@ -405,8 +405,8 @@ function addCocktail()
     let price=($("#priceField").val());
     let inMenu=$("#inMenuField").is(":checked"); //restituisce true se checkato
 
-    if(title!="" && pathFileImg!="" && flavour!="" && description!="" && (price!="" && price>0))
-    {
+    /*if(title!="" && pathFileImg!="" && flavour!="" && description!="" && (price!="" && price>0))
+    {*/
         let cocktailModel=
             {
                 name: title,
@@ -440,7 +440,7 @@ function addCocktail()
                 $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
-    }
+    /*}*/
 }
 
 function deleteCocktail(uuid)

@@ -105,7 +105,7 @@
 
                                 <input type="text" id="surnameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Cognome" maxlength="255" required>
                                 <div class="cocktail-tags py-2 mb-3">
-                                <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                <button type="button" class="badge-user" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
                                 <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
                                 <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">CAMERIERE</button>
                             <!--<div class="row cocktail-tags py-2 mb-3" style="background-color: var(--secondaryBlue);">

@@ -21,10 +21,7 @@ function addUser()
     if (waiterIsChecked){
         roles.push("WAITER")
     }
-    if (roles.length===0){
-        $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show mb-3\" role=\"alert\" style='margin-bottom: 300px;'><strong>ERRORE! </strong> Seleziona almeno un ruolo</div>");
-        return;
-    }
+
     let mainRole=roles[0];
 
     /*if(managerIsChecked || bartenderIsChecked || waiterIsChecked) {
@@ -50,8 +47,8 @@ function addUser()
         }
     }*/
 
-    if(name!=="" && surname!=="" && mainRole!=="" && emailUser!=="" /*&& password!==""*/ && !!roles && roles.length>0)
-    {
+    /*if(name!=="" && surname!=="" && mainRole!=="" && emailUser!=="" && !!roles && roles.length>0)
+    {*/
         let userModel=
             {
                 name: name,
@@ -77,8 +74,13 @@ function addUser()
             },
             error: function(error)
             {
+                if (roles.length<=0){
+                    $(".error").append("<div class=\"alert alert-danger alert-dismissible fade show mb-3\" role=\"alert\" style='margin-bottom: 300px;'><strong>ERRORE! </strong> Assicurati di aver compilato tutti i campi</div>");
+
+                }
                 $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+
             }
         });
-    }
+    /*}*/
 }
