@@ -80,7 +80,6 @@ function paginatedProductList(size, page, name, category)
     if(productsArray.length<=0)
     {
         $(".pageSwitch").toggle("hidden");
-        alert("La ricerca non ha prodotto risultati");
     }
 
     if(page==0)
@@ -381,7 +380,7 @@ function productListForIngredients()
 
     if(productsArray.length<=0)
     {
-        alert("La ricerca non ha prodotto risultati");
+
     }
     else
     {

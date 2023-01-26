@@ -46,7 +46,6 @@ function paginatedCocktailList(size, page) //stampa a video la lista paginata de
     if(cocktailsArray.length<=0)
     {
         $(".pageSwitch").toggle("hidden");
-        alert("La ricerca non ha prodotto risultati");
     }
 
     if(page==0)
@@ -192,7 +191,7 @@ function getTable(uuid){
         },
         error: function(error)
         {
-            alert("generic error"+ error);
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return t;
@@ -249,7 +248,7 @@ function getTavoloFromOrdination(uuid){
         },
         error: function(error)
         {
-            alert("generic error"+ error);
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
         }
     });
     return t;
@@ -803,7 +802,7 @@ function getOrdination(uuid){
             },
             error: function(error)
             {
-                alert("generic error"+ error);
+                $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
             }
         });
         return o;
