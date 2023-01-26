@@ -13,15 +13,15 @@ public class CocktailDTO {
 	public Integer page;
 	public Integer size;
 	
-	
+	public CocktailDTO() {
+
+	}	
 	
 	public CocktailDTO(String name, String flavour, Boolean isAlcoholic) {
 		this.name = name;
 		this.flavour = flavour;
 		this.isAlcoholic = isAlcoholic;
 	}
-
-
 
 	public CocktailDTO(String name, Double price, String description, String flavour, Boolean isIBA, Boolean inMenu,
 			Boolean isAlcoholic) {
@@ -33,8 +33,6 @@ public class CocktailDTO {
 		this.inMenu = inMenu;
 		this.isAlcoholic = isAlcoholic;
 	}
-
-
 
 	@Override
 	public String toString() {
