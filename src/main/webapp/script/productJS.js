@@ -457,7 +457,7 @@ function productListForIngredients()
             if(parseInt(productsArray[i].ml)<=0 || (productsArray[i].present==false) || productsArray[i].ml==" " || productsArray[i].ml=="")
             {
                 ml="<span class='product-ml ms-2'style='color: var(--red); font-size: 16px;'>Prodotto mancante!</span>";
-                mlField="hidden";
+                mlField="show";
             }
             else if(productsArray[i].ml==null)
             {
