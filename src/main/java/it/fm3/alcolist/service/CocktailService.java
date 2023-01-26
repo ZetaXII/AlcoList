@@ -222,15 +222,15 @@ public class CocktailService implements CocktailServiceI{
 		boolean check = true;
 		if(this.checkIfStringContainsDigit(name)) {
 			check = false;
-			throw new Exception("The name must consist of only characters");
+			throw new Exception("Nome deve essere una stringa alfanumerica");
 		}
 		if(name.length() < 3) {
 			check = false;
-			throw new Exception("The length of the name must be at least 3 characters");
+			throw new Exception("Nome deve essere una stringa di almeno 3 caratteri");
 		}
 		if(name.length() > 30) {
 			check = false;
-			throw new Exception("The length of the name should be 30 characters maximum");
+			throw new Exception("Nome deve essere una stringa di massimo 30 caratteri");
 		}
 		return check;
 	}
@@ -239,11 +239,11 @@ public class CocktailService implements CocktailServiceI{
 		boolean check = true;
 		if(name.length() < 3) {
 			check = false;
-			throw new Exception("The cocktail length of the name must be at least 3 characters");
+			throw new Exception("Nome deve essere una stringa di almeno 3 caratteri");
 		}
 		if(name.length() > 30) {
 			check = false;
-			throw new Exception("The cocktail length of the name should be 30 characters maximum");
+			throw new Exception("Nome deve essere una stringa di massimo 30 caratteri");
 		}
 		return check;
 	}

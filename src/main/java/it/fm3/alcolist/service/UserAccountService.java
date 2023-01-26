@@ -236,7 +236,7 @@ public class UserAccountService implements UserAccountServiceI{
 	private boolean checkSurnameField(String name) throws Exception {
 		boolean check = true;
 		if(name.equalsIgnoreCase("") || name.isEmpty() || name == null)
-			throw new Exception("Bisogna inserire il nome");
+			throw new Exception("Bisogna inserire il cognome");
 		if(this.checkIfStringContainsDigit(name)) {
 			check = false;
 			throw new Exception("Il Cognome deve essere una stringa di soli caratteri");
