@@ -1,0 +1,9 @@
+language: java
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+  - oraclejdk9
+before_install:
+  - cd app
+script: mvn clean verify
+sudo: disable
