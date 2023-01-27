@@ -1,3 +1,0 @@
-language: java
-os: [windows]
-dist: xenial
