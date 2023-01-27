@@ -1,1 +1,0 @@
-per inizializzare il progetto eseguire le query nel file initializa_db
