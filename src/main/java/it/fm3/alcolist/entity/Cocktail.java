@@ -2,6 +2,7 @@ package it.fm3.alcolist.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,9 +58,28 @@ public class Cocktail {
 	@JsonIgnore
 	private List<Ordination> ordinations;
 	*/
+	
+	public Cocktail() {
+	}
+
+	public Cocktail(String name, Double price, String description, String flavour, boolean isIBA, boolean isAlcoholic,
+			boolean inMenu, Integer sold) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.flavour = flavour;
+		this.isIBA = isIBA;
+		this.isAlcoholic = isAlcoholic;
+		this.inMenu = inMenu;
+		this.sold = sold;
+		this.uuid = UUID.randomUUID().toString();
+	}
+	
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
