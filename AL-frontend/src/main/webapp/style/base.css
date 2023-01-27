@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url('https://fonts.cdnfonts.com/css/rockwell-nova');
+:root
+{
+    --darkBlue: #101823;
+    --primaryBlue: #1B273B;
+    --secondaryBlue: #162030;
+    --cocktailTag: #283a57;
+    --lightBlue: #4b6da5;
+    --white: #eaeaea;
+    --black: #101823;
+    --yellow: #ebc23b;
+    --red: #F93C3C;
+}
+
+html, body, .container, .row, .col-sm, .title
+{
+    background-color: var(--darkBlue);
+    font-family: "Rockwell Nova";
+}
+
+a
+{
+    text-decoration: none;
+}
+
+::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: var(--darkBlue);
+}
+
+::-webkit-scrollbar-track
+{
+    background: var(--primaryBlue);
+    width: 5px;
+    border-radius: 100px;
+    z-index: -1;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: var(--lightBlue);
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    border-color: var(--white);
+}
+
+a:hover
+{
+    color: var(--yellow);
+    transition: 0.3s;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.show
+{
+    display: block;
+}
+
+div > button {
+    border: none;
+}
+
+.badge-user{
+    color: #eaeaea;
+    background-color: var(--cocktailTag);
+    /*text-transform: uppercase;*/
+    padding: 5px 32px;
+    font-weight: lighter;
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.badge-user:hover{
+    background-color: #ebc23b !important;
+    color: #1B273B;
+    transition-duration: 0.3s;
+}
+
+.badgeChecked{
+    background-color: #ebc23b !important;
+    color: #1B273B;
+}
+
+.user-row:hover{
+    transform: scale(1.009);
+    border-width: 1px !important;
+    border-color: #ebc23b !important;
+    box-shadow: 1px 1px 10px 0 rgba(0,0,0,40%);
+    transition-duration: 0.3s;
+}
+
+.user-row:hover .hide{
+    display: block;
+}
+
+.user-row .hide {
+    display: none;
+}
+
+.forward-button {
+    transform: scale(1.5);
+    color: var(--yellow);
+    inline-size: fit-content;
+    font-weight: lighter;
+    top:45%;
+    right: 2%;
+    position: absolute;
+}
+
+.user-row:hover .forward-button {
+    padding-right: 10px;
+    transition-duration: 0.2s;
+}
