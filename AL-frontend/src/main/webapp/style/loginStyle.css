@@ -1,0 +1,84 @@
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: var(--primaryBlue);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.menu-icon
+{
+    display: none;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+    margin: 0 24px;
+}
+.logo .menu-icon {
+    color: var(--white);
+    font-size: 24px;
+    margin-right: 14px;
+    cursor: pointer;
+}
+.logo .logo-name {
+    color: var(--white);
+    font-size: 3rem;
+    font-weight: 200;
+    font-family: Harlekin;
+}
+
+.form-login
+{
+    background-color: var(--primaryBlue);
+    color: var(--white);
+    font-family: monospace;
+}
+
+.btn-login
+{
+    background-color: var(--lightBlue);
+    color: var(--darkBlue);
+    border-radius: 2000px;
+}
+
+.btn-login:hover
+{
+    border-color: var(--white);
+}
+
+.form-login
+{
+    border-radius: 20px;
+}
+
+.form-field
+{
+    background-color: var(--secondaryBlue);
+    border: none;
+    color: var(--white);
+    border-radius: 8px;
+}
+
+.form-field-error
+{
+    background-color: pink;
+    border: 2px solid red;
+    color: black;
+    border-radius: 8px;
+    !important;
+}
+
+.form-control:focus
+{
+    background-color: var(--lightBlue);
+}
+
+
+

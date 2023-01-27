@@ -1,0 +1,137 @@
+.info-item-panel
+{
+    color: var(--white);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.19);
+    z-index: 999;
+    !important;
+}
+
+.item-name
+{
+    font-size: 30px;
+}
+
+.price
+{
+    font-size: 30px;
+    text-align: right;
+    color: var(--yellow);
+}
+
+.item-tags .badge
+{
+    background-color: var(--cocktailTag);
+    text-transform: uppercase;
+    padding: 5px 32px;
+    font-weight: lighter;
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.input-group .search-cocktail
+{
+    background-color: var(--primaryBlue);
+    color: var(--white);
+    border-radius: 12px;
+    border:none;
+}
+
+.input-group .search-cocktail:focus
+{
+    background-color: var(--primaryBlue);
+    color: var(--white);
+    border-radius: 12px;
+    border:none;
+}
+
+.filters .btn-search, .filters .btn-alcoholic, .filters .btn-flavour, .d-flex .btn-add
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    font-size: 30px;
+    border-radius: 12px;
+    border:none;
+}
+
+.item-options .btn-modify, .item-options .btn-erase, .item-options .btn-view
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    font-size: 30px;
+    border-radius: 12px;
+}
+
+.filters .btn-search:hover, .filters .btn-alcoholic:hover, .filters .btn-flavour:hover, .d-flex .btn-add:hover, .item-options .btn-modify:hover, .item-options .btn-erase:hover, .item-options .btn-view:hover
+{
+    background-color: var(--yellow);
+    color: var(--secondaryBlue);
+    border: none;
+}
+
+.container-filter .text-filter
+{
+    font-family: "Rockwell Nova";
+    font-size: 16px;
+}
+
+.pageSwitch
+{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.pageSwitch .pageNumber
+{
+    color: var(--yellow);
+    font-size: 20px;
+}
+
+.pageSwitch .prevPage, .pageSwitch .nextPage
+{
+    color: var(--yellow);
+    font-size: 80px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+#searchFlavourField, #searchIsAlcoholic
+{
+    background-color: var(--primaryBlue);
+    border:none;
+    border-radius: 12px;
+    color: var(--white);
+    text-transform: uppercase;
+    text-align: center;
+    height: 40px;
+}
+
+.row .filters
+{
+    background-color: var(--secondaryBlue);
+    border-radius: 20px;
+}
+
+.ingredient-quantity-modify .btn-addIngredient, .ingredient-quantity-modify .btn-erase
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+}
+
+.ingredient-quantity-modify .btn-addIngredient:hover, .ingredient-quantity-modify .btn-erase:hover
+{
+    background-color: var(--yellow);
+    color: var(--cocktailTag);
+}
+
+.ingredient-quantity-modify .ingredient-quantity
+{
+    background-color: var(--cocktailTag);
+    color: var(--white);
+    border-radius: 12px;
+    border: none;
+}
+
