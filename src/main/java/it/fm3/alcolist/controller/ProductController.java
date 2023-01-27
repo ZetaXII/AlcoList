@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.fm3.alcolist.DTO.UserAccountDTO;
-import it.fm3.alcolist.service.UserAccountServiceI;
+import it.fm3.alcolist.DTO.ProductDTO;
+import it.fm3.alcolist.service.ProductServiceI;
 
 @RestController
 @CrossOrigin
-@RequestMapping("manage-users")
-public class UserAccountController {
+@RequestMapping("manage-products")
+public class ProductController {
 	
 	@Autowired
-	UserAccountServiceI userService;
+	ProductServiceI productService;
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResponseEntity<?> add(@RequestBody UserAccountDTO user, HttpServletRequest request){
+	public ResponseEntity<?> add(@RequestBody ProductDTO product, HttpServletRequest request){
 		try {
-			return ResponseEntity.ok(userService.add(user));
+			return ResponseEntity.ok(productService.add(product));
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
@@ -35,36 +35,22 @@ public class UserAccountController {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@RequestParam String uuid, HttpServletRequest request) throws Exception{
-		return new ResponseEntity<>(userService.delete(uuid),HttpStatus.OK);
+		return new ResponseEntity<>(productService.delete(uuid),HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<?> update(@RequestBody UserAccountDTO user, HttpServletRequest request) throws Exception{
-		return ResponseEntity.ok(userService.update(user));
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestBody UserAccountDTO user, HttpServletRequest request){
-		try {
-			return ResponseEntity.ok(userService.login(user));
-		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+	public ResponseEntity<?> update(@RequestBody ProductDTO product, HttpServletRequest request) throws Exception{
+		return ResponseEntity.ok(productService.update(product));
 	}
 	
 	@RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET)
 	public ResponseEntity<?> getByUuid(@PathVariable(name = "uuid") String uuid) throws Exception {
-		return ResponseEntity.ok(userService.get(uuid));
+		return ResponseEntity.ok(productService.get(uuid));
 	}
 	
 	@RequestMapping(value = "/searchByFields", method = RequestMethod.POST)
-	public ResponseEntity<?> searchByFields(@RequestBody UserAccountDTO user) throws Exception {
-		return ResponseEntity.ok(userService.searchByFields(user));
-	}
-	
-	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public ResponseEntity<?> getAll() throws Exception {
-		return ResponseEntity.ok(userService.getAll());
+	public ResponseEntity<?> searchByFields(@RequestBody ProductDTO product, HttpServletRequest request) throws Exception {
+		return ResponseEntity.ok(productService.searchByFields(product));
 	}
 	
 }

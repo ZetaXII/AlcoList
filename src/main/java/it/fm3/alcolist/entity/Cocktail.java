@@ -1,7 +1,8 @@
 package it.fm3.alcolist.entity;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,15 +11,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="COCKTAIL")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cocktail {
 	
 	@Id
@@ -27,28 +28,58 @@ public class Cocktail {
 	@Column(name = "ID", length = 50, unique = true)
 	private long id;
 	
-	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="ID_COCKTAIL", nullable=false)
-	private Set<Ingredient>ingredients;
+	
+	@OneToMany(mappedBy="cocktail",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	private Set<Ingredient>ingredients = new HashSet<Ingredient>();
+	
 	@Column(name = "NAME", length = 50)
 	private String name;
 	@Column(name = "PRICE")
 	private Double price;
-	@Column(name = "DESCRIPTION",length=50)
+	@Column(name = "DESCRIPTION",length=500)
 	private String description;
 	@Column(name = "FLAVOUR",length=50)
-	private String flavour;//TODO da definire enumeration aspro secco dolce amaro
-	@Column(name = "ISIBA")
+	private String flavour;//UPGRADE attualmente sul db viene salvata una stringa
+						   //bosognerebber gestire con enum flavour
+	@Column(name = "ISIBA")//C'è ma bisogna integrare le query
 	private boolean isIBA;
 	@Column(name = "ISALCOHOLIC")
 	private boolean isAlcoholic;
 	@Column(name = "PATHFILEIMG")
 	private String pathFileImg;
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	private String uuid;
+	@Column(name = "INMENU")
+	private boolean inMenu;
+	@Column(name = "SOLD")
+	private Integer sold = 0;
+	/*
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JsonIgnore
 	private List<Ordination> ordinations;
+	*/
+	
+	public Cocktail() {
+	}
+
+	public Cocktail(String name, Double price, String description, String flavour, boolean isIBA, boolean isAlcoholic,
+			boolean inMenu, Integer sold) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.flavour = flavour;
+		this.isIBA = isIBA;
+		this.isAlcoholic = isAlcoholic;
+		this.inMenu = inMenu;
+		this.sold = sold;
+		this.uuid = UUID.randomUUID().toString();
+	}
+	
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -100,12 +131,37 @@ public class Cocktail {
 	public void setPathFileImg(String pathFileImg) {
 		this.pathFileImg = pathFileImg;
 	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	/*
 	public List<Ordination> getOrdinations() {
 		return ordinations;
 	}
 	public void setOrdinations(List<Ordination> ordinations) {
 		this.ordinations = ordinations;
+	}*/
+	public boolean isInMenu() {
+		return inMenu;
+	}
+	public void setInMenu(boolean inMenu) {
+		this.inMenu = inMenu;
 	}
 	
-	
+	public Integer getSold() {
+		return sold;
+	}
+	public void setSold(Integer sold) {
+		this.sold = sold;
+	}
+	@Override
+	public String toString() {
+		return "Cocktail [id=" + id + ", ingredients=" + ingredients + ", name=" + name + ", price=" + price
+				+ ", description=" + description + ", flavour=" + flavour + ", isIBA=" + isIBA + ", isAlcoholic="
+				+ isAlcoholic + ", pathFileImg=" + pathFileImg + ", uuid=" + uuid + ", inMenu=" + inMenu + ", sold="
+				+ sold + "]";
+	}
 }

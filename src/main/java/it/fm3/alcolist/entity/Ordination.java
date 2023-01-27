@@ -1,6 +1,7 @@
 package it.fm3.alcolist.entity;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,16 +11,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import it.fm3.alcolist.utils.StatusEnum;
+import it.fm3.alcolist.utils.OrdinationStatusEnum;
 
 @Entity
 @Table(name="ORDINATION")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ordination {
 	
 	@Id
@@ -27,54 +30,91 @@ public class Ordination {
 	@Column(name = "ID", length = 50, unique = true)
 	@JsonIgnore
 	private long id;
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	private List<Cocktail> cocktails;
+	
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordination")
+	
+	private Set<OrderedCocktail> orderedCocktails;
+	
+	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	private String uuid;
+	
 	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinColumn(name="ID_TABLES", nullable=false)
+	@JsonIgnore
 	private Tables table;
 	@Column(name = "TOTAL")
-	private Double total;
+	private Double total=0.0;
 	@Column(name = "STATUS")
-	private StatusEnum status;
-	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="EXECUTED_BY", nullable=false)
-	private UserAccount executed_by;
-	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="CREATED_BY", nullable=false)	
-	private UserAccount created_by;
-	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-	@JoinColumn(name="DELIVERED_BY", nullable=false)
-	private UserAccount delivered_by;
+	private OrdinationStatusEnum status;
 	
+	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JoinColumn(name="executedBy")
+	@JsonIgnore
+	private UserAccount executedBy;
+	
+	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JoinColumn(name="createdBy", nullable=false)
+	@JsonIgnore
+	private UserAccount createdBy;
+	
+	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JoinColumn(name="deliveredBy")
+	@JsonIgnore
+	private UserAccount deliveredBy;
+	
+	@Column(name = "DATE_LAST_MODIFIED")
+	private Date dateLastModified;
+	
+	@Column(name = "DATE_CREATION")
+	private Date dateCreation;
+	
+	@Column(name = "NUMBERS_OF_COCKTAILS")
+	private Integer numbersOfCocktails = 0;
+	
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy = "ordination")
+	private Set<Message> messages;
+	
+	public Set<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
+	}
+	public Date getDateLastModified() {
+		return dateLastModified;
+	}
+	public void setDateLastModified(Date dateLastModified) {
+		this.dateLastModified = dateLastModified;
+	}
+	public Date getDateCreation() {
+		return dateCreation;
+	}
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
+	}
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public List<Cocktail> getCocktails() {
-		return cocktails;
+	public UserAccount getExecutedBy() {
+		return executedBy;
 	}
-	public void setCocktails(List<Cocktail> cocktails) {
-		this.cocktails = cocktails;
+	public void setExecutedBy(UserAccount executedBy) {
+		this.executedBy = executedBy;
 	}
-	public UserAccount getExecuted_by() {
-		return executed_by;
+	public UserAccount getCreatedBy() {
+		return createdBy;
 	}
-	public void setExecuted_by(UserAccount executed_by) {
-		this.executed_by = executed_by;
+	public void setCreatedBy(UserAccount createdBy) {
+		this.createdBy = createdBy;
 	}
-	public UserAccount getCreated_by() {
-		return created_by;
+	public UserAccount getDeliveredBy() {
+		return deliveredBy;
 	}
-	public void setCreated_by(UserAccount created_by) {
-		this.created_by = created_by;
-	}
-	public UserAccount getDelivered_by() {
-		return delivered_by;
-	}
-	public void setDelivered_by(UserAccount delivered_by) {
-		this.delivered_by = delivered_by;
+	public void setDeliveredBy(UserAccount deliveredBy) {
+		this.deliveredBy = deliveredBy;
 	}
 	public Tables getTable() {
 		return table;
@@ -88,11 +128,37 @@ public class Ordination {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	public StatusEnum getStatus() {
+	public OrdinationStatusEnum getStatus() {
 		return status;
 	}
-	public void setStatus(StatusEnum status) {
+	public void setStatus(OrdinationStatusEnum status) {
 		this.status = status;
 	}
+	public Set<OrderedCocktail> getOrderedCocktails() {
+		return orderedCocktails;
+	}
+	public void setOrderedCocktails(Set<OrderedCocktail> orderedCocktails) {
+		this.orderedCocktails = orderedCocktails;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	
+	public Integer getNumbersOfCocktails() {
+		return numbersOfCocktails;
+	}
+	public void setNumbersOfCocktails(Integer numbersOfCocktails) {
+		this.numbersOfCocktails = numbersOfCocktails;
+	}
+	
+	@Override
+	public String toString() {
+		return "Ordination [id=" + id + ", orderedCocktails=" + orderedCocktails + ", uuid=" + uuid + ", table=" + table
+				+ ", total=" + total + ", status=" + status + ", executedBy=" + executedBy + ", createdBy=" + createdBy
+				+ ", deliveredBy=" + deliveredBy + ", dateLastModified=" + dateLastModified + ", dateCreation="
+				+ dateCreation + ", numbersOfCocktails=" + numbersOfCocktails + "]";
+	}
 }

@@ -2,13 +2,13 @@ package it.fm3.alcolist.DTO;
 
 import java.util.List;
 
-import it.fm3.alcolist.entity.UserAccount;
+import it.fm3.alcolist.entity.Product;
 
-public class UserAccountResultDTO {
+public class ProductResultDTO {
 
 	public long totalResult;
 	public long startIndex;
 	public long itemsPerPage;
-	public List<UserAccount> userAccounts;
+	public List<Product> product;
 
 }

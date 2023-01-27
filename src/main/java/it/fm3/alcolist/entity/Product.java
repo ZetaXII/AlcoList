@@ -1,19 +1,27 @@
 package it.fm3.alcolist.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="PRODUCT")
 public class Product {
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ID", length = 50, unique = true)
+	@JsonIgnore
 	private long id;
 	@Column(name = "NAME", length = 50)
 	private String name;
@@ -22,12 +30,17 @@ public class Product {
 	@Column(name = "ALCOHOLIC_PERCENTAGE")
 	private Double alcoholicPercentage;
 	@Column(name = "IS_PRESENT")
-	private boolean isPresent;
+	private boolean isPresent=false;
 	@Column(name = "ML")
 	private Integer ml;
 	@Column(name = "PATHFILEIMG")
 	private String pathFileImg;
+	@Column(name = "UUID", length = 50, nullable = false, unique = true)
+	private String uuid;
 	
+	@OneToMany(mappedBy="product",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@JsonIgnore
+	private Set<Ingredient>ingredients = new HashSet<Ingredient>();
 	
 	public long getId() {
 		return id;
@@ -65,6 +78,26 @@ public class Product {
 	public void setMl(Integer ml) {
 		this.ml = ml;
 	}
+	public String getPathFileImg() {
+		return pathFileImg;
+	}
+	public void setPathFileImg(String pathFileImg) {
+		this.pathFileImg = pathFileImg;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", alcoholicPercentage="
+				+ alcoholicPercentage + ", isPresent=" + isPresent + ", ml=" + ml + ", pathFileImg=" + pathFileImg
+				+ ", uuid=" + uuid + "]";
+	}
+	
+	
 	
 	
 }

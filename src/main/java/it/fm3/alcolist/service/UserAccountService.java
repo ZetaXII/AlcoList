@@ -3,18 +3,25 @@ package it.fm3.alcolist.service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
 
 import org.bouncycastle.util.encoders.Hex;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import it.fm3.alcolist.DTO.UserAccountDTO;
+import it.fm3.alcolist.DTO.UserAccountResultDTO;
 import it.fm3.alcolist.entity.Role;
 import it.fm3.alcolist.entity.UserAccount;
 import it.fm3.alcolist.repository.RoleRepository;
@@ -24,9 +31,13 @@ import it.fm3.alcolist.repository.UserAccountRepository;
 @Transactional
 public class UserAccountService implements UserAccountServiceI{
 	@Autowired
-	UserAccountRepository userAccountRepository;
+	private UserAccountRepository userAccountRepository;
 	@Autowired
-	RoleRepository roleRepository;
+	private RoleRepository roleRepository;
+	@Autowired
+	private EmailServiceI emailService;
+	
+	private ObjectMapper mapper = new ObjectMapper();
 	
 	private String encriptPassword(String originalPassword) throws Exception {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -36,15 +47,45 @@ public class UserAccountService implements UserAccountServiceI{
 		String sha256hex = new String(Hex.encode(hash));
 		return sha256hex;
 	}
+	
+	private char[] generatePassword(int length) {
+	      String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	      String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+	      String specialCharacters = "!@#$";
+	      String numbers = "1234567890";
+	      String combinedChars = capitalCaseLetters + lowerCaseLetters + specialCharacters + numbers;
+	      Random random = new Random();
+	      char[] password = new char[length];
+
+	      password[0] = lowerCaseLetters.charAt(random.nextInt(lowerCaseLetters.length()));
+	      password[1] = capitalCaseLetters.charAt(random.nextInt(capitalCaseLetters.length()));
+	      password[2] = specialCharacters.charAt(random.nextInt(specialCharacters.length()));
+	      password[3] = numbers.charAt(random.nextInt(numbers.length()));
+	   
+	      for(int i = 4; i< length ; i++) {
+	         password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
+	      }
+	      return password;
+	   }
+	
+	private String generateRandomPassword() throws Exception {
+		char[] pwd = this.generatePassword(8);
+		return pwd.toString();
+	}
+	
 	public UserAccount add(UserAccountDTO userDto) throws Exception{
-		//QQQ è giusto avere user account se non ho un istanza di userAccount sul db?
 		UserAccount newUser= new UserAccount();
+		userDto.password = this.generateRandomPassword();
 		this.buildUserAccountByUserAccountDTO(newUser,userDto);
-		if(userAccountRepository.findByEmailAndDateDelete(userDto.email, null).size()>0)
+		if(userAccountRepository.findByEmail(userDto.email).size()>0)
 			throw new Exception("user already exists");
-		 userAccountRepository.save(newUser);
-		 System.out.println("\n\n@@@@@@ NUOVO UTENTE: "+newUser);
-		 return newUser;
+		String msg = "Ciao, benvenuto nel nostro Team!\n\nLa tua password è: " + userDto.password + "\n\nSaluti, Team AlcoList.";
+		String mail = userDto.email;
+		//ms
+		//String msg = "Ciao, sappiamo che lei fa parte del nostro Team!\n\n Con la presente le volevamo ricordare che bisgna terminare al più presto. \n\nSaluti, Team AlcoList.";
+		emailService.sendSimpleMessage(mail, "Invio password", msg);
+		userAccountRepository.save(newUser);
+		return newUser;
 	}
 
 	@Override
@@ -52,7 +93,7 @@ public class UserAccountService implements UserAccountServiceI{
 		UserAccount userToDelete = userAccountRepository.findByUuid(uuid);
 		if(userToDelete==null)
 			throw new Exception("user not found with uuid: "+uuid);
-		userToDelete.setDateDelete(new Date());
+		userAccountRepository.delete(userToDelete);
 		return userToDelete;
 	}
 
@@ -65,18 +106,35 @@ public class UserAccountService implements UserAccountServiceI{
 		return usersToUpdate;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public UserAccount login(UserAccountDTO u) throws Exception {
-		//QQQ Integrare gestione token???
-		//come verrà gestito il login? 
-		//il frontend controlla che un utente sia loggato?
-		//come definisco un utente loggato?
+	public JSONObject login(UserAccountDTO u) throws Exception {
+		//UPGRADE Integrare gestione token??? NO non ora
+		//come verrà gestito il login? appezzottato
+		//il frontend controlla che un utente sia loggato? si
+		//come definisco un utente loggato? non lo definisco
+		JSONObject response = new JSONObject();
+		ArrayList<UserAccount> users = (ArrayList<UserAccount>) userAccountRepository.findByEmail(u.email);
+		if(users.size() == 1) { //check user email
+			if(users.get(0).getPassword().equals(encriptPassword(u.password))) { 	//check password
+				String jsonString = mapper.writeValueAsString(users.get(0));
+				response = mapper.readValue(jsonString, JSONObject.class); 
+			}
+			else {
+				response.put("error", "wrong pwd, try again");
+			}
+		}else { //user not found
+			response.put("error", "User not found");
+		}
 		
-		return null;
+		return response;
 	}
 	
 	private void buildUserAccountByUserAccountDTO(UserAccount user,UserAccountDTO userDTO) throws Exception {
-
+		this.checkNameField(userDTO.name);
+		this.checkSurnameField(userDTO.surname);
+		this.checkRoleField(userDTO.mainRole);
+		this.checkEmailField(userDTO.email);
 		user.setName(userDTO.name);
 		user.setSurname(userDTO.surname);
 		Role roleToSet=null;
@@ -92,12 +150,10 @@ public class UserAccountService implements UserAccountServiceI{
 			user.setRoles(newRoleList);
 			System.out.println("setto: "+user.getRoles());
 		}
-		
+		user.setMainRole(userDTO.mainRole);		
 		if(StringUtils.hasText(userDTO.password))
 			user.setPassword(this.encriptPassword(userDTO.password));
 		user.setEmail(userDTO.email);
-		if(userDTO.dateDelete!=null)
-			user.setDateDelete(userDTO.dateDelete);
 		if(!StringUtils.hasText(userDTO.uuid))
 			user.setUuid(UUID.randomUUID().toString());
 		else
@@ -108,84 +164,144 @@ public class UserAccountService implements UserAccountServiceI{
 	public UserAccount get(String uuid) {
 		return userAccountRepository.findByUuid(uuid);
 	}
-	/*
-	public UserAccountResultDTO searchByFieldsPageable(UserAccountDTO userDTO,UserAccountResultDTO userResultDTO) {
+	
+	@Override
+	public UserAccountResultDTO searchByFields(UserAccountDTO userDTO) throws Exception {
+		UserAccountResultDTO userResult = new UserAccountResultDTO();
+		
+		userResult.userAccounts = searchByFieldsRes(userDTO , userResult);
+		
+		if(userResult.userAccounts.size() == 0 ) {
+			userResult.totalResult=0;
+			userResult.itemsPerPage =0;
+			userResult.startIndex=0;
+		}else {
+			userResult.itemsPerPage = userResult.userAccounts.size();
+		}
+		return userResult ;
+	}
+	
+	private List<UserAccount>  searchByFieldsRes(UserAccountDTO userDTO,UserAccountResultDTO userResultDTO) throws Exception  {
 		Pageable pageable = null;
 		if(userDTO.page != null && userDTO.size != null) {
 			pageable = PageRequest.of(userDTO.page.intValue(), userDTO.size.intValue());
-			
 			if(userDTO.page.intValue() > 0)
 				userResultDTO.startIndex = userDTO.page.intValue() * userDTO.size.intValue() + 1;
 			else
 				userResultDTO.startIndex = userDTO.page.intValue() + 1;
 		}
+		return searchByFieldsSimple(userDTO, pageable,userResultDTO);
 	}
-	*/
-	//private List<UserAccount> searchByFields()
 	
-	//---------------------------
-	/*
-	private List<CommonObject> searchByFieldsSimple(CommonObjectDTO commonObjectDTO, Pageable pageable,CommonObjectResultDTO cord) throws Exception {
-		if(StringUtils.hasText(commonObjectDTO.name) && !StringUtils.hasText(commonObjectDTO.description)) {
-			cord.totalResult = cor.countByNameContainingIgnoreCase(commonObjectDTO.name);
-			return cor.findByNameContainingIgnoreCase(commonObjectDTO.name, pageable);
+	private List<UserAccount> searchByFieldsSimple(UserAccountDTO userDTO, Pageable pageable,UserAccountResultDTO userResultDTO) throws Exception {
+		/*
+		if(StringUtils.hasText(userDTO.name) && !StringUtils.hasText(userDTO.description)) {
+			userResultDTO.totalResult = cor.countByNameContainingIgnoreCase(userDTO.name);
+			return .findByNameContainingIgnoreCase(userDTO.name, pageable);
 		}	
-		else if(!StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description)) {
-			cord.totalResult = cor.countByDescriptionContainingIgnoreCase(commonObjectDTO.description);
-			return cor.findByDescriptionContainingIgnoreCase(commonObjectDTO.description, pageable);
-		}
-		else if(StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description)) {
-			cord.totalResult = cor.countByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCase(commonObjectDTO.name, commonObjectDTO.description);
-			return cor.findByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCase(commonObjectDTO.name, commonObjectDTO.description, pageable);
-		}else {
-			if(pageable != null) {
-				cord.totalResult = countByFieldsSimple(commonObjectDTO);
-				return cor.findAll(pageable).getContent();
-			}else {
-				cord.totalResult = countByFieldsSimple(commonObjectDTO);
-				return cor.findAll();
-			}
-		}
+		else {
+			userResultDTO.totalResult = countByFieldsSimple(commonObjectDTO);
+			return cor.findAll();
+		}*/
+		userResultDTO.totalResult= userAccountRepository.count();
+		if(pageable!=null)
+			return userAccountRepository.findAll(pageable).getContent();
+		else return userAccountRepository.findAll();
+		
+	}
+	@Override
+	public List<UserAccount> getAll() {
+		return userAccountRepository.findAll();
 	}
 	
-	@Override
-	public long count() {
-		return cor.count();
-	}
-	
-	@Override
-	public long countByObjectType(CommonObjectDTO commonObjectDTO) throws Exception {
-		return cor.countByObjectType(otr.findByName(commonObjectDTO.objectTypeName));
-	}
-	
-	@Override
-	public long countByFields(CommonObjectDTO commonObjectDTO) throws Exception {
-		if(StringUtils.hasText(commonObjectDTO.objectTypeName)) {
-			CommonObjectType objectType = otr.findByName(commonObjectDTO.objectTypeName);
-			if(objectType != null && objectType.getId() > 0) {
-				if(StringUtils.hasText(commonObjectDTO.name) && !StringUtils.hasText(commonObjectDTO.description))
-					return cor.countByNameContainingIgnoreCaseAndObjectType(commonObjectDTO.name, objectType);
-				else if(!StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-					return cor.countByDescriptionContainingIgnoreCaseAndObjectType(commonObjectDTO.description, objectType);
-				else if(StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-					return cor.countByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCaseAndObjectType(commonObjectDTO.name, commonObjectDTO.description, objectType);
-				else 
-					return cor.countByObjectType(objectType);
-			} else
-				return 0;
+	private boolean checkNameField(String name) throws Exception {
+		boolean check = true;
+		if(name.equalsIgnoreCase("") || name.isEmpty() || name == null)
+			throw new Exception("Bisogna inserire il nome");
+		if(this.checkIfStringContainsDigit(name)) {
+			check = false;
+			throw new Exception("Il Nome deve essere una stringa di soli caratteri");
 		}
-		return countByFieldsSimple(commonObjectDTO);
+		if(name.length() < 2) {
+			check = false;
+			throw new Exception("Il Nome deve essere una stringa di almeno 2 caratteri");
+		}
+		if(name.length() > 30) {
+			check = false;
+			throw new Exception("Il Nome deve essere una stringa di massimo 30 caratteri");
+		}
+		return check;
 	}
+	
+	private boolean checkSurnameField(String name) throws Exception {
+		boolean check = true;
+		if(name.equalsIgnoreCase("") || name.isEmpty() || name == null)
+			throw new Exception("Bisogna inserire il cognome");
+		if(this.checkIfStringContainsDigit(name)) {
+			check = false;
+			throw new Exception("Il Cognome deve essere una stringa di soli caratteri");
+		}
+		if(name.length() < 2) {
+			check = false;
+			throw new Exception("Il Cognome deve essere una stringa di almeno 2 caratteri");
+		}
+		if(name.length() > 30) {
+			check = false;
+			throw new Exception("Il Cognome deve essere una stringa di massimo 30 caratteri");
+		}
+		return check;
+	}
+	
+	private boolean checkRoleField(String role) throws Exception {
+		boolean check = true;
+		if(role.equalsIgnoreCase("") || role.isEmpty() || role == null)
+			throw new Exception("Bisogna selezionare almeno un ruolo");
+		if(this.checkIfStringContainsDigit(role)) {
+			check = false;
+			throw new Exception("Il Ruolo deve essere una stringa di soli caratteri");
+		}
+		if(role.length() < 5) {
+			check = false;
+			throw new Exception("Il Ruolo deve essere una stringa di almeno 5 caratteri");
+		}
+		if(role.length() > 30) {
+			check = false;
+			throw new Exception("Il Ruolo deve essere una stringa di massimo 30 caratteri");
+		}
+		return check;
+	}
+	
+	public boolean checkEmailField(String email) throws Exception
+    {
+		if(email.equalsIgnoreCase("") || email.isEmpty() || email == null)
+			throw new Exception("Bisogna inserire l'email");
+		
+		if(email.length() < 8) {
+			throw new Exception("L’Email deve essere una stringa di almeno 8 caratteri");
+		}
+		if(email.length() > 30) {
+			throw new Exception("L’Email deve essere una stringa di massimo 30 caratteri");
+		}
+		
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+                              
+        Pattern pat = Pattern.compile(emailRegex);
 
-	private long countByFieldsSimple(CommonObjectDTO commonObjectDTO) throws Exception {
-		if(StringUtils.hasText(commonObjectDTO.name) && !StringUtils.hasText(commonObjectDTO.description))
-			return cor.countByNameContainingIgnoreCase(commonObjectDTO.name);
-		else if(!StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-			return cor.countByDescriptionContainingIgnoreCase(commonObjectDTO.description);
-		else if(StringUtils.hasText(commonObjectDTO.name) && StringUtils.hasText(commonObjectDTO.description))
-			return cor.countByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCase(commonObjectDTO.name, commonObjectDTO.description);
-		else 
-			return cor.count();
+        if(!pat.matcher(email).matches())
+        	throw new Exception("L’Email deve avere un formato valido");
+        
+        return true;
+    }
+	
+	public boolean checkIfStringContainsDigit(String passCode){
+	      for (int i = 0; i < passCode.length(); i++) {
+	        if(Character.isDigit(passCode.charAt(i))) {
+	            return true;
+	        }
+	      }
+	      return false;
 	}
-*/
 }
