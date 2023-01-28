@@ -39,7 +39,8 @@ public class IngredientService implements IngredientServiceI{
 
 	@Override
 	public Ingredient delete(String uuid) throws Exception {
-		Ingredient ingredientToDelete = get(uuid);
+		Ingredient ingredientToDelete = ingredientRepository.findByUuid(uuid);
+		System.out.println("STAMPOO" + ingredientToDelete.toString() + " e: " + uuid);
 		Cocktail c = ingredientToDelete.getCocktail();
 		Product p = ingredientToDelete.getProduct();
 		
@@ -53,7 +54,7 @@ public class IngredientService implements IngredientServiceI{
 			if(n == 1)
 				c.setAlcoholic(false);
 		}
-				
+			
 		ingredientRepository.delete(ingredientToDelete);
 		return ingredientToDelete;
 	}
@@ -75,7 +76,7 @@ public class IngredientService implements IngredientServiceI{
 	@Override
 	public Ingredient get(String uuid) throws Exception {
 		Ingredient i = ingredientRepository.findByUuid(uuid);
-		if(i != null)
+		if(i != null) 
 			return i;
 		else
 			throw new Exception("Ingredient with uuid: "+uuid+" not exist");

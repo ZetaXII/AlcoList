@@ -20,6 +20,22 @@ public class OrdinationDTO {
 	public Integer page;
 	public Integer size;
 	
+	public OrdinationDTO() {}
+	
+	
+	public OrdinationDTO(ArrayList<String> cocktailUuidList, String tableUuid, OrdinationStatusEnum status,
+			Date dateLastModified, Date dateCreation, String uuid, Double total, String createdByUserUuid) {
+		super();
+		this.cocktailUuidList = cocktailUuidList;
+		this.tableUuid = tableUuid;
+		this.status = status;
+		this.dateLastModified = dateLastModified;
+		this.dateCreation = dateCreation;
+		this.uuid = uuid;
+		this.total = total;
+		this.createdByUserUuid = createdByUserUuid;
+	}
+
 	@Override
 	public String toString() {
 		return "OrdinationDTO [cocktailUuidList=" + cocktailUuidList + ", tableUuid=" + tableUuid + ", status=" + status

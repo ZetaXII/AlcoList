@@ -40,10 +40,6 @@ class UserAccountControllerTest {
 	
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	/*************************************
-     * Test aggiunta utente *
-     *************************************/
-	
 	@BeforeEach
 	void setup() {
 		user = new UserAccount();
@@ -150,7 +146,7 @@ class UserAccountControllerTest {
 		System.out.println("Tutto bene con l'Exception! :-)");
 
 	}	
-
+	
 	@Test
 	@DisplayName("NomeAlmenoDueCaratteri")
 	void testSaveUserBadExceptionNameMustBeAtLeastTwoCharacters() throws Exception {
