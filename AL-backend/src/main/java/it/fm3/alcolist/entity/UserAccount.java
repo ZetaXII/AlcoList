@@ -1,11 +1,11 @@
 package it.fm3.alcolist.entity;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +33,7 @@ public class UserAccount {
 	private String name;
 	@Column(name = "SURNAME", length = 50, nullable = false)
 	private String surname;
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Role> roles;
 	@Column(name = "MAIN_ROLE", length = 64, nullable = false)
 	private String mainRole;
@@ -44,6 +44,10 @@ public class UserAccount {
 
 	@Column(name = "UUID", length = 50, nullable = false, unique = true)
 	private String uuid;
+	
+	@Column(name = "DELETE_DATE")
+	private Date delateDate;
+	
 	@OneToMany(mappedBy="user")
 	@JsonIgnore
 	private Set<Message> messages;
@@ -69,6 +73,13 @@ public class UserAccount {
 		this.password = password;
 		this.email = email;
 		this.uuid = UUID.randomUUID().toString();
+	}
+	
+	public Date getDelateDate() {
+		return delateDate;
+	}
+	public void setDelateDate(Date delateDate) {
+		this.delateDate = delateDate;
 	}
 	public Set<Message> getMessages() {
 		return messages;

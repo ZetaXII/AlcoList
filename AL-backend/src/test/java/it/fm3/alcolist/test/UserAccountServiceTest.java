@@ -64,7 +64,7 @@ class UserAccountServiceTest {
 		UserAccountDTO userDTO = new UserAccountDTO("Prova", "Testing", rolesListDto, "Co-proprietario" , "mailprova@test.it");
 		
 		// given - precondition or setup
-		BDDMockito.given(userAccountRepository.findByEmail(userDTO.email)).willReturn(null);
+		BDDMockito.given(userAccountRepository.findByEmailAndDelateDateIsNotNull(userDTO.email)).willReturn(null);
 		Role x  =new Role();
 		x.setName("WAITER");
 		BDDMockito.given(roleRepository.findByName(any(String.class))).willReturn(x);

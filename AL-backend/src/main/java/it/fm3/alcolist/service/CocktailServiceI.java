@@ -4,6 +4,7 @@ import java.util.Set;
 
 import it.fm3.alcolist.DTO.CocktailDTO;
 import it.fm3.alcolist.DTO.CocktailResultDTO;
+import it.fm3.alcolist.DTO.IngredientDTO;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
 
@@ -19,4 +20,6 @@ public interface CocktailServiceI {
 	CocktailResultDTO getMenu(CocktailDTO c) throws Exception;
 	CocktailResultDTO getMenuIba(CocktailDTO c) throws Exception;
 	void updateSold(String uuid, int operation) throws Exception; //op. 0 = decremento - op.1 = incremento
+	public Ingredient deleteIngredient(IngredientDTO ingredientDTO) throws Exception;
+	public Ingredient addIngredient(IngredientDTO i) throws Exception;
 }

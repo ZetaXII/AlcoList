@@ -24,19 +24,11 @@ public class IngredientController {
 	@Autowired
 	IngredientServiceI ingredientService;
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResponseEntity<?> add(@RequestBody IngredientDTO ingredient, HttpServletRequest request){
-		try {
-			return ResponseEntity.ok(ingredientService.add(ingredient));
-		} catch (Exception e) { 
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-	}
-	
+	/*
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@RequestParam String uuid, HttpServletRequest request) throws Exception{
 		return new ResponseEntity<>(ingredientService.delete(uuid),HttpStatus.OK);
-	}
+	}*/
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<?> update(@RequestBody IngredientDTO ingredient, HttpServletRequest request) throws Exception{

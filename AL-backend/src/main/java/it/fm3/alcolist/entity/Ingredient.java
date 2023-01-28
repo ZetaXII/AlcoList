@@ -34,7 +34,7 @@ public class Ingredient {
 	
 	
 	@OneToOne
-	@JoinColumn(name="COCKTAIL", nullable = false)
+	@JoinColumn(name="COCKTAIL")
 	@JsonIgnore
 	private Cocktail cocktail;
 	
