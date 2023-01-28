@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>it.fm3</groupId>
 	<artifactId>alcolist</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>alcolist</name>
 	<description>platform to manage alcol list</description>
 	<properties>
