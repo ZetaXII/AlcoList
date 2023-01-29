@@ -76,6 +76,21 @@ public class Cocktail {
 		this.uuid = UUID.randomUUID().toString();
 	}
 	
+	public Cocktail(String name, Double price, String description, String flavour, boolean isIBA, boolean isAlcoholic,
+			boolean inMenu, Integer sold, String pathFileImg) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.flavour = flavour;
+		this.isIBA = isIBA;
+		this.isAlcoholic = isAlcoholic;
+		this.inMenu = inMenu;
+		this.sold = sold;
+		this.pathFileImg = pathFileImg;
+		this.uuid = UUID.randomUUID().toString();
+	}
+	
 	public long getId() {
 		return id;
 	}
