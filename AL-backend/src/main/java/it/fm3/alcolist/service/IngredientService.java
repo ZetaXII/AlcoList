@@ -23,8 +23,7 @@ public class IngredientService implements IngredientServiceI{
 	private IngredientRepository ingredientRepository;
 	@Autowired
 	private ProductServiceI productServiceI;
-	@Autowired
-	private CocktailServiceI cocktailServiceI;
+
 	
 	@Override
 	public Ingredient add(IngredientDTO ingredientDto) throws Exception {
@@ -39,8 +38,10 @@ public class IngredientService implements IngredientServiceI{
 
 	@Override
 	public Ingredient delete(String uuid) throws Exception {
+		System.out.println("STAMPOO" +  " e: " + uuid);
+
 		Ingredient ingredientToDelete = ingredientRepository.findByUuid(uuid);
-		System.out.println("STAMPOO" + ingredientToDelete.toString() + " e: " + uuid);
+		//System.out.println("STAMPOO" + ingredientToDelete.toString() + " e: " + uuid);
 		Cocktail c = ingredientToDelete.getCocktail();
 		Product p = ingredientToDelete.getProduct();
 		
@@ -97,12 +98,6 @@ public class IngredientService implements IngredientServiceI{
 			ingredient.setUuid(UUID.randomUUID().toString());
 		else
 			ingredient.setUuid(ingredientDTO.uuid);
-		Cocktail getC = cocktailServiceI.get(ingredientDTO.cocktailUuid); 
-		if(productToSet.getAlcoholicPercentage()>0)
-			getC.setAlcoholic(true);
-		if(getC == null)
-			throw new Exception("Cokctail not found");
-		else
-			ingredient.setCocktail(getC);	
 	}
+	
 }

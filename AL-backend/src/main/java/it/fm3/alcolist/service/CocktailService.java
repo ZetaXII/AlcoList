@@ -15,16 +15,23 @@ import org.springframework.util.StringUtils;
 
 import it.fm3.alcolist.DTO.CocktailDTO;
 import it.fm3.alcolist.DTO.CocktailResultDTO;
+import it.fm3.alcolist.DTO.IngredientDTO;
 import it.fm3.alcolist.entity.Cocktail;
 import it.fm3.alcolist.entity.Ingredient;
 import it.fm3.alcolist.repository.CocktailRepository;
+import it.fm3.alcolist.repository.IngredientRepository;
 
 @Service
 @Transactional
 public class CocktailService implements CocktailServiceI{
+	
 	@Autowired
 	private CocktailRepository cocktailRepository;
 	
+	@Autowired
+	private IngredientServiceI ingredientService;
+	@Autowired
+	private IngredientRepository ingredientRepository;
 	@Override
 	public Cocktail add(CocktailDTO cocktailDto) throws Exception {
 		Cocktail newCocktail= new Cocktail();
@@ -33,7 +40,7 @@ public class CocktailService implements CocktailServiceI{
 		if(cocktailRepository.findByUuid(cocktailDto.uuid) != null)
 			throw new Exception("Cocktail already exists");
 		cocktailRepository.save(newCocktail);
-		 return newCocktail;
+		return newCocktail;
 	}
 
 	@Override
@@ -257,6 +264,34 @@ public class CocktailService implements CocktailServiceI{
 	        }
 	      }
 	      return false;
+	}
+	
+	public Ingredient deleteIngredient(IngredientDTO ingredientDTO) throws Exception {
+		/* remove reference from course, else delete does nothing
+	    Course c = getRegistration().getCourse();
+	    c.getRegistrations().remove(getRegistration());
+	    courseMgr.saveOrUpdate(c);
+
+	    // delete registration from the database
+	    registrationMgr.delete(reg);*/
+		System.out.println("sono in deleteIngredient");
+		Cocktail c= this.get(ingredientDTO.cocktailUuid);
+		c.getIngredients().remove(ingredientService.get(ingredientDTO.uuid));
+		cocktailRepository.save(c);
+		Ingredient i=ingredientService.delete(ingredientDTO.uuid);
+		
+		return i;
+	}
+	
+	public Ingredient addIngredient(IngredientDTO i) throws Exception {
+		Cocktail c=get(i.cocktailUuid);
+		Ingredient newIngredient=this.ingredientService.add(i);
+		newIngredient.setCocktail(c);
+		if(newIngredient.getProduct().getAlcoholicPercentage()>0)
+			c.setAlcoholic(true);
+		ingredientRepository.save(newIngredient);
+		cocktailRepository.save(c);
+		return newIngredient;
 	}
 	
 	

@@ -29,6 +29,10 @@ import it.fm3.alcolist.service.UserAccountServiceI;
 
 @WebMvcTest(UserAccountController.class)
 class UserAccountControllerTest {
+	
+	/*****************************************
+	 * TEST CONTROLLER PER AGGIUNTA DIPENDENTE
+	*****************************************/
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -45,6 +49,9 @@ class UserAccountControllerTest {
 		user = new UserAccount();
 	}
 	
+	/********
+	* TC_1_14
+	********/
 	@Test
 	@DisplayName("Aggiunta Utente")
 	void testSaveUser() throws Exception {
@@ -103,11 +110,55 @@ class UserAccountControllerTest {
 		String emailResponse = JsonPath.parse(responseAsString).read("$.email");
 		String bodyResponse = nameResponse + surnameResponse + rolesResponse + mainRoleResponse + emailResponse;
 		
-		
 		Assertions.assertEquals(bodyRequest, bodyResponse);
 		System.out.println("Tutto bene! :-)");	
 	}
 	
+	/********
+	* TC_1_01
+	********/
+	@Test
+	@DisplayName("NomeVuoto")
+	void testSaveUserBadExceptionNameEmpty() throws Exception {
+		//definisco ciò che mi aspetto (?)
+		List<Role> rolesList = new ArrayList<>();
+		Role waiter = new Role();
+		waiter.setName("WAITER");
+		rolesList.add(waiter);
+		user.setMainRole(rolesList.get(0).getName());
+		user.setRoles(rolesList);
+		
+		
+		//definisco cio che passo all/ add
+		ArrayList<String> rolesListDto = new ArrayList<String>();
+		String waiterDto = "WAITER";
+		rolesListDto.add(waiterDto);
+		UserAccountDTO userDTO = new UserAccountDTO("", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
+		
+		
+		String messageError = "Bisogna inserire il Nome!";
+		Mockito.when(userService.add(userDTO))
+		.thenThrow(new Exception (messageError));
+		
+		String json = objectMapper.writeValueAsString(userDTO);
+		
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json))
+				.andDo(MockMvcResultHandlers.print())
+				//.andExpect(content(json).json())
+				.andExpect(MockMvcResultMatchers.status().isBadRequest()
+				).andReturn();
+		
+		String bodyResponse = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals(messageError, bodyResponse);
+		System.out.println("Tutto bene con l'Exception! :-)");
+
+	}	
+	
+	/********
+	* TC_1_04
+	********/
 	@Test
 	@DisplayName("NomeSoliCaratteri")
 	void testSaveUserBadExceptionNameOnlyCharacters() throws Exception {
@@ -147,6 +198,9 @@ class UserAccountControllerTest {
 
 	}	
 	
+	/********
+	* TC_1_02
+	********/
 	@Test
 	@DisplayName("NomeAlmenoDueCaratteri")
 	void testSaveUserBadExceptionNameMustBeAtLeastTwoCharacters() throws Exception {
@@ -186,45 +240,9 @@ class UserAccountControllerTest {
 
 	}
 	
-	@Test
-	@DisplayName("CognomeSoliCaratteri")
-	void testSaveUserBadExceptionSurnameOnlyCharacters() throws Exception {
-		//definisco ciò che mi aspetto (?)
-		List<Role> rolesList = new ArrayList<>();
-		Role waiter = new Role();
-		waiter.setName("WAITER");
-		rolesList.add(waiter);
-		user.setMainRole(rolesList.get(0).getName());
-		user.setRoles(rolesList);
-		
-		
-		//definisco cio che passo all/ add
-		ArrayList<String> rolesListDto = new ArrayList<String>();
-		String waiterDto = "WAITER";
-		rolesListDto.add(waiterDto);
-		UserAccountDTO userDTO = new UserAccountDTO("Pr0v4", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
-		
-		
-		String messageError = "Il Cognome deve essere una stringa di soli caratteri";
-		Mockito.when(userService.add(userDTO))
-		.thenThrow(new Exception (messageError));
-		
-		String json = objectMapper.writeValueAsString(userDTO);
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json))
-				.andDo(MockMvcResultHandlers.print())
-				//.andExpect(content(json).json())
-				.andExpect(MockMvcResultMatchers.status().isBadRequest()
-				).andReturn();
-		
-		String bodyResponse = mvcResult.getResponse().getContentAsString();
-		Assertions.assertEquals(messageError, bodyResponse);
-		System.out.println("Tutto bene con l'Exception! :-)");
-
-	}	
-	
+	/********
+	* TC_1_03
+	********/
 	@Test
 	@DisplayName("NomeMassimo30Caratteri")
 	void testSaveUserBadExceptionNameShouldBe30CharactersMaximum() throws Exception {
@@ -262,7 +280,94 @@ class UserAccountControllerTest {
 		System.out.println("Tutto bene con l'Exception! :-)");
 
 	}
+	
+	/********
+	* TC_1_05
+	********/
+	@Test
+	@DisplayName("CognomeVuoto")
+	void testSaveUserBadExceptionSurnameEmpty() throws Exception {
+		//definisco ciò che mi aspetto (?)
+		List<Role> rolesList = new ArrayList<>();
+		Role waiter = new Role();
+		waiter.setName("WAITER");
+		rolesList.add(waiter);
+		user.setMainRole(rolesList.get(0).getName());
+		user.setRoles(rolesList);
 		
+		
+		//definisco cio che passo all/ add
+		ArrayList<String> rolesListDto = new ArrayList<String>();
+		String waiterDto = "WAITER";
+		rolesListDto.add(waiterDto);
+		UserAccountDTO userDTO = new UserAccountDTO("Prova", "", rolesListDto, waiterDto , "mailprova@test.it");
+		
+		
+		String messageError = "Bisogna inserire il Cognome!";
+		Mockito.when(userService.add(userDTO))
+		.thenThrow(new Exception (messageError));
+		
+		String json = objectMapper.writeValueAsString(userDTO);
+		
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json))
+				.andDo(MockMvcResultHandlers.print())
+				//.andExpect(content(json).json())
+				.andExpect(MockMvcResultMatchers.status().isBadRequest()
+				).andReturn();
+		
+		String bodyResponse = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals(messageError, bodyResponse);
+		System.out.println("Tutto bene con l'Exception! :-)");
+
+	}	
+	
+	/********
+	* TC_1_08
+	********/
+	@Test
+	@DisplayName("CognomeSoliCaratteri")
+	void testSaveUserBadExceptionSurnameOnlyCharacters() throws Exception {
+		//definisco ciò che mi aspetto (?)
+		List<Role> rolesList = new ArrayList<>();
+		Role waiter = new Role();
+		waiter.setName("WAITER");
+		rolesList.add(waiter);
+		user.setMainRole(rolesList.get(0).getName());
+		user.setRoles(rolesList);
+		
+		
+		//definisco cio che passo all/ add
+		ArrayList<String> rolesListDto = new ArrayList<String>();
+		String waiterDto = "WAITER";
+		rolesListDto.add(waiterDto);
+		UserAccountDTO userDTO = new UserAccountDTO("Pr0v4", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
+		
+		
+		String messageError = "Il Cognome deve essere una stringa di soli caratteri";
+		Mockito.when(userService.add(userDTO))
+		.thenThrow(new Exception (messageError));
+		
+		String json = objectMapper.writeValueAsString(userDTO);
+		
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json))
+				.andDo(MockMvcResultHandlers.print())
+				//.andExpect(content(json).json())
+				.andExpect(MockMvcResultMatchers.status().isBadRequest()
+				).andReturn();
+		
+		String bodyResponse = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals(messageError, bodyResponse);
+		System.out.println("Tutto bene con l'Exception! :-)");
+
+	}
+	
+	/********
+	* TC_1_06
+	********/	
 	@Test
 	@DisplayName("CognomeAlmenoDueCaratteri")
 	void testSaveUserBadExceptionSurnameMustBeAtLeastTwoCharacters() throws Exception {
@@ -302,6 +407,9 @@ class UserAccountControllerTest {
 
 	}
 	
+	/********
+	* TC_1_07
+	********/
 	@Test
 	@DisplayName("CognomeMassimo30Caratteri")
 	void testSaveUserBadExceptionSurnameShouldBe30CharactersMaximum() throws Exception {
@@ -340,120 +448,9 @@ class UserAccountControllerTest {
 
 	}
 	
-	@Test
-	@DisplayName("RuoloSoliCaratteri")
-	void testSaveUserBadExceptionRoleOnlyCharacters() throws Exception {
-		//definisco ciò che mi aspetto (?)
-		List<Role> rolesList = new ArrayList<>();
-		Role waiter = new Role();
-		waiter.setName("WA1T3R");
-		rolesList.add(waiter);
-		user.setMainRole(rolesList.get(0).getName());
-		user.setRoles(rolesList);
-		
-		
-		//definisco cio che passo all/ add
-		ArrayList<String> rolesListDto = new ArrayList<String>();
-		String waiterDto = "WAITER";
-		rolesListDto.add(waiterDto);
-		UserAccountDTO userDTO = new UserAccountDTO("Prova", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
-		
-		
-		String messageError = "Il Cognome deve essere una stringa di soli caratteri";
-		Mockito.when(userService.add(userDTO))
-		.thenThrow(new Exception (messageError));
-		
-		String json = objectMapper.writeValueAsString(userDTO);
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json))
-				.andDo(MockMvcResultHandlers.print())
-				//.andExpect(content(json).json())
-				.andExpect(MockMvcResultMatchers.status().isBadRequest()
-				).andReturn();
-		
-		String bodyResponse = mvcResult.getResponse().getContentAsString();
-		Assertions.assertEquals(messageError, bodyResponse);
-		System.out.println("Tutto bene con l'Exception! :-)");
-
-	}	
-	
-	@Test
-	@DisplayName("RuoloAlmeno5Caratteri")
-	void testSaveUserBadExceptionRoleMustBeAtLeastFiveCharacters() throws Exception {
-		//definisco ciò che mi aspetto (?)
-		List<Role> rolesList = new ArrayList<>();
-		Role waiter = new Role();
-		waiter.setName("WAIT");
-		rolesList.add(waiter);
-		user.setMainRole(rolesList.get(0).getName());
-		user.setRoles(rolesList);
-		
-		
-		//definisco cio che passo all/ add
-		ArrayList<String> rolesListDto = new ArrayList<String>();
-		String waiterDto = "WAIT";
-		rolesListDto.add(waiterDto);
-		UserAccountDTO userDTO = new UserAccountDTO("Prova", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
-		
-		
-		String messageError = "Il Ruolo deve essere una stringa di almeno 5 caratteri";
-		Mockito.when(userService.add(userDTO))
-		.thenThrow(new Exception (messageError));
-		
-		String json = objectMapper.writeValueAsString(userDTO);
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json))
-				.andDo(MockMvcResultHandlers.print())
-				.andExpect(MockMvcResultMatchers.status().isBadRequest()
-				).andReturn();
-		
-		String bodyResponse = mvcResult.getResponse().getContentAsString();
-		Assertions.assertEquals(messageError, bodyResponse);
-		System.out.println("Tutto bene con l'Exception! :-)");
-
-	}
-	
-	@Test
-	@DisplayName("RuoloMassimo30Caratteri")
-	void testSaveUserBadExceptionRoleShouldBe30CharactersMaximum() throws Exception {
-		//definisco ciò che mi aspetto (?)
-		List<Role> rolesList = new ArrayList<>();
-		Role waiter = new Role();
-		waiter.setName("WAITERRRRRRRRRRPROVACONUNASTRINGAMAGGIOREDI30CARATTERIIIIIIIII");
-		rolesList.add(waiter);
-		user.setMainRole(rolesList.get(0).getName());
-		user.setRoles(rolesList);
-		
-		
-		//definisco cio che passo all/ add
-		ArrayList<String> rolesListDto = new ArrayList<String>();
-		String waiterDto = "WAIT";
-		rolesListDto.add(waiterDto);
-		UserAccountDTO userDTO = new UserAccountDTO("Prova", "Testing", rolesListDto, waiterDto , "mailprova@test.it");
-		
-		
-		String messageError = "Il Ruolo deve essere una stringa di massimo 30 caratteri";
-		Mockito.when(userService.add(userDTO))
-		.thenThrow(new Exception (messageError));
-		
-		String json = objectMapper.writeValueAsString(userDTO);
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/manage-users/add")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json))
-				.andDo(MockMvcResultHandlers.print())
-				.andExpect(MockMvcResultMatchers.status().isBadRequest()
-				).andReturn();
-		
-		String bodyResponse = mvcResult.getResponse().getContentAsString();
-		Assertions.assertEquals(messageError, bodyResponse);
-		System.out.println("Tutto bene con l'Exception! :-)");
-	}
-	
+	/********
+	* TC_1_09
+	********/
 	@Test
 	@DisplayName("InserisciLEmail")
 	void testSaveUserBadExceptionInsertEmail() throws Exception {
@@ -491,8 +488,11 @@ class UserAccountControllerTest {
 		System.out.println("Tutto bene con l'Exception! :-)");
 	}
 	
+	/********
+	* TC_1_10
+	********/
 	@Test
-	@DisplayName("EmailAlmeno2Caratteri")
+	@DisplayName("EmailAlmeno8Caratteri")
 	void testSaveUserBadExceptionEmailMustBeAtLeastEightCharacters() throws Exception {
 		//definisco ciò che mi aspetto (?)
 		List<Role> rolesList = new ArrayList<>();
@@ -528,6 +528,9 @@ class UserAccountControllerTest {
 		System.out.println("Tutto bene con l'Exception! :-)");
 	}
 	
+	/********
+	* TC_1_11
+	********/
 	@Test
 	@DisplayName("EmailMassimo30Caratteri")
 	void testSaveUserBadExceptionEmailShouldBe30CharactersMaximum() throws Exception {
@@ -565,6 +568,9 @@ class UserAccountControllerTest {
 		System.out.println("Tutto bene con l'Exception! :-)");
 	}
 	
+	/********
+	* TC_1_12
+	********/
 	@Test
 	@DisplayName("FomatoEmailNonValido")
 	void testSaveUserBadExceptionValidFormatEmail() throws Exception {
@@ -602,6 +608,9 @@ class UserAccountControllerTest {
 		System.out.println("Tutto bene con l'Exception! :-)");
 	}
 	
+	/********
+	* TC_1_13
+	********/
 	@Test
 	@DisplayName("BisognaInserireIPermessi")
 	void testSaveUserBadExceptionInsertPermission() throws Exception {

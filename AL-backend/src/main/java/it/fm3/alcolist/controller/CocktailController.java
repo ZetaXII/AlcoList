@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.fm3.alcolist.DTO.CocktailDTO;
+import it.fm3.alcolist.DTO.IngredientDTO;
 import it.fm3.alcolist.service.CocktailServiceI;
+import it.fm3.alcolist.service.IngredientServiceI;
 
 @RestController
 @CrossOrigin
@@ -23,6 +25,7 @@ public class CocktailController {
 	
 	@Autowired
 	CocktailServiceI cocktailService;
+	
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResponseEntity<?> add(@RequestBody CocktailDTO cocktail, HttpServletRequest request){
@@ -77,4 +80,17 @@ public class CocktailController {
         return ResponseEntity.ok(cocktailService.getMenuIba(cocktail));
     }
 	
+	@RequestMapping(value = "/addIngredient", method = RequestMethod.POST)
+	public ResponseEntity<?> addIngredient(@RequestBody IngredientDTO ingredient, HttpServletRequest request) throws Exception{
+	
+			return ResponseEntity.ok(cocktailService.addIngredient(ingredient));
+
+	}
+	
+	@RequestMapping(value = "/deleteIngredient", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteIngredient(@RequestBody IngredientDTO ingredient, HttpServletRequest request) throws Exception{
+		
+			return ResponseEntity.ok(cocktailService.deleteIngredient(ingredient));
+		
+	}
 }

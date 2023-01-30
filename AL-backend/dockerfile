@@ -1,4 +1,9 @@
 FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=target/*.jar
+<<<<<<< HEAD
 COPY ${JAR_FILE} app.jar
+=======
+#COPY ${JAR_FILE} app.jar
+ADD ${JAR_FILE} ./app.jar
+>>>>>>> origin/backend
 ENTRYPOINT ["java","-jar","/app.jar"]

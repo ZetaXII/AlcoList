@@ -21,8 +21,13 @@ public class OrdinationDTO {
 	public Integer size;
 	
 	public OrdinationDTO() {}
-	
-	
+
+	public OrdinationDTO(String tableUuid, String createdByUserUuid) {
+		super();
+		this.tableUuid = tableUuid;
+		this.createdByUserUuid = createdByUserUuid;
+	}
+
 	public OrdinationDTO(ArrayList<String> cocktailUuidList, String tableUuid, OrdinationStatusEnum status,
 			Date dateLastModified, Date dateCreation, String uuid, Double total, String createdByUserUuid) {
 		super();
