@@ -78,7 +78,7 @@ public class UserAccountService implements UserAccountServiceI{
 		UserAccount newUser= new UserAccount();
 		userDto.password = this.generateRandomPassword();
 		this.buildUserAccountByUserAccountDTO(newUser,userDto);
-		if(userAccountRepository.findByEmailAndDelateDateIsNotNull(userDto.email).size()>0)
+		if(userAccountRepository.findByEmailAndDelateDateIsNull(userDto.email).size()>0)
 			throw new Exception("user already exists");
 		String msg = "Ciao, benvenuto nel nostro Team!\n\nLa tua password è: " + userDto.password + "\n\nSaluti, Team AlcoList.";
 		String mail = userDto.email;
@@ -117,7 +117,7 @@ public class UserAccountService implements UserAccountServiceI{
 		//il frontend controlla che un utente sia loggato? si
 		//come definisco un utente loggato? non lo definisco
 		JSONObject response = new JSONObject();
-		ArrayList<UserAccount> users = (ArrayList<UserAccount>) userAccountRepository.findByEmailAndDelateDateIsNotNull(u.email);
+		ArrayList<UserAccount> users = (ArrayList<UserAccount>) userAccountRepository.findByEmailAndDelateDateIsNull(u.email);
 		if(users.size() == 1) { //check user email
 			if(users.get(0).getPassword().equals(encriptPassword(u.password))) { 	//check password
 				String jsonString = mapper.writeValueAsString(users.get(0));
