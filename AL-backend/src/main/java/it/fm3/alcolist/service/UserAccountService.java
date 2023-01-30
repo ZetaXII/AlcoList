@@ -209,8 +209,8 @@ public class UserAccountService implements UserAccountServiceI{
 		}*/
 		userResultDTO.totalResult= userAccountRepository.count();
 		if(pageable!=null)
-			return userAccountRepository.findAll(pageable).getContent();
-		else return userAccountRepository.findAll();
+			return userAccountRepository.findByDelateDateIsNull(pageable);
+		else return userAccountRepository.findByDelateDateIsNull();
 		
 	}
 	@Override
