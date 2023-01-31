@@ -52,7 +52,8 @@ function getAllUsers(){
 function appendUser(allUsers){
     for(user in allUsers) {
         console.log("melania: " + allUsers[user])
-        if(allUsers[user].dateDelete == null && allUsers[user].email!=email){
+        if(allUsers[user].delateDate== null && allUsers[user].email!==email){
+            //alert(JSON.stringify(allUsers[user]));
             let tagRoles = "";
             for (ruolo in allUsers[user].roles) {
                 tagRoles = tagRoles + "<span class=\"role my-4 user-tag\">" + allUsers[user].roles[ruolo].name + "</span>\n"
@@ -223,8 +224,7 @@ function deleteUser(uuid)
 
         success:function()
         {
-            alert("L'utente è stato eliminato correttamente")
-            redirectListaUser()
+            alert("L'utente è stato eliminato correttamente");
         },
         error: function(error)
         {
@@ -238,7 +238,7 @@ function confirmDelete(uuid)
     if (confirm("Sei sicuro di voler eliminare l'utente?"))
     {
         deleteUser(uuid);
-        window.location.reload();
+        redirectListaUser();
     }
 }
 

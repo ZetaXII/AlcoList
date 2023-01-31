@@ -104,12 +104,11 @@
 
                                 <input type="text" id="surnameField" class="addCocktailFields form-control py-2 mb-4" placeholder="Cognome" maxlength="255" required>
                                 <div class="cocktail-tags py-2 mb-3">
-                                    <button type="button" class="badge-user badgeChecked" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
+                                    <button type="button" class="badge-user" id="MANAGER" value="MANAGER" onclick="selectedRole(this.value)">MANAGER</button>
                                     <button type="button" class="badge-user" id="BARTENDER" value="BARTENDER" onclick="selectedRole(this.value)">BARTENDER</button>
                                     <button type="button" class="badge-user" id="WAITER" value="WAITER" onclick="selectedRole(this.value)">WAITER</button>
                                 </div>
                                 <p class="card-text cocktail-description"><input type="email" id="emailField" class="addCocktailFields form-control py-2 mb-4" placeholder="Email" autocomplete="off" required></p>
-                                <p class="price"><input type="password" id="passwordField" class="addCocktailFields form-control py-2 mb-4" placeholder="Password" maxlength="50" autocomplete="off" required></p>
                                 <div class="text-center">
                                     <button class="btn btn-addCocktail px-2 m-2 w-50 text-center" style="border: none" id="submitEdit" value="uuid" onclick="modifyUser(value)">Aggiorna utente</button>
                                 </div>

@@ -374,15 +374,192 @@ function updateStatusWithOrder(ordinationUuid, userUuid, status) {
 }
 function updateStatus(tableUuid, userUuid){
     let ordination = getOrdinationForTable(tableUuid)[0]
-    if (ordination.status !== "PENDING") {
-        updateStatusWithOrder(ordination.uuid, userUuid, "PENDING")
+    if (ordination.numbersOfCocktails === 0) {
+        $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong> Seleziona almeno un cocktail</div>");
+        //updateStatusWithOrder(ordination.uuid, userUuid, "ENDED")
     } else {
-        redirectToTableView()
+        if (ordination.status === "SENTBACK") {
+            updateStatusWithOrder(ordination.uuid, userUuid, "PENDING")
+            redirectToTableView()
+        } else if(ordination.status === "PENDING") {
+            redirectToTableView()
+        }
     }
+}
+
+function createOrdination(tableUuid, userUuid){
+    let o;
+    let body = {
+        tableUuid: tableUuid,
+        createdByUserUuid: userUuid
+    };
+    $.ajax({
+        async: false,
+        method: "POST",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-ordinations/create",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data:JSON.stringify(body),
+
+        success:function(result)
+        {
+            o=result;
+        },
+        error: function(error)
+        {
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+        }
+    });
+    return o;
 }
 
 function redirectToTableView(){
     window.location.href = $("#contextPath").val()+"/users/waiter/selectTable.jsp";
-
 }
+
+
+// CARICAMENTO COCKTAIL FUORI COMANDA
+function getCocktailsPaginated(size, page, searchName, searchFlavour, searchIsAlcoholic) //ritorna un array di cocktail paginati e filtrati per i vari campi (se nulli restituisce tutti i cocktails)
+{
+    let paginationAttributes= {size: size, page: page, name: searchName, flavour: searchFlavour, isAlcoholic: searchIsAlcoholic};
+    let c=[];
+
+    $.ajax({
+        async: false,
+        method: "POST",
+        crossDomain: true,
+        url:"http://localhost:8090/manage-cocktails/searchByFields",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data:JSON.stringify(paginationAttributes),
+
+        success:function(result)
+        {
+            let cocktailsArray= result.cocktail;
+            c=cocktailsArray;
+        },
+        error: function(error)
+        {
+            $(".error").html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><strong>ERRORE! </strong>"+error.responseText+".</div>");
+        }
+    });
+    return c;
+}
+
+function paginatedCocktailList(size, page, drinkList, searchName, searchFlavour, searchIsAlcoholic) //stampa a video la lista paginata dei cocktail
+{
+    let alcolicBoolean;
+    let isAlcoholic;
+    let isIBA;
+    let inMenu;
+    let subCocktailsArray= drinkList.map(orderedCocktail => orderedCocktail.cocktail );
+
+    if(searchIsAlcoholic=="alcolico")
+    {
+        alcolicBoolean=true;
+    }
+    else if(searchIsAlcoholic=="analcolico")
+    {
+        alcolicBoolean=false;
+    }
+    else
+    {
+        alcolicBoolean=null;
+    }
+
+    let fullCocktailsArray= getCocktailsPaginated(size, page, searchName, searchFlavour, alcolicBoolean);
+
+    //ELIMINO DALLA LISTA I COCKTAIL GIA' IN COMANDA
+    var cocktailsArray = fullCocktailsArray.filter(
+        (x) => !subCocktailsArray.find((x2) => x.uuid === x2.uuid)
+    );
+
+    if(cocktailsArray.length<=0)
+    {
+        $(".pageSwitch").toggle("hidden");
+        //alert("La ricerca non ha prodotto risultati");
+    }
+
+    if(page==0)
+    {
+        /*se si ci trova alla pagina 0 allora NON viene mostrato il tasto per andare alla pagina precedente*/
+        $(".prevPage").toggle("hidden");
+    }
+
+    if(getCocktailsPaginated(size, page+1, searchName, searchFlavour, alcolicBoolean).length<1)
+    {
+        /*se nella pagina successiva non ci sono cocktail  allora non mostra il tasto per andare alla pagina successiva*/
+        $(".nextPage").toggle("hidden");
+    }
+
+    $(".pageNumber").append("Pagina "+(page+1));
+
+    for(i in cocktailsArray)
+    {
+        if(cocktailsArray[i].iba==false)
+        {
+            isIBA="no iba";
+        }
+        else
+        {
+            isIBA="iba";
+        }
+
+        if(cocktailsArray[i].alcoholic==false)
+        {
+            isAlcoholic="Analcolico";
+        }
+        else
+        {
+            isAlcoholic="Alcolico";
+        }
+
+        if(cocktailsArray[i].inMenu==false)
+        {
+            inMenu="no men&ugrave;";
+        }
+        else
+        {
+            inMenu="men&ugrave;";
+        }
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let tableUuid = urlParams.get('uuid');
+        let uuids = tableUuid + "|" + cocktailsArray[i].uuid
+
+        let cocktailCard =
+            "<div class='col-sm-12 col-xl-12'>" +
+            "   <div class='card info-item-panel mt-4' style='background-color: var(--secondaryBlue); border-radius: 30px;'>" +
+            "       <div class='row g-0' style='background-color: var(--secondaryBlue); border-radius: 30px;'><div class='col-md-2 text-center'>" +
+            "               <img src='"+cocktailsArray[i].pathFileImg+"' class='img p-3' id='item-img' width='120px' height='140px'>" +
+            "               </div>" +
+            "                   <div class='col-md-8 mt-1'>" +
+            "                       <div class='card-body'>" +
+            "                           <h5 class='card-title item-name d-flex flex-row'>"+cocktailsArray[i].name+"</h5>" +
+            "                           <span class='price text-end py-3'>"+getCorrectPrice(cocktailsArray[i].price)+"&euro;</span>" +
+            "                           <div class='item-tags mt-2'>" +
+            "                               <span class='badge cocktail-flavour'>"+cocktailsArray[i].flavour+"</span>" +
+            "                               <span class='badge cocktail-isIBA'>"+isIBA+"</span>" +
+            "                               <span class='badge cocktail-isAlcoholic'>"+isAlcoholic+"</span>" +
+            "                               <span class='badge cocktail-inMenu'>"+inMenu+"</span>" +
+            "                           </div>" +
+            "                       </div>" +
+            "                   </div>" +
+            "       <div class='card-body d-flex col-xl-2 col-lg-2 col-md-5 col-sm-5 justify-content-center item-options pb-2 px-4'>   " +
+            "<div class='row' style='background-color: var(--secondaryBlue)'>"+
+            "           <button style='border: 0;' id='"+uuids+"' class='btn btn-view px-2 m-2 mb-3 w-50' onclick='addCocktailInOrdination(id)'><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-plus-lg\" viewBox=\"0 0 16 16\">\n" +
+            "  <path fill-rule=\"evenodd\" d=\"M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z\"/>\n" +
+            "</svg></button>" +
+            "<div class='row item-options pb-2 px-4' style='background-color: var(--secondaryBlue)' id='cocktail-"+cocktailsArray[i].uuid+"'>0</div>" +
+            "           <button style='border: 0;' id='"+uuids+"' class='btn btn-view px-2 m-2 mb-3 w-50' onclick='removeCocktailinOrdination(id)'><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-dash\" viewBox=\"0 0 16 16\">\n" +
+            "  <path d=\"M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z\"/>\n" +
+            "</svg></button>" +
+            "       </div> "+
+            "             </div></div></div></div>";
+
+        $(".item-list").append(cocktailCard);
+    }
+}
+
  

@@ -29,7 +29,6 @@
   {
     logout();
   }
-
   var comandaDict = JSON.parse(localStorage.getItem("ComandaDict") ?? "{}")
   console.log("START: "+ JSON.stringify(comandaDict))
   $(document).ready(function() {
@@ -42,6 +41,7 @@
     $("#inviaComanda").val(tableUuid)
     //paginatedMenu(6,page)
     loadDrinkList(drinkList);
+    paginatedCocktailList(50,0,drinkList)
     //let selectedTable = urlParams.get('uuid');
     getErrorMessage(getOrdinationForTable(tableUuid)[0].uuid);
   });

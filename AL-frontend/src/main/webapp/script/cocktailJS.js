@@ -9,7 +9,7 @@ function getCorrectPrice(price) //funzione per visualizzare in modo corretto i p
     if(price.includes("."))
     {
         let splittedPrice= price.split(".");
-        if(splittedPrice[1].length==1)
+        if(splittedPrice[1].length===1)
         {
             price=splittedPrice[0]+"."+splittedPrice[1]+"0";
         }

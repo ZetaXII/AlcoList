@@ -512,6 +512,7 @@ function productListForIngredients()
 function addIngredient(uuidCocktail, uuidProduct, idBox)
 {
     let qt=$("#"+idBox).val();
+    alert(qt);
     let isOptional=$("#isOptional"+idBox).val();
     if(isOptional=="true")
     {
@@ -536,7 +537,7 @@ function addIngredient(uuidCocktail, uuidProduct, idBox)
         async: false,
         method: "POST",
         crossDomain: true,
-        url:"http://localhost:8090/manage-ingredients/add",
+        url:"http://localhost:8090/manage-cocktails/addIngredient",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data:JSON.stringify(model),
@@ -565,14 +566,25 @@ function confirmDeleteIngredient(ingredientUuid)
 
 function deleteIngredient(ingredientUuid)
 {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let cocktailUuid=urlParams.get('uuid');
+    let model=
+        {
+            uuid:ingredientUuid,
+            cocktailUuid: cocktailUuid
+        }
+
+    //alert(JSON.stringify(model));
+
     $.ajax({
         async: false,
         method: "DELETE",
         crossDomain: true,
-        url:"http://localhost:8090/manage-ingredients/delete?uuid="+ingredientUuid,
+        url:"http://localhost:8090/manage-cocktails/deleteIngredient",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data:JSON.stringify(),
+        data:JSON.stringify(model),
 
         success:function(result)
         {
