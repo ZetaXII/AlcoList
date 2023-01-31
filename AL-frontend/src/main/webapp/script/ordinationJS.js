@@ -63,6 +63,9 @@ function paginatedCocktailList(size, page) //stampa a video la lista paginata de
     $(".pageNumber").append("Pagina "+(page+1));
 
     for(i in cocktailsArray) {
+
+        console.log("QUANTITY OF COCKTAIL "+cocktailsArray[i].name + ": "+cocktailsArray[i].quantity)
+
         if(cocktailsArray[i].iba==false)
         {
             isIBA="no iba";
@@ -543,11 +546,15 @@ function updateStatusWithOrder(ordinationUuid, userUuid, status, message) {
 }
 
 
-function updateStatus(tableUuid, userUuid, status){
+/*function updateStatus(tableUuid, userUuid, status){
     let ordinationsForTable = getOrdinationForTable(tableUuid)
-    let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
-    updateStatusWithOrder(ordination.uuid, userUuid, status, "PENDING")
-}
+    console.log(ordinationsForTable)
+    if (ordinationsForTable.orderedCocktails.length > 0 || !!ordinationsForTable){
+        let ordination = ordinationsForTable.find(ordination => ordination.status === "CREATED")
+        updateStatusWithOrder(ordination.uuid, userUuid, status, "PENDING")
+    }
+    else redirectToTableView()
+}*/
 
 function updateStatusToDelivered(tableUuid, userUuid){
 

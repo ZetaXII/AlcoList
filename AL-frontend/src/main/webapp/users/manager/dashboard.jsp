@@ -52,7 +52,7 @@
                         <canvas id="bar-chart" class="py-1 my-3" height="300px"></canvas><!--GRAFICO A BARRE-->
                     </div>
                 </div>
-
+<!--
                 <div class="col-md-6 col-lg-4">
                     <div class="card mb-3" style="background-color: var(--secondaryBlue); color: var(--white); border-radius: 18px;">
                         <div class="card-title ps-3 pt-3">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-
+-->
             </div>
         </div>
     </div>
